@@ -47,6 +47,7 @@ Puis redémarrer Claude Code.
 | `/kaggle-geospatial` | Analyse géospatiale : GeoPandas, Folium, CRS, spatial joins, proximité |
 | `/kaggle-rl` | Game AI & Reinforcement Learning : minimax, MCTS, PPO, self-play |
 | `/kaggle-ethics` | AI Ethics : détection de biais, métriques de fairness, Model Cards, audit éthique |
+| `/kaggle-tpu` | TPU & TensorFlow/Keras : tf.distribute, tf.data, TFRecords, TTA, LR schedules, Functional API |
 
 ### Agents
 | Agent | Description |
@@ -76,3 +77,4 @@ Puis redémarrer Claude Code.
 - **Géospatial** : GeoPandas, Folium, Shapely, geopy, H3, spatial joins
 - **Game AI / RL** : minimax, alpha-beta, MCTS, PPO, Stable-Baselines3, self-play
 - **Éthique** : 6 types de biais, 4 métriques de fairness, Model Cards, audit éthique, HCD
+- **TPU/TF** : tf.distribute, tf.data, TFRecords, TTA, LR schedules Keras, Functional API, Wide & Deep
