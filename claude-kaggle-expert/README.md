@@ -71,7 +71,7 @@ Puis redémarrer Claude Code.
 - **SQL** : Google BigQuery, window functions, CTEs, nested/repeated data
 - **Visualisation** : Matplotlib, Seaborn, Plotly, Albumentations
 - **Explainability** : SHAP, LIME, eli5, Permutation Importance, PDP/ICE
-- **CV** : Albumentations, torchvision, EfficientNet, ViT, Swin
+- **CV** : Albumentations, torchvision, EfficientNet, ViT, Swin, Mask R-CNN, RLE, FocalLoss, DICOM, RGBY
 - **NLP** : HuggingFace Transformers, DeBERTa, LoRA/PEFT
 - **Time Series** : statsmodels, Prophet, features lag/rolling
 - **Géospatial** : GeoPandas, Folium, Shapely, geopy, H3, spatial joins
