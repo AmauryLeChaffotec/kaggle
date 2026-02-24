@@ -41,6 +41,9 @@ Puis redémarrer Claude Code.
 | `/kaggle-cv` | Stratégie experte pour compétitions Computer Vision |
 | `/kaggle-nlp` | Stratégie experte pour compétitions NLP |
 | `/kaggle-timeseries` | Stratégie experte pour compétitions Time Series |
+| `/kaggle-sql` | SQL & BigQuery : extraction de données, window functions, optimisation |
+| `/kaggle-explain` | ML Explainability : SHAP, LIME, PDP, Permutation Importance |
+| `/kaggle-viz` | Visualisation avancée : Seaborn, Matplotlib, Plotly, subplots, compositions |
 
 ### Agents
 | Agent | Description |
@@ -61,7 +64,9 @@ Puis redémarrer Claude Code.
 - **ML** : scikit-learn, XGBoost, LightGBM, CatBoost, Optuna
 - **DL** : PyTorch, TensorFlow/Keras, timm, Transformers (HuggingFace)
 - **Data** : Pandas, NumPy, Polars
-- **Visualisation** : Matplotlib, Seaborn, Plotly
+- **SQL** : Google BigQuery, window functions, CTEs, nested/repeated data
+- **Visualisation** : Matplotlib, Seaborn, Plotly, Albumentations
+- **Explainability** : SHAP, LIME, eli5, Permutation Importance, PDP/ICE
 - **CV** : Albumentations, torchvision, EfficientNet, ViT, Swin
 - **NLP** : HuggingFace Transformers, DeBERTa, LoRA/PEFT
 - **Time Series** : statsmodels, Prophet, features lag/rolling
