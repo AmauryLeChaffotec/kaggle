@@ -46,6 +46,7 @@ Puis redémarrer Claude Code.
 | `/kaggle-viz` | Visualisation avancée : Seaborn, Matplotlib, Plotly, subplots, compositions |
 | `/kaggle-geospatial` | Analyse géospatiale : GeoPandas, Folium, CRS, spatial joins, proximité |
 | `/kaggle-rl` | Game AI & Reinforcement Learning : minimax, MCTS, PPO, self-play |
+| `/kaggle-ethics` | AI Ethics : détection de biais, métriques de fairness, Model Cards, audit éthique |
 
 ### Agents
 | Agent | Description |
@@ -74,3 +75,4 @@ Puis redémarrer Claude Code.
 - **Time Series** : statsmodels, Prophet, features lag/rolling
 - **Géospatial** : GeoPandas, Folium, Shapely, geopy, H3, spatial joins
 - **Game AI / RL** : minimax, alpha-beta, MCTS, PPO, Stable-Baselines3, self-play
+- **Éthique** : 6 types de biais, 4 métriques de fairness, Model Cards, audit éthique, HCD
