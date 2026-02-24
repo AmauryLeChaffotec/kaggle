@@ -1,0 +1,19 @@
+competition:
+  name: titanic
+  type: binary_classification
+  metric: accuracy
+  target: Survived
+  id_col: PassengerId
+
+data:
+  train_path: ../data/train.csv
+  test_path: ../data/test.csv
+  sample_sub_path: ../data/gender_submission.csv
+
+model:
+  seed: 42
+  n_folds: 5
+
+paths:
+  submissions: ../submissions/
+  models: ../models/
