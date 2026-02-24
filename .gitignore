@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+.venv/
+.venv-*/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Kaggle data (CSV, ZIP, large files)
+*.csv
+*.zip
+*.pkl
+*.h5
+*.hdf5
+*.parquet
+*.feather
+*.sqlite
+*.db
+
+# Model files
+*.joblib
+*.model
+*.onnx
+*.pb
+*.pt
+*.pth
+*.weights
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Claude Code
+.agents/
+.claude/
+
+# BMAD
+_bmad/
+_bmad-output/
