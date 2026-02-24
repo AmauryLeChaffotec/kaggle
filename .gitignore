@@ -26,6 +26,8 @@ env/
 *.feather
 *.sqlite
 *.db
+*.tfrec
+**/data/
 
 # Model files
 *.joblib
