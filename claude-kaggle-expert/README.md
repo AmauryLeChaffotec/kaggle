@@ -365,6 +365,51 @@ Ensuite :
 
 > **Important :** Ne fais le tuning que quand tes features sont stables. Les features ont plus d'impact que les hyperparamètres.
 
+### Automatiser la boucle d'itération
+
+```
+→ Agent kaggle-automl
+  "Améliore mon score de 0.80 à 0.82, tu as 15 itérations"
+```
+
+**Ce que ça fait :** L'agent itère tout seul : essaie des features, entraîne, mesure, garde ce qui marche, jette ce qui ne marche pas, recommence. Il log tout dans `reports/automl/`.
+
+### Explorer massivement les features
+
+```
+→ Agent kaggle-feature-hunter
+  "Trouve les meilleures features pour mon dataset"
+```
+
+**Ce que ça fait :** Génère des dizaines d'hypothèses de features (agrégations, interactions, encodages, transformations), teste chacune individuellement avec CV, puis fait une forward selection pour ne garder que les gagnantes. Rapport dans `reports/feature-hunting/`.
+
+### Comprendre où le modèle se trompe
+
+```
+→ Agent kaggle-error-analyst
+  "Analyse les erreurs de mon modèle, le score stagne à 0.81"
+```
+
+**Ce que ça fait :** Segmente les erreurs par catégorie et par range numérique, identifie les "hard samples" (mal prédits par tous les modèles), construit un arbre de décision sur les erreurs pour trouver les règles, et propose des features ciblées. Rapport dans `reports/error-analysis/`.
+
+### Auditer le pipeline avant soumission
+
+```
+→ Agent kaggle-reviewer
+  "Fais un audit complet de mon pipeline avant la soumission finale"
+```
+
+**Ce que ça fait :** Lit tout le code, vérifie 10 points (validation, leakage, features, preprocessing, modèle, métrique, ensemble, soumission, reproductibilité, opportunités manquées), et produit un rapport avec les 3 actions les plus impactantes. Rapport dans `reports/review/`.
+
+### Apprendre après la compétition
+
+```
+→ Agent kaggle-postmortem
+  "Analyse les solutions gagnantes de Spaceship Titanic et compare avec mon approche"
+```
+
+**Ce que ça fait :** Recherche les solutions gagnantes sur le web, les compare avec ton pipeline, identifie ce que tu as manqué, et extrait des patterns réutilisables pour les prochaines compétitions. Rapport dans `reports/postmortem/`.
+
 ---
 
 ## ÉTAPE 6 — Combiner les modèles (ensemble) (⏱ 1-2 heures)
@@ -454,14 +499,32 @@ Pipeline d'inférence optimisé. Utile pour les "code competitions" avec contrai
 
 ## Récapitulatif — Toutes les commandes
 
-### Les 4 Agents (missions longues et autonomes)
+### Les 9 Agents (missions longues et autonomes)
 
+#### Stratégie & Recherche
 | Agent | Ce qu'il fait | Quand l'utiliser |
 |-------|---------------|-----------------|
 | `kaggle-strategist` | Analyse la compétition, recherche les solutions gagnantes similaires sur le web, produit un plan multi-phases | Tu commences une compétition |
 | `kaggle-researcher` | Recherche des techniques, notebooks populaires, et solutions gagnantes sur le web | Tu cherches de nouvelles idées |
+
+#### Itération & Optimisation
+| Agent | Ce qu'il fait | Quand l'utiliser |
+|-------|---------------|-----------------|
+| `kaggle-automl` | Itère **tout seul** : essaie des features, entraîne, mesure, garde ce qui marche, jette ce qui ne marche pas, et recommence N fois | Tu veux automatiser la boucle d'itération |
+| `kaggle-feature-hunter` | Explore massivement les features possibles : génère des centaines d'hypothèses, teste chacune avec CV, ne garde que les gagnantes | Tu veux trouver les meilleures features de manière systématique |
 | `kaggle-optimizer` | Crée des scripts Optuna et optimise les hyperparamètres automatiquement | Tes features sont stables, tu veux tuner |
+
+#### Diagnostic & Review
+| Agent | Ce qu'il fait | Quand l'utiliser |
+|-------|---------------|-----------------|
 | `kaggle-debugger` | Diagnostique un problème et produit un patch plan (fichiers + lignes + diff) | Le score a baissé ou quelque chose ne va pas |
+| `kaggle-error-analyst` | Segmente les erreurs du modèle, identifie les patterns d'erreur, propose des features ciblées par segment | Le score stagne, tu veux comprendre où le modèle échoue |
+| `kaggle-reviewer` | Audit complet du pipeline en 10 points : validation, leakage, features, modèle, ensemble, soumission | Avant une soumission importante, ou pour une review globale |
+
+#### Apprentissage
+| Agent | Ce qu'il fait | Quand l'utiliser |
+|-------|---------------|-----------------|
+| `kaggle-postmortem` | Analyse les solutions gagnantes après la fin d'une compétition, compare avec ton approche, extrait les leçons réutilisables | Après chaque compétition terminée |
 
 ### Les 34 Skills (commandes rapides)
 

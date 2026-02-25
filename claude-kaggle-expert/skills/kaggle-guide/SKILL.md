@@ -205,17 +205,21 @@ Ton output DOIT suivre ce format :
 ### Workflow standard (dans l'ordre)
 
 ```
-1. Agent kaggle-strategist    → Plan d'attaque
-2. /kaggle-eda                → Explorer les données
-3. /kaggle-cleaning           → Nettoyer
-4. /kaggle-feature            → Créer des features
-5. /kaggle-model              → Entraîner un modèle
-6. /kaggle-submit             → Première soumission (calibrer CV-LB)
-7. Agent kaggle-optimizer     → Optimiser les hyperparamètres
-8. /kaggle-ensemble           → Combiner les modèles
-9. /kaggle-postprocess        → Post-processing
-10. /kaggle-sanity            → Vérification finale
-11. /kaggle-submit            → Soumission finale
+1. Agent kaggle-strategist      → Plan d'attaque
+2. /kaggle-eda                  → Explorer les données
+3. /kaggle-cleaning             → Nettoyer
+4. /kaggle-feature              → Créer des features
+   OU Agent kaggle-feature-hunter → Exploration massive de features
+5. /kaggle-model                → Entraîner un modèle
+6. /kaggle-submit               → Première soumission (calibrer CV-LB)
+7. Agent kaggle-automl          → Itérer automatiquement (features + train + évaluer)
+   OU Agent kaggle-optimizer    → Optimiser les hyperparamètres
+8. Agent kaggle-error-analyst   → Comprendre où le modèle se trompe
+9. /kaggle-ensemble             → Combiner les modèles
+10. Agent kaggle-reviewer       → Audit complet avant soumission
+11. /kaggle-sanity              → Vérification finale
+12. /kaggle-submit              → Soumission finale
+13. Agent kaggle-postmortem     → Apprendre après la compétition
 ```
 
 OU raccourci : `/kaggle-pipeline` (fait les étapes 2-6 d'un coup)
@@ -228,30 +232,35 @@ OU raccourci : `/kaggle-pipeline` (fait les étapes 2-6 d'un coup)
 | Explorer les données | `/kaggle-eda` |
 | Nettoyer les données | `/kaggle-cleaning` |
 | Créer des features | `/kaggle-feature` |
+| Explorer massivement les features | Agent `kaggle-feature-hunter` |
 | Entraîner un modèle | `/kaggle-model`, `/kaggle-tabular`, `/kaggle-nlp`, `/kaggle-cv` |
 | Un premier modèle rapide | `/kaggle-baseline` |
+| Automatiser la boucle d'itération | Agent `kaggle-automl` |
 | Optimiser les hyperparamètres | Agent `kaggle-optimizer` |
 | Vérifier la stratégie de CV | `/kaggle-validation` |
 | Comprendre le modèle | `/kaggle-explain` |
+| Comprendre où le modèle se trompe | Agent `kaggle-error-analyst` |
 | Combiner des modèles | `/kaggle-ensemble` |
 | Calibrer les probabilités | `/kaggle-calibration` |
 | Post-processing | `/kaggle-postprocess` |
+| Auditer le pipeline complet | Agent `kaggle-reviewer` |
 | Vérifier avant soumission | `/kaggle-sanity` |
 | Soumettre | `/kaggle-submit` |
 | Le score a baissé | Agent `kaggle-debugger` |
-| Le score stagne | `/kaggle-debug` + `/kaggle-explain` + Agent `kaggle-researcher` |
+| Le score stagne | Agent `kaggle-error-analyst` + `/kaggle-explain` + Agent `kaggle-researcher` |
 | Vérifier le data leakage | `/kaggle-leakage` |
 | Visualiser | `/kaggle-viz` |
 | Augmenter les données | `/kaggle-augmentation` |
 | Tracker les expériences | `/kaggle-experiments` |
 | Stratégie leaderboard | `/kaggle-leaderboard` |
 | Optimiser la vitesse/mémoire | `/kaggle-efficiency` |
+| Apprendre après une compétition | Agent `kaggle-postmortem` |
 
 ### Agents vs Skills
 
 | Type | Quand l'utiliser | Exemples |
 |------|-----------------|----------|
-| **Agents** | Missions longues, analyse complexe, recherche web | `kaggle-strategist`, `kaggle-researcher`, `kaggle-optimizer`, `kaggle-debugger` |
+| **Agents** | Missions longues, analyse complexe, itération autonome | `kaggle-strategist`, `kaggle-researcher`, `kaggle-automl`, `kaggle-feature-hunter`, `kaggle-optimizer`, `kaggle-debugger`, `kaggle-error-analyst`, `kaggle-reviewer`, `kaggle-postmortem` |
 | **Skills** `/kaggle-*` | Actions ciblées et rapides | Tous les `/kaggle-*` |
 
 ### Skills spécialisés (selon le type de données)
