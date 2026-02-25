@@ -22,7 +22,7 @@ cp -r agents/* .claude/agents/
 
 Puis redémarrer Claude Code.
 
-## Skills Disponibles (28)
+## Skills Disponibles (33)
 
 ### Skill Auto-chargé (Knowledge)
 | Skill | Description |
@@ -45,6 +45,11 @@ Puis redémarrer Claude Code.
 | `/kaggle-augmentation` | Augmentation de données (tabulaire, image, texte, time series) | Augmentation |
 | `/kaggle-experiments` | Tracking d'expériences, comparaison de runs, ablation | Tracking |
 | `/kaggle-efficiency` | Optimisation vitesse, RAM, GPU, caching | Performance |
+| `/kaggle-metrics` | Implémentation exacte de la métrique de compétition, vérification vs LB | Métrique |
+| `/kaggle-calibration` | Calibration des probabilités (Platt, Isotonic, Temperature Scaling) | Calibration |
+| `/kaggle-postprocess` | Optimisation seuils, clipping, rounding, contraintes métier | Post-traitement |
+| `/kaggle-inference` | Pipeline d'inférence optimisé, TTA, batch processing, GPU | Inférence |
+| `/kaggle-sanity` | Tests de sanité : leakage, preprocessing in-fold, features vs random | Vérification |
 | `/kaggle-leaderboard` | Stratégie de LB, shake-up risk, sélection finale | Soumission |
 | `/kaggle-submit` | Préparation et validation de soumission | Soumission |
 
@@ -204,14 +209,49 @@ Puis redémarrer Claude Code.
 | Le stacking overfit (stacking < simple avg) | Revenir au rank average simple. Meta-model trop complexe |
 | L'ensemble n'apporte rien | Les modèles sont trop corrélés. Changer d'approche, pas juste de params |
 
+### Jour 14-21 : Calibration, Post-Processing et Inférence
+
+```
+11b. /kaggle-metrics
+     → Vérifie que ta métrique locale == métrique du LB
+     → Tu obtiens : implémentation custom + vérification LB + mapping loss/postprocess
+
+12b. /kaggle-calibration
+     → Calibre les probabilités (si Log Loss ou Brier)
+     → Tu obtiens : reliability diagram + ECE avant/après + calibrateur
+
+12c. /kaggle-postprocess
+     → Optimise seuils, clip, round sur les OOF
+     → Tu obtiens : gain mesuré + post-processing à appliquer sur test
+
+12d. /kaggle-inference
+     → Pipeline d'inférence optimisé (TTA, batch, multi-model)
+     → Tu obtiens : pipeline end-to-end reproductible
+```
+
+**Que faire selon le post-processing :**
+
+| Tu observes... | Lance... |
+|---|---|
+| Métrique = Log Loss ou Brier | `/kaggle-calibration` → calibrer AVANT l'ensemble |
+| Métrique = F1 / MCC / Accuracy | `/kaggle-postprocess` → optimiser le seuil sur OOF |
+| Métrique = QWK (ordinal) | `/kaggle-postprocess` → OptimizedRounder |
+| Prédictions hors range | `/kaggle-postprocess` → smart clip |
+| Temps d'inférence limité | `/kaggle-inference` → batch + mixed precision |
+| Competition Computer Vision | `/kaggle-inference` → TTA (flips, multi-scale) |
+
 ### Derniers jours : Soumission Finale
 
 ```
-13. /kaggle-leaderboard
+13. /kaggle-sanity
+    → Suite complète de sanity checks avant soumission
+    → Tu obtiens : rapport invariants, permutation test, features vs random
+
+14. /kaggle-leaderboard
     → Analyse shake-up risk + sélection des 2 soumissions finales
     → Tu obtiens : risk score + recommandation conservative/aggressive
 
-14. /kaggle-submit
+15. /kaggle-submit
     → Validation finale du fichier de soumission
     → Tu obtiens : submission.csv validé et prêt
 ```
@@ -237,7 +277,53 @@ Puis redémarrer Claude Code.
 | "C'est trop lent" | `/kaggle-efficiency` → reduce_mem, Polars, GPU, caching |
 | "Score suspicieusement bon" | `/kaggle-leakage` → audit complet immédiat |
 | "Je veux l'avis d'un expert" | kaggle-strategist (agent) → plan d'attaque complet |
-| "Pourquoi mon score a baissé" | kaggle-debugger (agent) → diagnostic automatisé |
+| "Pourquoi mon score a baissé" | kaggle-debugger (agent) → diagnostic + patch plan |
+| "Mes probas sont mal calibrées" | `/kaggle-calibration` → Platt / Isotonic / Temperature |
+| "J'ai besoin d'optimiser le seuil" | `/kaggle-postprocess` → threshold, clip, round |
+| "Ma métrique locale != LB" | `/kaggle-metrics` → ré-implémenter et vérifier |
+| "Avant de soumettre, vérifier tout" | `/kaggle-sanity` → suite complète de sanity checks |
+
+## Convention d'Artefacts
+
+Chaque skill produit des artefacts standardisés dans une structure cohérente :
+
+```
+project/
+├── reports/                    # Rapports générés par les skills
+│   ├── eda/                    # /kaggle-eda → EDA report
+│   ├── leakage/                # /kaggle-leakage → Leakage audit
+│   ├── debug/                  # kaggle-debugger → Diagnostic + patch plan
+│   ├── sanity/                 # /kaggle-sanity → Sanity check report
+│   └── calibration/            # /kaggle-calibration → Reliability diagrams
+│
+├── artifacts/                  # Prédictions et modèles
+│   ├── oof_<model>_<version>.parquet    # OOF predictions (1 par modèle)
+│   ├── test_<model>_<version>.parquet   # Test predictions (1 par modèle)
+│   ├── oof_ensemble_<version>.parquet   # OOF ensemble final
+│   └── test_ensemble_<version>.parquet  # Test ensemble final
+│
+├── models/                     # Modèles sauvegardés
+│   ├── lgbm_fold0.pkl          # Modèle par fold
+│   └── calibrator.pkl          # Calibrateur (si /kaggle-calibration)
+│
+├── submissions/                # Fichiers de soumission
+│   └── sub_<description>_<date>.csv
+│
+└── runs.csv                    # Tracker d'expériences (/kaggle-experiments)
+    # Colonnes : run_id, date, description, cv_score, cv_std, lb_score,
+    #            n_features, model_type, params_hash, notes
+```
+
+### Nommage des Artefacts
+
+| Type | Format | Exemple |
+|------|--------|---------|
+| OOF predictions | `oof_<model>_v<N>.parquet` | `oof_lgbm_v3.parquet` |
+| Test predictions | `test_<model>_v<N>.parquet` | `test_xgb_v2.parquet` |
+| Submission | `sub_<desc>_<YYYY-MM-DD>.csv` | `sub_ensemble3_2026-02-25.csv` |
+| Report | `reports/<skill>/<YYYY-MM-DD>_<run>.md` | `reports/debug/2026-02-25_v3.md` |
+| Model | `models/<model>_fold<N>.pkl` | `models/lgbm_fold2.pkl` |
+| Config | `configs/<experiment>.yaml` | `configs/lgbm_v3.yaml` |
 
 ## Workflow Recommandé - Gold Medal
 
@@ -267,8 +353,13 @@ Phase 3 : Modélisation
 ├── /kaggle-experiments → Tracker chaque run (CV, LB, params, features)
 └── /kaggle-debug → Diagnostiquer si score baisse
 
-Phase 4 : Ensemble & Soumission
+Phase 4 : Finalisation
+├── /kaggle-metrics → Vérifier implémentation métrique vs LB
 ├── /kaggle-ensemble → Combiner les modèles
+├── /kaggle-calibration → Calibrer les probabilités (Log Loss, Brier)
+├── /kaggle-postprocess → Optimiser seuils, clip, round
+├── /kaggle-inference → Pipeline d'inférence (TTA, batch, multi-model)
+├── /kaggle-sanity → Suite complète de sanity checks
 ├── /kaggle-leaderboard → Stratégie de LB et shake-up risk
 └── /kaggle-submit → Préparer la soumission finale
 
@@ -301,3 +392,8 @@ En continu :
 - **Leakage** : 7 types de détection (target, contamination, temporal, group, ID, postprocess, external)
 - **Tracking** : ExperimentTracker, ablation study, seed stability, config management
 - **Performance** : reduce_mem_usage, Polars, feature caching, chunked processing, GPU acceleration
+- **Métriques** : AUC, Log Loss, F1, MCC, QWK, RMSE, RMSLE, MAE, MAP@K, NDCG@K, Dice/IoU, vérification LB
+- **Calibration** : Platt Scaling, Isotonic Regression, Temperature Scaling, CV-safe calibration, ECE
+- **Post-processing** : threshold optimization, smart clip, smart round, distribution matching, rank normalize
+- **Inférence** : TTA (image/NLP/tabular), batch inference, multi-model sequential, mixed precision GPU
+- **Sanity Checks** : permutation target test, preprocessing in-fold, feature usefulness, subset test, invariants

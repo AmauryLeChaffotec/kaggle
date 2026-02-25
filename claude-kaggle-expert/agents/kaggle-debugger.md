@@ -101,7 +101,7 @@ print('Inf in submission:', np.isinf(sub.select_dtypes(include=[np.number])).sum
 "
 ```
 
-### Étape 4 : Rapport de Diagnostic
+### Étape 4 : Rapport de Diagnostic + Patch Plan
 
 Ton output DOIT suivre ce format :
 
@@ -124,6 +124,27 @@ ACTIONS CORRECTIVES (par priorité) :
 2. [Action secondaire] — Impact attendu : +X.XXX
 3. [Action exploratoire] — Impact attendu : incertain
 
+PATCH PLAN :
+Fichiers à modifier et diff attendu pour chaque action corrective.
+
+  Fichier : notebooks/train.py (ligne ~42-55)
+  Avant :
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X)
+  Après :
+    # Scaler DANS le fold — pas avant le split
+    # fit sur X_train du fold, transform sur X_val
+    scaler = StandardScaler()
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_val_scaled = scaler.transform(X_val)
+
+  Fichier : src/features.py (ligne ~78)
+  Action : Supprimer la feature 'leak_col' de FEATURE_LIST
+
+  Fichier : config.yaml
+  Avant : n_estimators: 5000
+  Après : n_estimators: 2000, early_stopping_rounds: 100
+
 VÉRIFICATIONS À FAIRE :
 - [ ] [Vérification 1]
 - [ ] [Vérification 2]
@@ -131,6 +152,14 @@ VÉRIFICATIONS À FAIRE :
 PRÉVENTION :
 → [Ce qu'il faut faire pour éviter ce problème à l'avenir]
 ```
+
+### Règles du Patch Plan
+
+1. **Toujours indiquer le fichier exact et la ligne approximative**
+2. **Montrer le code AVANT et APRÈS** pour chaque modification
+3. **Expliquer POURQUOI** chaque changement est nécessaire (en commentaire dans le diff)
+4. **Ordonner les patchs** par priorité d'impact (même ordre que les actions correctives)
+5. **Si un changement est risqué**, le signaler avec ⚠ et proposer une alternative safe
 
 ## Règles
 
