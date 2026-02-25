@@ -242,3 +242,16 @@ L'itération est la clé du succès. Après chaque soumission :
 - **Dernier jour** : NE PAS changer de stratégie, confiance dans le CV
 
 Adapte TOUJOURS ce template aux spécificités de la compétition.
+
+## Definition of Done (DoD)
+
+Le pipeline est COMPLET quand :
+
+- [ ] Structure de dossiers créée (data/, notebooks/, src/, submissions/, models/)
+- [ ] Problème analysé (type, métrique, taille, contraintes)
+- [ ] Baseline fonctionnel avec première soumission
+- [ ] Stratégie de CV définie et validée (CV-LB gap < 3%)
+- [ ] Experiment tracker initialisé
+- [ ] Au moins 3 itérations documentées (baseline → features → tuning)
+- [ ] Ensemble de 2+ modèles testé
+- [ ] 2 soumissions finales sélectionnées avec justification

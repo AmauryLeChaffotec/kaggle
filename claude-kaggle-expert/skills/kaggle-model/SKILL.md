@@ -360,3 +360,17 @@ def multi_seed_train(train, test, features, target_col, params, seeds=[42, 123, 
 7. As-tu vérifié le post-processing (seuils, arrondi) ?
 
 Adapte TOUJOURS la stratégie au type de compétition, à la métrique, et aux données.
+
+## Definition of Done (DoD)
+
+La modélisation est COMPLÈTE quand :
+
+- [ ] Au moins 1 baseline + 2 modèles variants entraînés
+- [ ] Chaque modèle a des OOF predictions propres (5-fold minimum)
+- [ ] Tuning contrôlé avec budget défini (Optuna ou grid)
+- [ ] Feature importance extraite et analysée
+- [ ] Analyse d'erreurs sur les worst predictions
+- [ ] Tableau récap : model | CV mean | CV std | LB score | n_features
+- [ ] OOF predictions sauvegardées (.npy) pour l'ensembling
+- [ ] Test predictions sauvegardées (.npy) pour la soumission
+- [ ] Params et config sauvegardés (reproductibilité)

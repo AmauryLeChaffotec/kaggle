@@ -235,3 +235,16 @@ for col in num_cols[:10]:
 8. **Points d'attention** : leakage potentiel, drift train/test, features inutiles
 
 Adapte TOUJOURS le code aux données réelles de l'utilisateur (noms de colonnes, types de problème, taille du dataset).
+
+## Definition of Done (DoD)
+
+L'EDA est COMPLÈTE quand :
+
+- [ ] Dataset chargé et shape affiché (train + test)
+- [ ] Types de colonnes identifiés (numériques, catégorielles, datetime)
+- [ ] Missing values analysées (% par colonne + pattern)
+- [ ] Target analysée (distribution, déséquilibre, type de problème)
+- [ ] Au moins 3 visualisations produites (distributions, corrélations, target)
+- [ ] Train/test drift vérifié (distributions comparées)
+- [ ] Résumé structuré avec les 8 points (taille, qualité, target, features, FE suggéré, CV, modèles, attention)
+- [ ] Recommandations concrètes pour la suite (features à créer, modèles à tester)

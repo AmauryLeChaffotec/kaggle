@@ -311,3 +311,16 @@ def create_group_aggregations(df, group_cols, num_cols, agg_funcs=['mean','std',
 7. **Valider** : comparer le score CV avec et sans les nouvelles features
 
 Adapte TOUJOURS les features au contexte spécifique de la compétition et aux données de l'utilisateur.
+
+## Definition of Done (DoD)
+
+Le feature engineering est COMPLET quand :
+
+- [ ] Features brutes analysées avec Mutual Information
+- [ ] Features numériques transformées (log, sqrt, interactions)
+- [ ] Features catégorielles encodées (frequency, label, target encoding CV-safe)
+- [ ] Features d'agrégation groupée créées (mean, std, count par catégorie)
+- [ ] Feature selection effectuée (importance ou MI, suppression des features inutiles)
+- [ ] Comparaison CV avant/après feature engineering documentée
+- [ ] Pas de data leakage vérifié (target encoding en OOF, pas de train-test contamination)
+- [ ] Liste finale des features documentée avec justification

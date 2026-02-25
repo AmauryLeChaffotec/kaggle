@@ -22,7 +22,7 @@ cp -r agents/* .claude/agents/
 
 Puis redémarrer Claude Code.
 
-## Skills Disponibles (24)
+## Skills Disponibles (28)
 
 ### Skill Auto-chargé (Knowledge)
 | Skill | Description |
@@ -33,14 +33,18 @@ Puis redémarrer Claude Code.
 | Commande | Description | Phase |
 |----------|-------------|-------|
 | `/kaggle-pipeline` | Pipeline complet de A à Z pour une compétition | Démarrage |
+| `/kaggle-baseline` | Baseline ultra rapide (<30 min) avec première soumission | Démarrage |
 | `/kaggle-eda` | Analyse exploratoire complète d'un dataset | Exploration |
 | `/kaggle-cleaning` | Nettoyage et preprocessing des données | Nettoyage |
+| `/kaggle-leakage` | Détection systématique de data leakage (7 types) | Sécurité |
 | `/kaggle-feature` | Feature engineering avancé | Features |
 | `/kaggle-validation` | Stratégie de validation croisée robuste | Validation |
 | `/kaggle-model` | Construction et optimisation de modèles | Modélisation |
 | `/kaggle-debug` | Diagnostic et debugging de modèles | Diagnostic |
 | `/kaggle-ensemble` | Stratégies d'ensembling avancées | Ensemble |
 | `/kaggle-augmentation` | Augmentation de données (tabulaire, image, texte, time series) | Augmentation |
+| `/kaggle-experiments` | Tracking d'expériences, comparaison de runs, ablation | Tracking |
+| `/kaggle-efficiency` | Optimisation vitesse, RAM, GPU, caching | Performance |
 | `/kaggle-leaderboard` | Stratégie de LB, shake-up risk, sélection finale | Soumission |
 | `/kaggle-submit` | Préparation et validation de soumission | Soumission |
 
@@ -79,21 +83,25 @@ Phase 0 : Stratégie
 └── kaggle-strategist (agent) → Plan d'attaque multi-phases
     └── kaggle-researcher (agent) → Recherche solutions gagnantes similaires
 
-Phase 1 : Exploration
+Phase 1 : Démarrage Rapide
 ├── /kaggle-pipeline → Structure du projet
+├── /kaggle-baseline → Baseline en <30 min + première soumission
 ├── /kaggle-eda → Analyse exploratoire complète
-└── /kaggle-viz → Visualisations avancées
+├── /kaggle-viz → Visualisations avancées
+└── /kaggle-leakage → Audit leakage AVANT d'itérer
 
 Phase 2 : Préparation des Données
 ├── /kaggle-cleaning → Nettoyage et preprocessing
 ├── /kaggle-feature → Feature engineering
 ├── /kaggle-augmentation → Augmentation si nécessaire
-└── /kaggle-validation → Définir la stratégie de CV
+├── /kaggle-validation → Définir la stratégie de CV
+└── /kaggle-efficiency → Optimiser RAM et vitesse
 
 Phase 3 : Modélisation
 ├── /kaggle-model → Modèles GBDT (LightGBM, XGBoost, CatBoost)
 ├── /kaggle-deeplearning → Modèles DL (TabNet, FT-Transformer)
 ├── kaggle-optimizer (agent) → Hyperparameter tuning
+├── /kaggle-experiments → Tracker chaque run (CV, LB, params, features)
 └── /kaggle-debug → Diagnostiquer si score baisse
 
 Phase 4 : Ensemble & Soumission
@@ -103,6 +111,7 @@ Phase 4 : Ensemble & Soumission
 
 En continu :
 ├── kaggle-debugger (agent) → Diagnostiquer les problèmes
+├── /kaggle-experiments → Tracker et comparer les runs
 ├── /kaggle-explain → Comprendre les prédictions
 └── /kaggle-leaderboard → Tracker CV vs LB
 ```
@@ -126,3 +135,6 @@ En continu :
 - **Augmentation** : SMOTE, Mixup, CutMix, pseudo-labeling, back-translation, time series warping
 - **Validation** : StratifiedKFold, GroupKFold, StratifiedGroupKFold, PurgedTimeSeriesCV, adversarial validation
 - **Ensembling** : weighted/rank average, stacking, blending, hill climbing, multi-seed
+- **Leakage** : 7 types de détection (target, contamination, temporal, group, ID, postprocess, external)
+- **Tracking** : ExperimentTracker, ablation study, seed stability, config management
+- **Performance** : reduce_mem_usage, Polars, feature caching, chunked processing, GPU acceleration

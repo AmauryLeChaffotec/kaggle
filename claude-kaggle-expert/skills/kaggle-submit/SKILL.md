@@ -238,3 +238,16 @@ def compare_submissions(sub_files, labels=None):
 5. **Trust your CV** : si ton CV est fiable, fais confiance à ton score local
 
 Adapte TOUJOURS le post-processing à la métrique de la compétition.
+
+## Definition of Done (DoD)
+
+La soumission est COMPLÈTE quand :
+
+- [ ] Format validé (colonnes, types, nombre de lignes = sample_submission)
+- [ ] Pas de NaN ni Inf dans les prédictions
+- [ ] IDs correspondants entre test et submission
+- [ ] Post-processing appliqué si pertinent (seuil, clip, round)
+- [ ] Distribution des prédictions vérifiée (cohérente avec le train)
+- [ ] CV score et LB score documentés
+- [ ] Fichier de soumission versionné (baseline_v1, features_v2, ensemble_v3...)
+- [ ] Soumission comparée avec les précédentes (corrélation, delta)
