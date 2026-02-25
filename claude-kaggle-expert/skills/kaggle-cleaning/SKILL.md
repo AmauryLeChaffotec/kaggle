@@ -509,6 +509,359 @@ def full_cleaning_pipeline(train, test, target_col, id_col=None):
     return train, test
 ```
 
+### Étape 10b : NaN Déguisés
+
+```python
+def fix_disguised_nans(df, extra_markers=None):
+    """Détecte et remplace les NaN déguisés en vrais np.nan.
+    Les datasets Kaggle contiennent souvent des marqueurs de missing
+    qui ne sont PAS détectés par pandas automatiquement.
+    """
+    # Marqueurs courants de NaN
+    nan_markers = [
+        'N/A', 'n/a', 'NA', 'na', 'N.A.', 'n.a.',
+        'None', 'none', 'NONE',
+        'null', 'NULL', 'Null',
+        'NaN', 'nan',
+        'missing', 'Missing', 'MISSING',
+        '-', '--', '---',
+        '?', '??',
+        '.', '...',
+        '', ' ', '  ',
+        'not available', 'Not Available',
+        'unknown', 'Unknown', 'UNKNOWN',
+        'undefined', 'Undefined',
+        '-1', '-999', '-9999', '999', '9999',
+        '#N/A', '#NA', '#NULL!', '#REF!',
+        'inf', '-inf', 'Inf', '-Inf',
+    ]
+
+    if extra_markers:
+        nan_markers.extend(extra_markers)
+
+    n_fixed_total = 0
+    for col in df.select_dtypes(include=['object']).columns:
+        # Strip whitespace d'abord
+        df[col] = df[col].str.strip()
+
+        # Compter les remplacements
+        mask = df[col].isin(nan_markers)
+        n_fixed = mask.sum()
+        if n_fixed > 0:
+            df.loc[mask, col] = np.nan
+            n_fixed_total += n_fixed
+            print(f"  {col}: {n_fixed} disguised NaN found and replaced")
+
+    # Vérifier aussi les colonnes numériques pour les sentinelles (-999, 9999, etc.)
+    for col in df.select_dtypes(include=[np.number]).columns:
+        for sentinel in [-999, -9999, 9999, -1]:
+            n = (df[col] == sentinel).sum()
+            if n > 0 and n < len(df) * 0.5:  # Pas plus de 50%, sinon c'est une vraie valeur
+                pct = n / len(df) * 100
+                if pct > 0.1:  # Au moins 0.1% pour être significatif
+                    print(f"  ⚠ {col}: {n} values == {sentinel} ({pct:.1f}%) — possible sentinel NaN")
+
+    print(f"Total disguised NaN fixed: {n_fixed_total}")
+    return df
+```
+
+### Étape 10c : Rare Categories
+
+```python
+def handle_rare_categories(train_df, test_df, cat_cols, min_count=10,
+                           min_pct=0.01, replace_with='_RARE_'):
+    """Regroupe les catégories rares en une seule catégorie.
+
+    Pourquoi : les catégories avec <10 occurrences causent du bruit,
+    de l'overfitting, et des problèmes avec le target encoding.
+
+    min_count : nombre minimal d'occurrences dans le TRAIN
+    min_pct : pourcentage minimal d'occurrences dans le TRAIN
+    """
+    for col in cat_cols:
+        # Compter les occurrences dans le train
+        value_counts = train_df[col].value_counts()
+        n_total = len(train_df)
+        min_threshold = max(min_count, int(n_total * min_pct))
+
+        # Identifier les catégories rares
+        rare_cats = value_counts[value_counts < min_threshold].index.tolist()
+
+        if rare_cats:
+            n_rare = len(rare_cats)
+            n_affected = train_df[col].isin(rare_cats).sum()
+            print(f"  {col}: {n_rare} rare categories ({n_affected} rows) → '{replace_with}'")
+
+            # Remplacer dans train ET test
+            train_df[col] = train_df[col].replace(rare_cats, replace_with)
+            test_df[col] = test_df[col].replace(rare_cats, replace_with)
+
+            # Les catégories unseen dans le test deviennent aussi _RARE_
+            train_cats = set(train_df[col].dropna().unique())
+            test_only = set(test_df[col].dropna().unique()) - train_cats
+            if test_only:
+                print(f"    + {len(test_only)} unseen test categories → '{replace_with}'")
+                test_df[col] = test_df[col].replace(list(test_only), replace_with)
+
+    return train_df, test_df
+```
+
+### Étape 10d : Colonnes Constantes et Quasi-Constantes
+
+```python
+def remove_constant_columns(train_df, test_df, quasi_threshold=0.999):
+    """Supprime les colonnes constantes ou quasi-constantes.
+
+    quasi_threshold=0.999 : supprime si 99.9%+ des valeurs sont identiques.
+    Ces colonnes n'apportent aucune information au modèle.
+    """
+    cols_to_drop = []
+
+    for col in train_df.columns:
+        n_unique = train_df[col].nunique(dropna=False)
+
+        # Constante (1 seule valeur, ou 1 valeur + NaN)
+        if n_unique <= 1:
+            cols_to_drop.append(col)
+            print(f"  DROP {col}: constant (1 unique value)")
+            continue
+
+        # Quasi-constante
+        if train_df[col].dtype in ['object', 'category']:
+            top_pct = train_df[col].value_counts(normalize=True, dropna=False).iloc[0]
+        else:
+            top_pct = train_df[col].value_counts(normalize=True, dropna=False).iloc[0]
+
+        if top_pct >= quasi_threshold:
+            cols_to_drop.append(col)
+            print(f"  DROP {col}: quasi-constant ({top_pct*100:.1f}% same value)")
+
+    if cols_to_drop:
+        train_df = train_df.drop(columns=cols_to_drop)
+        test_df = test_df.drop(columns=[c for c in cols_to_drop if c in test_df.columns])
+        print(f"\nRemoved {len(cols_to_drop)} constant/quasi-constant columns")
+    else:
+        print("No constant columns found")
+
+    return train_df, test_df
+```
+
+### Étape 10e : High Cardinality Detection
+
+```python
+def detect_high_cardinality(train_df, test_df, target_col=None,
+                            high_threshold=50, strategies=None):
+    """Détecte les colonnes catégorielles à haute cardinalité et propose
+    une stratégie pour chacune.
+
+    high_threshold : au-delà de 50 catégories uniques = high cardinality
+    """
+    cat_cols = train_df.select_dtypes(include=['object', 'category']).columns
+    report = {}
+
+    print("=" * 60)
+    print("HIGH CARDINALITY ANALYSIS")
+    print("=" * 60)
+
+    for col in cat_cols:
+        n_unique_train = train_df[col].nunique()
+        n_unique_test = test_df[col].nunique() if col in test_df.columns else 0
+        unseen = 0
+        if col in test_df.columns:
+            unseen = len(set(test_df[col].dropna().unique()) - set(train_df[col].dropna().unique()))
+
+        if n_unique_train >= high_threshold:
+            # Calculer la corrélation avec le target via frequency encoding
+            target_corr = 0
+            if target_col and target_col in train_df.columns:
+                freq = train_df[col].map(train_df[col].value_counts())
+                target_corr = abs(freq.corr(train_df[target_col]))
+
+            strategy = _suggest_cardinality_strategy(n_unique_train, unseen, target_corr)
+
+            report[col] = {
+                'n_unique_train': n_unique_train,
+                'n_unique_test': n_unique_test,
+                'unseen_in_test': unseen,
+                'target_corr_freq': round(target_corr, 4),
+                'strategy': strategy
+            }
+
+            print(f"\n  [{col}] — {n_unique_train} categories")
+            print(f"    Unseen in test: {unseen}")
+            print(f"    Target corr (freq): {target_corr:.4f}")
+            print(f"    → Strategy: {strategy}")
+
+    if not report:
+        print("No high cardinality columns found")
+
+    return report
+
+def _suggest_cardinality_strategy(n_unique, unseen, target_corr):
+    """Suggère la stratégie optimale pour une colonne high-cardinality."""
+    if n_unique > 10000:
+        return "HASH encoding (trop de catégories pour target encoding)"
+    elif unseen > n_unique * 0.3:
+        return "FREQUENCY encoding (30%+ unseen dans test, target encoding risqué)"
+    elif target_corr > 0.1:
+        return "TARGET encoding (Bayesian smoothing, m=20, 10-fold OOF)"
+    elif n_unique > 200:
+        return "FREQUENCY + RARE grouping (groupe <10 en _RARE_, puis frequency)"
+    else:
+        return "ORDINAL ou TARGET encoding (cardinalité modérée)"
+```
+
+### Étape 10f : Multi-Valued Cells
+
+```python
+def handle_multi_valued_cells(df, col, separator=',', max_categories=20,
+                              method='onehot'):
+    """Parse les cellules contenant plusieurs valeurs séparées par un délimiteur.
+
+    Exemple : "Action,Comedy,Drama" → 3 colonnes binaires
+    Exemple : "B/0/P" → 3 colonnes séparées (deck, num, side)
+
+    method='onehot' : crée une colonne binaire par valeur unique
+    method='split' : split en N colonnes séparées (pour structure fixe)
+    method='count' : juste compter le nombre de valeurs
+    """
+    if method == 'onehot':
+        # Extraire toutes les valeurs uniques
+        all_values = set()
+        df[col].dropna().str.split(separator).apply(
+            lambda x: all_values.update([v.strip() for v in x])
+        )
+
+        # Limiter aux top N catégories
+        if len(all_values) > max_categories:
+            # Garder les plus fréquentes
+            from collections import Counter
+            counter = Counter()
+            df[col].dropna().str.split(separator).apply(
+                lambda x: counter.update([v.strip() for v in x])
+            )
+            all_values = {v for v, _ in counter.most_common(max_categories)}
+            print(f"  {col}: {len(counter)} values → keeping top {max_categories}")
+
+        # Créer les colonnes one-hot
+        for val in sorted(all_values):
+            safe_name = f"{col}_{val.replace(' ', '_')}"
+            df[safe_name] = df[col].fillna('').str.contains(
+                re.escape(val.strip()), case=False
+            ).astype(int)
+
+        print(f"  {col}: created {len(all_values)} binary columns")
+
+    elif method == 'split':
+        # Split en colonnes séparées
+        split_df = df[col].str.split(separator, expand=True)
+        for i in range(split_df.shape[1]):
+            df[f"{col}_part{i}"] = split_df[i].str.strip()
+        print(f"  {col}: split into {split_df.shape[1]} columns")
+
+    elif method == 'count':
+        # Juste compter le nombre de valeurs
+        df[f"{col}_count"] = df[col].fillna('').str.split(separator).apply(len)
+        df.loc[df[col].isna(), f"{col}_count"] = 0
+        print(f"  {col}: created count column")
+
+    return df
+```
+
+## Pipeline de Nettoyage Complet (mise à jour)
+
+```python
+def full_cleaning_pipeline_v2(train, test, target_col, id_col=None,
+                               cat_cols=None, extra_nan_markers=None):
+    """Pipeline de nettoyage complet V2 — couvre TOUS les cas.
+
+    Étapes :
+    1. Audit initial
+    2. NaN déguisés → vrais NaN
+    3. Fix types
+    4. Doublons
+    5. Colonnes constantes/quasi-constantes
+    6. Missing values (analyse + imputation)
+    7. Outliers (détection + winsorization)
+    8. Rare categories (groupement)
+    9. High cardinality (détection + stratégie)
+    10. Multi-valued cells (si détectés)
+    11. Train/Test consistency
+    """
+    exclude = [target_col] + ([id_col] if id_col else [])
+
+    # 1. Audit
+    print("=" * 60)
+    print("STEP 1: Audit")
+    data_audit(train, 'Train')
+    data_audit(test, 'Test')
+
+    # 2. NaN déguisés
+    print("\n" + "=" * 60)
+    print("STEP 2: Fix disguised NaN")
+    train = fix_disguised_nans(train, extra_nan_markers)
+    test = fix_disguised_nans(test, extra_nan_markers)
+
+    # 3. Fix types
+    print("\n" + "=" * 60)
+    print("STEP 3: Fix data types")
+    train = fix_data_types(train)
+    test = fix_data_types(test)
+
+    # 4. Identifier colonnes
+    num_cols = train.select_dtypes(include=[np.number]).columns.drop(exclude, errors='ignore').tolist()
+    if cat_cols is None:
+        cat_cols = train.select_dtypes(include=['object', 'category']).columns.tolist()
+
+    # 5. Doublons
+    print("\n" + "=" * 60)
+    print("STEP 4: Duplicates")
+    train = handle_duplicates(train)
+
+    # 6. Colonnes constantes
+    print("\n" + "=" * 60)
+    print("STEP 5: Constant/quasi-constant columns")
+    train, test = remove_constant_columns(train, test)
+    # Refresh col lists
+    num_cols = [c for c in num_cols if c in train.columns]
+    cat_cols = [c for c in cat_cols if c in train.columns]
+
+    # 7. Missing values
+    print("\n" + "=" * 60)
+    print("STEP 6: Missing values")
+    missing_analysis = analyze_missing_pattern(train, target_col)
+    train, test = smart_impute(train, test, num_cols, cat_cols)
+
+    # 8. Outliers
+    print("\n" + "=" * 60)
+    print("STEP 7: Outliers")
+    outlier_report = detect_outliers(train, num_cols)
+    for col in num_cols:
+        if col in outlier_report.index and outlier_report.loc[col, 'pct'] > 5:
+            train = clip_outliers(train, col)
+            test = clip_outliers(test, col)
+
+    # 9. Rare categories
+    print("\n" + "=" * 60)
+    print("STEP 8: Rare categories")
+    train, test = handle_rare_categories(train, test, cat_cols)
+
+    # 10. High cardinality
+    print("\n" + "=" * 60)
+    print("STEP 9: High cardinality analysis")
+    hc_report = detect_high_cardinality(train, test, target_col)
+
+    # 11. Consistency
+    print("\n" + "=" * 60)
+    print("STEP 10: Train/Test consistency")
+    features = [c for c in train.columns if c not in exclude]
+    validate_train_test_consistency(train, test, features)
+
+    print("\n" + "=" * 60)
+    print(f"DONE: Train {train.shape}, Test {test.shape}")
+    return train, test
+```
+
 ## Règles d'Or du Nettoyage Kaggle
 
 1. **TOUJOURS fit sur train, transform sur test** (scalers, imputers, encoders)
