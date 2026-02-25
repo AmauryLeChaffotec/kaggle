@@ -16,7 +16,7 @@ Avant de commencer, voici les termes que tu vas croiser :
 | **Agent** | Un assistant autonome qui fait une mission longue (analyser une compétition, optimiser un modèle). Plus puissant qu'un skill. |
 | **CV (Cross-Validation)** | Le score de ton modèle mesuré en local, sur tes propres données. C'est ta boussole. |
 | **LB (Leaderboard)** | Le score affiché par Kaggle quand tu soumets. C'est le vrai score. |
-| **Gap CV-LB** | La différence entre ton score local (CV) et le score Kaggle (LB). Si le gap est petit (<3%), ton CV est fiable. |
+| **Gap CV-LB** | La différence entre ton score local (CV) et le score Kaggle (LB). C'est **le** indicateur le plus important : un gap < 3% = ton CV est fiable et tu peux l'utiliser pour prendre des décisions. Un gap > 5% = danger, ton CV te ment. |
 | **OOF (Out-Of-Fold)** | Les prédictions de ton modèle sur les données d'entraînement, faites fold par fold (le modèle ne voit jamais les données qu'il prédit). Sert à calculer le CV et à construire les ensembles. |
 | **Feature** | Une colonne dans tes données. "Feature engineering" = créer de nouvelles colonnes utiles. |
 | **Baseline** | Un premier modèle très simple, sans optimisation, juste pour avoir un score de départ. |
@@ -47,34 +47,40 @@ Puis **redémarre Claude Code** pour activer les skills et agents.
 La clé pour gagner sur Kaggle, c'est l'**itération**. Tu ne fais pas tout une seule fois dans l'ordre. Tu fais des boucles : tu crées des features, tu entraînes, tu évalues, tu ajustes, tu recommences. Chaque boucle améliore ton score un petit peu.
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                                                              │
-│  ÉTAPE 1 — Comprendre la compétition                        │
-│  ÉTAPE 2 — Première soumission (baseline)                   │
-│                                                              │
-│         ╔════════════════════════════════════╗                │
-│         ║       BOUCLE D'ITÉRATION          ║                │
-│         ║  (tu passes 80% de ton temps ici) ║                │
-│         ║                                    ║                │
-│         ║  ÉTAPE 3 — Améliorer les features  ║                │
-│         ║  ÉTAPE 4 — Entraîner le modèle     ║                │
-│         ║  ÉTAPE 5 — Évaluer et comparer     ║                │
-│         ║             ↓                      ║                │
-│         ║  Le score monte ? → Continuer.     ║                │
-│         ║  Le score stagne ? → Changer.      ║                │
-│         ║             ↓                      ║                │
-│         ║     Retour à l'étape 3             ║                │
-│         ╚════════════════════════════════════╝                │
-│                                                              │
-│  ÉTAPE 6 — Combiner les modèles (ensemble)                  │
-│  ÉTAPE 7 — Vérifier et soumettre                            │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────┐
+│                                                                   │
+│  ÉTAPE 1 — Comprendre la compétition            ⏱ 1-2 heures    │
+│  ÉTAPE 2 — Première soumission (baseline)        ⏱ 1-3 heures    │
+│                                                                   │
+│         ╔════════════════════════════════════════╗                 │
+│         ║        BOUCLE D'ITÉRATION             ║                 │
+│         ║   (tu passes 80% de ton temps ici)    ║                 │
+│         ║                                        ║                 │
+│         ║  ÉTAPE 3 — Améliorer les features      ║  ⏱ 30 min     │
+│         ║  ÉTAPE 4 — Entraîner le modèle         ║  ⏱ 15-45 min  │
+│         ║  ÉTAPE 5 — Évaluer et comparer         ║  ⏱ 10 min     │
+│         ║              ↓                         ║                 │
+│         ║  Le score monte ? → Continuer.         ║                 │
+│         ║  Le score stagne ? → Changer.          ║                 │
+│         ║              ↓                         ║                 │
+│         ║      Retour à l'étape 3                ║                 │
+│         ║                                        ║                 │
+│         ║  💡 Chaque boucle = ~1 heure           ║                 │
+│         ║     Prévoir 10-30 boucles par compet.  ║                 │
+│         ╚════════════════════════════════════════╝                 │
+│                                                                   │
+│  ÉTAPE 6 — Combiner les modèles (ensemble)       ⏱ 1-2 heures    │
+│  ÉTAPE 7 — Vérifier et soumettre                 ⏱ 1-2 heures    │
+│                                                                   │
+│  TOTAL pour une compétition : 2-4 semaines à raison de            │
+│  quelques heures par jour (plus si compétition complexe)          │
+│                                                                   │
+└──────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## ÉTAPE 1 — Comprendre la compétition
+## ÉTAPE 1 — Comprendre la compétition (⏱ 1-2 heures)
 
 **Objectif :** Savoir à quoi tu as affaire avant d'écrire du code.
 
@@ -120,7 +126,7 @@ La clé pour gagner sur Kaggle, c'est l'**itération**. Tu ne fais pas tout une 
 
 ---
 
-## ÉTAPE 2 — Première soumission (le baseline)
+## ÉTAPE 2 — Première soumission (le baseline) (⏱ 1-3 heures)
 
 **Objectif :** Avoir un premier score sur le Leaderboard le plus vite possible. Ce score sert de référence : tout ce que tu fais ensuite doit le battre.
 
@@ -170,7 +176,7 @@ Après ta première soumission, note les deux scores :
 
 ---
 
-## ÉTAPE 3 — Améliorer les features
+## ÉTAPE 3 — Améliorer les features (⏱ 30 min par itération)
 
 **Objectif :** Créer de nouvelles colonnes dans tes données qui aident le modèle à mieux prédire. C'est l'étape qui a le **plus d'impact** sur ton score.
 
@@ -216,7 +222,7 @@ Après ta première soumission, note les deux scores :
 
 ---
 
-## ÉTAPE 4 — Entraîner le modèle
+## ÉTAPE 4 — Entraîner le modèle (⏱ 15-45 min par itération)
 
 **Objectif :** Entraîner un modèle avec tes nouvelles features et mesurer si le score s'est amélioré.
 
@@ -243,7 +249,7 @@ Après ta première soumission, note les deux scores :
 
 ---
 
-## ÉTAPE 5 — Évaluer et comparer
+## ÉTAPE 5 — Évaluer et comparer (⏱ 10 min par itération)
 
 **Objectif :** Savoir si ton changement a amélioré le score ou non. Ne garder que ce qui marche.
 
@@ -361,7 +367,7 @@ Ensuite :
 
 ---
 
-## ÉTAPE 6 — Combiner les modèles (ensemble)
+## ÉTAPE 6 — Combiner les modèles (ensemble) (⏱ 1-2 heures)
 
 **Objectif :** Combiner les prédictions de plusieurs modèles pour obtenir un meilleur score que chaque modèle individuellement.
 
@@ -385,7 +391,7 @@ Ensuite :
 
 ---
 
-## ÉTAPE 7 — Vérifier et soumettre
+## ÉTAPE 7 — Vérifier et soumettre (⏱ 1-2 heures)
 
 ### 7a. Polish (pour gratter les derniers points)
 
@@ -523,9 +529,12 @@ Pipeline d'inférence optimisé. Utile pour les "code competitions" avec contrai
 
 ---
 
-## Convention d'artefacts
+## Annexe A — Convention d'artefacts
 
-Chaque skill produit des fichiers dans une structure standardisée :
+> Cette section est technique. Tu n'as pas besoin de la lire pour utiliser les skills — ils gèrent le nommage automatiquement. C'est utile si tu veux comprendre où les fichiers sont sauvegardés.
+
+<details>
+<summary>Cliquer pour voir la structure des fichiers</summary>
 
 ```
 mon-projet/
@@ -551,11 +560,27 @@ mon-projet/
 └── runs.csv                    # Historique de toutes tes expériences
 ```
 
+### Nommage des fichiers
+
+| Type | Format | Exemple |
+|------|--------|---------|
+| Rapport | `reports/<skill>/YYYY-MM-DD_<desc>.md` | `reports/debug/2026-02-25_score-drop.md` |
+| OOF | `artifacts/oof_<model>_v<N>.parquet` | `artifacts/oof_lgbm_v3.parquet` |
+| Test | `artifacts/test_<model>_v<N>.parquet` | `artifacts/test_xgb_v2.parquet` |
+| Soumission | `submissions/sub_<desc>_<date>.csv` | `submissions/sub_ensemble_2026-02-25.csv` |
+| Modèle | `models/<model>_fold<N>.pkl` | `models/lgbm_fold2.pkl` |
+| Config | `configs/<model>_optimized.yaml` | `configs/lgbm_optimized.yaml` |
+
+</details>
+
 ---
 
-## Definition of Done — Contrats de sortie
+## Annexe B — Definition of Done (contrats de sortie)
 
-Chaque skill clé a des artefacts obligatoires qui garantissent que le travail est complet :
+> Cette section est pour les utilisateurs avancés. Elle définit quand un skill a VRAIMENT terminé son travail.
+
+<details>
+<summary>Cliquer pour voir les contrats de sortie</summary>
 
 | Skill | C'est fini quand... |
 |-------|---------------------|
@@ -567,3 +592,5 @@ Chaque skill clé a des artefacts obligatoires qui garantissent que le travail e
 | `/kaggle-sanity` | Tous les checks passés (OK/KO par item) |
 | `/kaggle-calibration` | Reliability diagram + ECE avant/après + calibrateur sauvegardé |
 | `kaggle-debugger` | Rapport + patch plan (fichier + ligne + diff) + vérifications |
+
+</details>
