@@ -480,3 +480,12 @@ def gbdt_nn_pipeline(train, test, target, num_cols, cat_cols, n_folds=5):
 6. **Mixed precision** pour accélérer x2 sur GPU
 7. **Autoencoder features** : DAE sur train+test (pas de leakage car unsupervised)
 8. **Le gain est dans l'ensemble** : NN seul < GBDT seul, mais GBDT+NN > GBDT seul
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin de l'entraînement DL, TOUJOURS sauvegarder :
+1. Rapport dans : `reports/deeplearning/YYYY-MM-DD_<model>.md` (architecture, params, scores, training curves)
+2. OOF predictions dans : `artifacts/oof_<model>_v<N>.parquet`
+3. Test predictions dans : `artifacts/test_<model>_v<N>.parquet`
+4. Ajouter une ligne dans `runs.csv`
+5. Confirmer à l'utilisateur les chemins sauvegardés

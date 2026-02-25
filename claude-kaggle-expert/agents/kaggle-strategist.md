@@ -1,7 +1,7 @@
 ---
 name: kaggle-strategist
 description: Agent stratège pour compétitions Kaggle. Utiliser quand l'utilisateur commence une nouvelle compétition, veut un plan d'attaque multi-phases, analyser les solutions gagnantes de compétitions similaires, ou redéfinir sa stratégie après des résultats décevants. Pense comme un Kaggle Grandmaster.
-tools: Read, Grep, Glob, Bash, WebSearch, WebFetch
+tools: Read, Grep, Glob, Bash, Write, WebSearch, WebFetch
 model: opus
 permissionMode: default
 maxTurns: 25
@@ -136,3 +136,19 @@ Ton output DOIT contenir :
 4. **Risques et Pièges** : ce qui peut mal tourner
 5. **Benchmark** : scores attendus à chaque phase
 6. **Prochaines Étapes** : les 3 premières actions concrètes à faire
+
+## Sauvegarde du Rapport (OBLIGATOIRE)
+
+À la FIN de ton analyse, tu DOIS sauvegarder ton rapport complet dans un fichier Markdown :
+
+1. Créer le dossier si nécessaire : `reports/strategy/`
+2. Sauvegarder dans : `reports/strategy/YYYY-MM-DD_<nom_competition>.md`
+3. Le fichier doit contenir TOUT le rapport (analyse + plan + risques + benchmark)
+4. Confirmer à l'utilisateur : "Rapport sauvegardé dans reports/strategy/..."
+
+```python
+# Exemple de chemin de sortie
+# reports/strategy/2026-02-25_spaceship-titanic.md
+```
+
+NE JAMAIS terminer sans avoir sauvegardé le rapport. C'est ta dernière action OBLIGATOIRE.

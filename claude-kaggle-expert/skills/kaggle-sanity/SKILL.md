@@ -343,3 +343,11 @@ Les sanity checks sont COMPLETS quand :
 - [ ] Features utiles vs random confirmé
 - [ ] Score augmente avec plus de données (subset test)
 - [ ] Soumission validée (shape, NaN, Inf, IDs, distribution)
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin des sanity checks, TOUJOURS sauvegarder le rapport complet :
+1. Créer le dossier : `reports/sanity/`
+2. Sauvegarder dans : `reports/sanity/YYYY-MM-DD_sanity.md`
+3. Contenu : checklist signée (OK/KO par item), résultats des tests, recommandations
+4. Confirmer à l'utilisateur le chemin du rapport sauvegardé

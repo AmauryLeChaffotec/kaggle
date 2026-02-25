@@ -440,3 +440,10 @@ def proximity_analysis(points_gdf, reference_gdf, buffer_distances_m=[500, 1000,
 - **Optimisation de routes** : TSP, couverture optimale
 
 Adapte TOUJOURS les opérations au CRS approprié et vérifie les unités (degrés vs mètres).
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin de l'analyse, TOUJOURS sauvegarder :
+1. Rapport dans : `reports/geospatial/YYYY-MM-DD_<description>.md`
+2. Contenu : stratégie recommandée, techniques clés, code snippets, recommandations
+3. Confirmer à l'utilisateur le chemin du rapport sauvegardé

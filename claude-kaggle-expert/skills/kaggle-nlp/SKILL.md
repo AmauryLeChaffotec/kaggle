@@ -840,3 +840,10 @@ def get_optimizer_params(model, lr, weight_decay, llrd=0.9):
 ```
 
 Adapte TOUJOURS au type de tâche NLP et aux données spécifiques de la compétition.
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin de l'analyse, TOUJOURS sauvegarder :
+1. Rapport dans : `reports/nlp/YYYY-MM-DD_<description>.md`
+2. Contenu : stratégie recommandée, techniques clés, code snippets, recommandations
+3. Confirmer à l'utilisateur le chemin du rapport sauvegardé

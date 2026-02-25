@@ -244,3 +244,10 @@ La vérification de métrique est COMPLÈTE quand :
 - [ ] Loss du modèle alignée avec la métrique (cf. tableau)
 - [ ] Post-processing identifié (seuil, rounding, clip)
 - [ ] Custom eval metric créée pour LightGBM/XGBoost si nécessaire
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin de la vérification, TOUJOURS sauvegarder :
+1. Rapport dans : `reports/metrics/YYYY-MM-DD_metric.md` (métrique implémentée, test vs LB, mapping loss/postprocess)
+2. Fonction métrique dans : `src/metric.py` (fichier Python isolé, réutilisable)
+3. Confirmer à l'utilisateur les chemins sauvegardés

@@ -394,3 +394,13 @@ Chaque run est COMPLET quand :
 4. **Ablation avant d'ajouter** : vérifier que chaque feature apporte vraiment
 5. **Seeds multiples** : tester la stabilité avant de conclure
 6. **Comparer avec le bon baseline** : toujours vs le run précédent ET vs le baseline original
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin de chaque run, TOUJOURS sauvegarder :
+1. Ligne ajoutée dans : `runs.csv` (run_id, date, description, cv_score, cv_std, lb_score, n_features, model_type, params_hash, notes)
+2. OOF predictions dans : `artifacts/oof_<model>_v<N>.npy`
+3. Test predictions dans : `artifacts/test_<model>_v<N>.npy`
+4. Config dans : `configs/<experiment>.yaml`
+5. Si rapport demandé : `reports/experiments/YYYY-MM-DD_summary.md` (tableau récap de tous les runs)
+6. Confirmer à l'utilisateur les chemins sauvegardés

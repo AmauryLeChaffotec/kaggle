@@ -265,3 +265,9 @@ Budget réservé (~20%) : SÉCURITÉ
 8. **Le dernier jour** : NE RIEN CHANGER. Confiance dans le process
 9. **Si CV et LB divergent** : FIX THE CV, pas le modèle
 10. **Post-processing** : souvent 0.001-0.005 gratuit, tester en dernier
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin de l'analyse LB, TOUJOURS sauvegarder :
+1. Rapport dans : `reports/leaderboard/YYYY-MM-DD_lb_strategy.md` (shake-up risk, soumissions sélectionnées, justification)
+2. Confirmer à l'utilisateur le chemin du rapport sauvegardé

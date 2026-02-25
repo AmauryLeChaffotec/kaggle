@@ -324,3 +324,11 @@ Le feature engineering est COMPLET quand :
 - [ ] Comparaison CV avant/après feature engineering documentée
 - [ ] Pas de data leakage vérifié (target encoding en OOF, pas de train-test contamination)
 - [ ] Liste finale des features documentée avec justification
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin du feature engineering, TOUJOURS sauvegarder :
+1. Rapport dans : `reports/feature/YYYY-MM-DD_features.md` (features créées, CV avant/après, importance)
+2. Liste des features dans : `configs/features_v<N>.yaml`
+3. Ajouter une ligne dans `runs.csv` avec le delta CV
+4. Confirmer à l'utilisateur les chemins sauvegardés

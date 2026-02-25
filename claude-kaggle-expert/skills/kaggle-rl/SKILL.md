@@ -587,3 +587,10 @@ def evaluate_agent(agent1, agent2="random", n_rounds=100):
 8. **Soumission** : tester l'agent localement avant de soumettre, vérifier les timeouts
 
 Adapte TOUJOURS la stratégie au type de jeu, aux contraintes de temps, et aux règles de la compétition.
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin de l'analyse, TOUJOURS sauvegarder :
+1. Rapport dans : `reports/rl/YYYY-MM-DD_<description>.md`
+2. Contenu : stratégie recommandée, techniques clés, code snippets, recommandations
+3. Confirmer à l'utilisateur le chemin du rapport sauvegardé

@@ -248,3 +248,11 @@ L'EDA est COMPLÈTE quand :
 - [ ] Train/test drift vérifié (distributions comparées)
 - [ ] Résumé structuré avec les 8 points (taille, qualité, target, features, FE suggéré, CV, modèles, attention)
 - [ ] Recommandations concrètes pour la suite (features à créer, modèles à tester)
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin de l'analyse, TOUJOURS sauvegarder le rapport complet :
+1. Créer le dossier : `reports/eda/`
+2. Sauvegarder dans : `reports/eda/YYYY-MM-DD_eda.md`
+3. Contenu : résumé structuré (8 points), visualisations décrites, recommandations
+4. Confirmer à l'utilisateur le chemin du rapport sauvegardé

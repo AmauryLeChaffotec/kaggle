@@ -251,3 +251,11 @@ La soumission est COMPLÈTE quand :
 - [ ] CV score et LB score documentés
 - [ ] Fichier de soumission versionné (baseline_v1, features_v2, ensemble_v3...)
 - [ ] Soumission comparée avec les précédentes (corrélation, delta)
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin de la validation, TOUJOURS sauvegarder :
+1. Rapport dans : `reports/submit/YYYY-MM-DD_submission.md` (checks passés, stats, comparaison)
+2. Submission versionnée dans : `submissions/sub_<description>_YYYY-MM-DD.csv`
+3. Ajouter le LB score dans `runs.csv` quand disponible
+4. Confirmer à l'utilisateur les chemins sauvegardés

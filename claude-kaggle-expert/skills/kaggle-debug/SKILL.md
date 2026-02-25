@@ -419,3 +419,9 @@ def learning_curve_analysis(model_class, X, y, train_sizes=None, cv=5):
 8. **Feature importance incohérente ?** → Possible multicolinéarité ou leakage
 9. **Learning curve plate ?** → Plus de données n'aidera pas, changer l'approche
 10. **Tout semble OK mais score bas ?** → Revoir l'EDA, il manque probablement un signal
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin du diagnostic, TOUJOURS sauvegarder :
+1. Rapport dans : `reports/debug/YYYY-MM-DD_<probleme>.md` (diagnostic complet, patch plan, vérifications)
+2. Confirmer à l'utilisateur le chemin du rapport sauvegardé

@@ -255,3 +255,10 @@ Le pipeline est COMPLET quand :
 - [ ] Au moins 3 itérations documentées (baseline → features → tuning)
 - [ ] Ensemble de 2+ modèles testé
 - [ ] 2 soumissions finales sélectionnées avec justification
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin de la création du pipeline, TOUJOURS sauvegarder :
+1. Rapport dans : `reports/pipeline/YYYY-MM-DD_init.md` (structure créée, type de problème, métrique, plan initial)
+2. Vérifier que tous les dossiers existent : data/, notebooks/, src/, models/, artifacts/, reports/, submissions/, configs/
+3. Confirmer à l'utilisateur la structure créée

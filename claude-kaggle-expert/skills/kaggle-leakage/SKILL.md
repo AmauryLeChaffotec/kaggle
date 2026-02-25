@@ -370,3 +370,11 @@ L'audit de leakage est COMPLET quand :
 3. **Si le score monte trop vite → s'arrêter et vérifier** : la paranoïa est une vertu
 4. **Le leakage est TOUJOURS dans le preprocessing** : rarement dans le modèle lui-même
 5. **En cas de doute, retirer la feature** : mieux vaut un score plus bas que un faux score
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin de l'audit, TOUJOURS sauvegarder le rapport complet :
+1. Créer le dossier : `reports/leakage/`
+2. Sauvegarder dans : `reports/leakage/YYYY-MM-DD_audit.md`
+3. Contenu : résultat de chaque check (CRITICAL/WARNING/OK), features suspectes, recommandations
+4. Confirmer à l'utilisateur le chemin du rapport sauvegardé

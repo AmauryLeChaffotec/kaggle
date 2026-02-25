@@ -521,3 +521,10 @@ def full_cleaning_pipeline(train, test, target_col, id_col=None):
 8. **Normaliser pour les NN/SVM/KNN** : StandardScaler ou RobustScaler
 9. **Log transform** : pour les features avec skewness > 1 et valeurs > 0
 10. **Documenter** : chaque décision de nettoyage dans un log/markdown
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin du nettoyage, TOUJOURS sauvegarder :
+1. Rapport dans : `reports/cleaning/YYYY-MM-DD_cleaning.md` (missing traités, outliers, types corrigés, résumé)
+2. Données nettoyées dans : `data/train_clean.parquet` et `data/test_clean.parquet`
+3. Confirmer à l'utilisateur les chemins sauvegardés

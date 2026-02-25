@@ -292,3 +292,13 @@ Le baseline est COMPLET quand :
 3. **SOUMETTRE** : la soumission valide que tout le pipeline fonctionne
 4. **NOTER** le CV et le LB : c'est le point de référence pour tout le reste
 5. **30 minutes max** : si ça prend plus longtemps, tu over-engineer le baseline
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin du baseline, TOUJOURS sauvegarder :
+1. Rapport dans : `reports/baseline/YYYY-MM-DD_baseline.md` (CV, LB, features, params)
+2. OOF predictions dans : `artifacts/oof_baseline_v1.parquet`
+3. Test predictions dans : `artifacts/test_baseline_v1.parquet`
+4. Submission dans : `submissions/sub_baseline_YYYY-MM-DD.csv`
+5. Ajouter une ligne dans `runs.csv`
+6. Confirmer à l'utilisateur les chemins sauvegardés

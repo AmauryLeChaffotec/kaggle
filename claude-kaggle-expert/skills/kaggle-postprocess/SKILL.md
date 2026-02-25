@@ -255,3 +255,10 @@ Le post-processing est COMPLET quand :
 - [ ] Contraintes métier respectées (non-négatif, entier, range)
 - [ ] Gain mesuré et positif (sinon, ne pas appliquer)
 - [ ] Appliqué identiquement sur OOF et test
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin du post-processing, TOUJOURS sauvegarder :
+1. Rapport dans : `reports/postprocess/YYYY-MM-DD_postprocess.md` (score avant/après, méthode, gain)
+2. Objet postprocessor dans : `models/postprocessor.pkl`
+3. Confirmer à l'utilisateur les chemins sauvegardés

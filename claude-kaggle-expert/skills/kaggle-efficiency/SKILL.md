@@ -394,3 +394,9 @@ L'optimisation est COMPLÈTE quand :
 5. **Profiler avant d'optimiser** : identifier le vrai goulot d'étranglement
 6. **gc.collect() agressif** : après chaque fold, après chaque gros calcul
 7. **Tester sur un subset d'abord** : train[:1000] pour debugger, train complet pour scorer
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin de l'optimisation, TOUJOURS sauvegarder :
+1. Rapport dans : `reports/efficiency/YYYY-MM-DD_optimization.md` (RAM avant/après, temps avant/après, techniques appliquées)
+2. Confirmer à l'utilisateur le chemin du rapport sauvegardé

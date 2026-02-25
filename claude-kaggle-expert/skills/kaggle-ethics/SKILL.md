@@ -419,3 +419,10 @@ def ethical_audit(model, X_train, X_val, y_val, sensitive_col, val_df, features)
 - [ ] Un monitoring post-déploiement est-il en place ?
 
 Adapte TOUJOURS l'analyse éthique au contexte spécifique du projet et aux populations affectées.
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin de l'analyse, TOUJOURS sauvegarder :
+1. Rapport dans : `reports/ethics/YYYY-MM-DD_<description>.md`
+2. Contenu : stratégie recommandée, techniques clés, code snippets, recommandations
+3. Confirmer à l'utilisateur le chemin du rapport sauvegardé

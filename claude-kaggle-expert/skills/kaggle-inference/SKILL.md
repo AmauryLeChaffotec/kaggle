@@ -275,3 +275,11 @@ Le pipeline d'inférence est COMPLET quand :
 - [ ] Post-processing intégré au pipeline
 - [ ] Résultat identique à chaque run (reproductible)
 - [ ] Submission validée (format, NaN, shape)
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin du pipeline d'inférence, TOUJOURS sauvegarder :
+1. Rapport dans : `reports/inference/YYYY-MM-DD_inference.md` (TTA config, temps d'inférence, RAM utilisée)
+2. Script d'inférence dans : `src/inference.py` (pipeline end-to-end reproductible)
+3. Submission dans : `submissions/sub_<description>_YYYY-MM-DD.csv`
+4. Confirmer à l'utilisateur les chemins sauvegardés

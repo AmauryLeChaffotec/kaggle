@@ -288,3 +288,10 @@ def pseudo_labeling(train, test, features, target_col, model, threshold=0.95):
 11. Soumission finale avec `/kaggle-submit`
 
 Adapte TOUJOURS au contexte spécifique de la compétition.
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin de l'analyse, TOUJOURS sauvegarder :
+1. Rapport dans : `reports/tabular/YYYY-MM-DD_<description>.md`
+2. Contenu : stratégie recommandée, techniques clés, code snippets, recommandations
+3. Confirmer à l'utilisateur le chemin du rapport sauvegardé

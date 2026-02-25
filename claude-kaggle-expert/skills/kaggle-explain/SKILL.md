@@ -515,3 +515,9 @@ def explain_model(model, X_train, X_val, y_val, top_n=30):
 8. LIME pour expliquer les prédictions aberrantes → debugging
 
 Adapte TOUJOURS l'analyse au type de modèle et à la métrique de la compétition.
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin de l'analyse d'explainability, TOUJOURS sauvegarder :
+1. Rapport dans : `reports/explain/YYYY-MM-DD_explainability.md` (SHAP summary, top features, insights)
+2. Confirmer à l'utilisateur le chemin du rapport sauvegardé

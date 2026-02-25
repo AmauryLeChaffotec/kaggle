@@ -564,3 +564,9 @@ def plot_learning_curves(train_losses, val_losses, train_metrics=None, val_metri
 | Points individuels | Swarm/Strip | `sns.swarmplot()` / `sns.stripplot()` |
 
 Adapte TOUJOURS les visualisations au type de données et à l'objectif d'analyse de l'utilisateur.
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin des visualisations, TOUJOURS sauvegarder :
+1. Rapport dans : `reports/viz/YYYY-MM-DD_visualizations.md` (descriptions des plots, insights extraits)
+2. Confirmer à l'utilisateur le chemin du rapport sauvegardé

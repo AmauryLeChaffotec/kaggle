@@ -335,3 +335,10 @@ def add_external_features(df, date_col):
 10. **Post-processing** : clip aux bornes réalistes, arrondi si nécessaire
 
 Adapte TOUJOURS la stratégie au type de série temporelle et à l'horizon de prévision.
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin de l'analyse, TOUJOURS sauvegarder :
+1. Rapport dans : `reports/timeseries/YYYY-MM-DD_<description>.md`
+2. Contenu : stratégie recommandée, techniques clés, code snippets, recommandations
+3. Confirmer à l'utilisateur le chemin du rapport sauvegardé

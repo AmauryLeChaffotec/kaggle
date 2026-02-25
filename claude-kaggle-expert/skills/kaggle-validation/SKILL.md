@@ -372,3 +372,9 @@ def nested_cv(X, y, model_class, param_grid, outer_splits=5, inner_splits=3):
 8. **As-tu assez de folds ?** (5 minimum, 10 pour petit dataset)
 9. **As-tu testé RepeatedKFold ?** (pour petit dataset)
 10. **Le preprocessing est-il DANS le fold ?** (pas de data leakage via scaling/encoding)
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin de l'analyse de validation, TOUJOURS sauvegarder :
+1. Rapport dans : `reports/validation/YYYY-MM-DD_cv_strategy.md` (stratégie choisie, justification, adversarial validation, trust score)
+2. Confirmer à l'utilisateur le chemin du rapport sauvegardé

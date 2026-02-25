@@ -633,3 +633,10 @@ LIMIT       -- Nombre de résultats
 ```
 
 Adapte TOUJOURS les requêtes au schéma réel des données de la compétition. Vérifie le coût avec dry_run avant chaque grosse requête.
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin de l'analyse, TOUJOURS sauvegarder :
+1. Rapport dans : `reports/sql/YYYY-MM-DD_<description>.md`
+2. Contenu : stratégie recommandée, techniques clés, code snippets, recommandations
+3. Confirmer à l'utilisateur le chemin du rapport sauvegardé

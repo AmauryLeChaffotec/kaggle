@@ -398,3 +398,9 @@ def ts_magnitude_warping(series, sigma=0.2, knots=4):
 6. **Pseudo-labeling** : itératif (train → predict → add → retrain)
 7. **Back-translation** : le meilleur ROI en NLP
 8. **Diversifier** : combiner plusieurs techniques d'augmentation
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin de l'augmentation, TOUJOURS sauvegarder :
+1. Rapport dans : `reports/augmentation/YYYY-MM-DD_augmentation.md` (techniques appliquées, taille avant/après, CV impact)
+2. Confirmer à l'utilisateur le chemin du rapport sauvegardé

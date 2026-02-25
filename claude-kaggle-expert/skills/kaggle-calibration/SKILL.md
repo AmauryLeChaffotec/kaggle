@@ -254,3 +254,11 @@ La calibration est COMPLÈTE quand :
 - [ ] ECE, Brier, Log Loss mesurés après → gain documenté
 - [ ] Si gain < 0 → ne PAS calibrer (revenir aux probas brutes)
 - [ ] Appliqué sur le test avec le même calibrateur
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin de la calibration, TOUJOURS sauvegarder :
+1. Rapport dans : `reports/calibration/YYYY-MM-DD_calibration.md` (ECE/Brier avant-après, méthode, gain)
+2. Calibrateur dans : `models/calibrator.pkl`
+3. Reliability diagrams sauvegardés dans : `reports/calibration/`
+4. Confirmer à l'utilisateur les chemins sauvegardés

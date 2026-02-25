@@ -432,3 +432,12 @@ Phase 4 - Raffinement
 6. **Multi-seed** réduit la variance de ~5-10% gratuitement
 7. **Le gain d'ensemble doit être stable** : si un fold gagne et un autre perd → suspicion
 8. **2-5 modèles** est le sweet spot. Plus = marginal. Moins = insuffisant
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin de l'ensembling, TOUJOURS sauvegarder :
+1. Rapport dans : `reports/ensemble/YYYY-MM-DD_ensemble.md` (matrice corrélation, méthode, poids, score)
+2. OOF ensemble dans : `artifacts/oof_ensemble_v<N>.parquet`
+3. Test ensemble dans : `artifacts/test_ensemble_v<N>.parquet`
+4. Ajouter une ligne dans `runs.csv`
+5. Confirmer à l'utilisateur les chemins sauvegardés

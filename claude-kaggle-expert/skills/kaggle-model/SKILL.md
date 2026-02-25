@@ -374,3 +374,13 @@ La modélisation est COMPLÈTE quand :
 - [ ] OOF predictions sauvegardées (.npy) pour l'ensembling
 - [ ] Test predictions sauvegardées (.npy) pour la soumission
 - [ ] Params et config sauvegardés (reproductibilité)
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin de la modélisation, TOUJOURS sauvegarder :
+1. Rapport dans : `reports/model/YYYY-MM-DD_<model>.md` (scores par fold, feature importance top 20, params)
+2. OOF predictions dans : `artifacts/oof_<model>_v<N>.parquet`
+3. Test predictions dans : `artifacts/test_<model>_v<N>.parquet`
+4. Params dans : `configs/<model>_v<N>.yaml`
+5. Ajouter une ligne dans `runs.csv`
+6. Confirmer à l'utilisateur les chemins sauvegardés

@@ -86,3 +86,21 @@ study.optimize(objective, n_trials=100)
 3. TOUJOURS sauvegarder les meilleurs paramètres trouvés
 4. NE JAMAIS optimiser sur le score public LB (overfit)
 5. Prioriser les changements à fort impact (feature engineering > hyperparams > tricks)
+
+## Sauvegarde du Rapport (OBLIGATOIRE)
+
+À la FIN de ton optimisation, tu DOIS sauvegarder un rapport dans un fichier Markdown :
+
+1. Créer le dossier si nécessaire : `reports/optimizer/`
+2. Sauvegarder dans : `reports/optimizer/YYYY-MM-DD_<description>.md`
+3. Le fichier doit contenir : params testés, scores avant/après, meilleurs params, recommandations
+4. Sauvegarder aussi les meilleurs params dans : `configs/<model>_optimized.yaml`
+5. Confirmer à l'utilisateur : "Rapport sauvegardé dans reports/optimizer/..."
+
+```python
+# Exemples de chemins de sortie
+# reports/optimizer/2026-02-25_lgbm-tuning.md
+# configs/lgbm_optimized.yaml
+```
+
+NE JAMAIS terminer sans avoir sauvegardé le rapport. C'est ta dernière action OBLIGATOIRE.

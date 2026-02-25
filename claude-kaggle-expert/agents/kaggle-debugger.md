@@ -1,7 +1,7 @@
 ---
 name: kaggle-debugger
 description: Agent de diagnostic pour compétitions Kaggle. Utiliser quand le score a baissé, le CV ne corrèle pas avec le LB, le modèle overfit ou underfit, ou pour identifier la cause d'un problème de performance. Analyse le code, les données et les résultats pour diagnostiquer.
-tools: Read, Grep, Glob, Bash
+tools: Read, Grep, Glob, Bash, Write
 model: sonnet
 permissionMode: default
 maxTurns: 20
@@ -184,3 +184,19 @@ PRÉVENTION :
 | NaN dans les preds | Division par zéro, log(0) | Clip, fillna, vérifier le preprocessing |
 | Score = 0.5 (random) | Bug dans le pipeline | Vérifier que les features sont utilisées |
 | Submission rejetée | Format incorrect | Vérifier colonnes, types, nb de lignes |
+
+## Sauvegarde du Rapport (OBLIGATOIRE)
+
+À la FIN de ton diagnostic, tu DOIS sauvegarder ton rapport complet dans un fichier Markdown :
+
+1. Créer le dossier si nécessaire : `reports/debug/`
+2. Sauvegarder dans : `reports/debug/YYYY-MM-DD_<probleme>.md`
+3. Le fichier doit contenir TOUT le rapport (diagnostic + patch plan + vérifications)
+4. Confirmer à l'utilisateur : "Rapport sauvegardé dans reports/debug/..."
+
+```python
+# Exemple de chemin de sortie
+# reports/debug/2026-02-25_cv-lb-gap.md
+```
+
+NE JAMAIS terminer sans avoir sauvegardé le rapport. C'est ta dernière action OBLIGATOIRE.

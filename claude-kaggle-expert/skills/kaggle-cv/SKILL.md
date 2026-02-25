@@ -933,3 +933,10 @@ loader = DataLoader(dataset, batch_size=32, sampler=sampler)
 ```
 
 Adapte TOUJOURS au type de tâche CV : classification, segmentation, détection, ou autre.
+
+## Rapport de Sortie (OBLIGATOIRE)
+
+À la fin de l'analyse, TOUJOURS sauvegarder :
+1. Rapport dans : `reports/cv/YYYY-MM-DD_<description>.md`
+2. Contenu : stratégie recommandée, techniques clés, code snippets, recommandations
+3. Confirmer à l'utilisateur le chemin du rapport sauvegardé
