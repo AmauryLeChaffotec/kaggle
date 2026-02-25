@@ -79,7 +79,7 @@ Puis redémarrer Claude Code.
 | `kaggle-researcher` | Sonnet | Analyse de compétition, recherche de solutions gagnantes (read-only) |
 | `kaggle-optimizer` | Sonnet | Optimisation de modèles et hyperparamètres (peut éditer) |
 | `kaggle-strategist` | Opus | Stratège de compétition, plan d'attaque multi-phases (read-only + web) |
-| `kaggle-debugger` | Sonnet | Diagnostic de problèmes de performance, analyse d'erreurs (read-only + bash) |
+| `kaggle-debugger` | Sonnet | Diagnostic + patch plan (fichiers/lignes/diff suggéré) (read-only + bash) |
 
 ## Guide Pas à Pas — Nouvelle Compétition
 
@@ -188,7 +188,7 @@ Puis redémarrer Claude Code.
 | Entraînement trop lent | `/kaggle-efficiency` (GPU, reduce_mem, Polars) |
 | Tu veux comprendre les erreurs | `/kaggle-debug` → error analysis sur les worst predictions |
 
-### Jour 14-21 : Ensemble
+### Jour 14-18 : Ensemble
 
 ```
 11. /kaggle-ensemble
@@ -209,24 +209,24 @@ Puis redémarrer Claude Code.
 | Le stacking overfit (stacking < simple avg) | Revenir au rank average simple. Meta-model trop complexe |
 | L'ensemble n'apporte rien | Les modèles sont trop corrélés. Changer d'approche, pas juste de params |
 
-### Jour 14-21 : Calibration, Post-Processing et Inférence
+### Jour 18-21 : Finalisation (Metrics, Calibration, Post-Processing, Inférence)
 
 ```
-11b. /kaggle-metrics
-     → Vérifie que ta métrique locale == métrique du LB
-     → Tu obtiens : implémentation custom + vérification LB + mapping loss/postprocess
+13. /kaggle-metrics
+    → Vérifie que ta métrique locale == métrique du LB
+    → Tu obtiens : implémentation custom + vérification LB + mapping loss/postprocess
 
-12b. /kaggle-calibration
-     → Calibre les probabilités (si Log Loss ou Brier)
-     → Tu obtiens : reliability diagram + ECE avant/après + calibrateur
+14. /kaggle-calibration
+    → Calibre les probabilités (si Log Loss ou Brier)
+    → Tu obtiens : reliability diagram + ECE avant/après + calibrateur
 
-12c. /kaggle-postprocess
-     → Optimise seuils, clip, round sur les OOF
-     → Tu obtiens : gain mesuré + post-processing à appliquer sur test
+15. /kaggle-postprocess
+    → Optimise seuils, clip, round sur les OOF
+    → Tu obtiens : gain mesuré + post-processing à appliquer sur test
 
-12d. /kaggle-inference
-     → Pipeline d'inférence optimisé (TTA, batch, multi-model)
-     → Tu obtiens : pipeline end-to-end reproductible
+16. /kaggle-inference
+    → Pipeline d'inférence optimisé (TTA, batch, multi-model)
+    → Tu obtiens : pipeline end-to-end reproductible
 ```
 
 **Que faire selon le post-processing :**
@@ -243,15 +243,15 @@ Puis redémarrer Claude Code.
 ### Derniers jours : Soumission Finale
 
 ```
-13. /kaggle-sanity
+17. /kaggle-sanity
     → Suite complète de sanity checks avant soumission
     → Tu obtiens : rapport invariants, permutation test, features vs random
 
-14. /kaggle-leaderboard
+18. /kaggle-leaderboard
     → Analyse shake-up risk + sélection des 2 soumissions finales
     → Tu obtiens : risk score + recommandation conservative/aggressive
 
-15. /kaggle-submit
+19. /kaggle-submit
     → Validation finale du fichier de soumission
     → Tu obtiens : submission.csv validé et prêt
 ```
@@ -306,6 +306,9 @@ project/
 │   ├── lgbm_fold0.pkl          # Modèle par fold
 │   └── calibrator.pkl          # Calibrateur (si /kaggle-calibration)
 │
+├── configs/                    # Configurations d'expériences
+│   └── <experiment>.yaml       # Params, features, preprocessing
+│
 ├── submissions/                # Fichiers de soumission
 │   └── sub_<description>_<date>.csv
 │
@@ -324,6 +327,21 @@ project/
 | Report | `reports/<skill>/<YYYY-MM-DD>_<run>.md` | `reports/debug/2026-02-25_v3.md` |
 | Model | `models/<model>_fold<N>.pkl` | `models/lgbm_fold2.pkl` |
 | Config | `configs/<experiment>.yaml` | `configs/lgbm_v3.yaml` |
+
+## Definition of Done — Contrats de Sortie par Skill
+
+Chaque skill clé a un contrat de sortie : des artefacts obligatoires qui garantissent que le travail est complet.
+
+| Skill | Artefacts obligatoires |
+|-------|----------------------|
+| `/kaggle-baseline` | `runs.csv` rempli (1re ligne) + `artifacts/oof_baseline_v1.parquet` + `submissions/sub_baseline_<date>.csv` |
+| `/kaggle-model` | Au moins 2 seeds OU 5 folds + `artifacts/oof_<model>_v<N>.parquet` + `artifacts/test_<model>_v<N>.parquet` + params hash dans `runs.csv` |
+| `/kaggle-ensemble` | Matrice de corrélation OOF + méthode retenue documentée + `artifacts/oof_ensemble_v<N>.parquet` + `artifacts/test_ensemble_v<N>.parquet` |
+| `/kaggle-metrics` | Fonction métrique isolée + test sur mini sample (5-10 lignes) + vérification vs LB documentée |
+| `/kaggle-postprocess` | Fit sur OOF uniquement + gain CV mesuré (avant/après) + objet postprocess sérialisé (`models/postprocessor.pkl`) |
+| `/kaggle-sanity` | Permutation target test OK + leakage check OK + invariants OK + checklist signée (OK/KO par item) |
+| `/kaggle-calibration` | Reliability diagram (avant/après) + ECE/Brier/Log Loss mesurés + `models/calibrator.pkl` + gain documenté |
+| `kaggle-debugger` | Rapport structuré + patch plan (fichier + ligne + diff avant/après) + vérifications à faire |
 
 ## Workflow Recommandé - Gold Medal
 
