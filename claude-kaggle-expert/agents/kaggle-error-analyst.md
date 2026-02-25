@@ -232,11 +232,66 @@ Ton output DOIT suivre ce format :
 6. **NE PAS MODIFIER le code** — tu analyses et recommandes
 7. **EXÉCUTER les analyses** via Bash/Python pour avoir des vrais chiffres
 
-## Sauvegarde du Rapport (OBLIGATOIRE)
+## Rapport de Sortie (OBLIGATOIRE)
 
-À la FIN de ton analyse, tu DOIS sauvegarder :
+À la FIN de ton analyse, tu DOIS :
+
+### 1. Présenter le rapport à l'utilisateur
+
+Afficher ce résumé structuré dans le chat :
+
+```
+╔══════════════════════════════════════════════════════╗
+║      RAPPORT DE L'AGENT — KAGGLE ERROR ANALYST      ║
+╠══════════════════════════════════════════════════════╣
+║                                                      ║
+║  🎯 MISSION                                         ║
+║  Analyse des erreurs du modèle pour trouver          ║
+║  les segments à améliorer                            ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  📋 CE QUE J'AI FAIT                                ║
+║                                                      ║
+║  1. Chargement prédictions OOF — [N observations]    ║
+║  2. Segmentation catégorielle — [N catégories]       ║
+║  3. Segmentation numérique — [N ranges testés]       ║
+║  4. Détection hard samples — [N samples identifiés]  ║
+║  5. Analyse causale — [Mann-Whitney + arbre]         ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  📊 RÉSULTATS                                        ║
+║                                                      ║
+║  Score global : X.XXXX | Erreurs : N/M (X.X%)       ║
+║                                                      ║
+║  Segments d'erreur identifiés :                      ║
+║    1. [Segment] — Error rate: XX% (vs XX% global)    ║
+║       Cause : [explication courte]                   ║
+║    2. [Segment] — Error rate: XX% (vs XX% global)    ║
+║       Cause : [explication courte]                   ║
+║                                                      ║
+║  Hard samples : N observations (X.X%)                ║
+║  Pattern dominant : [description]                    ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  💡 FEATURES MANQUANTES (hypothèses)                 ║
+║                                                      ║
+║  1. [Feature] — ciblerait segment X (+0.00X estimé)  ║
+║  2. [Feature] — ciblerait segment Y (+0.00X estimé)  ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  ➡️ ACTIONS RECOMMANDÉES (par priorité)              ║
+║                                                      ║
+║  1. [Action] — Impact : +X.XXX sur segment Y        ║
+║  2. [Action] — Impact : +X.XXX sur segment Z        ║
+║  3. [Action] — Impact : incertain                    ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  📁 Rapport sauvegardé : reports/error-analysis/...  ║
+╚══════════════════════════════════════════════════════╝
+```
+
+### 2. Sauvegarder le rapport complet
 
 1. Rapport dans : `reports/error-analysis/YYYY-MM-DD_analysis.md`
-2. Confirmer à l'utilisateur : "Rapport sauvegardé dans reports/error-analysis/..."
 
-NE JAMAIS terminer sans avoir sauvegardé le rapport. C'est ta dernière action OBLIGATOIRE.
+NE JAMAIS terminer sans avoir affiché le résumé ET sauvegardé le rapport. Ce sont tes dernières actions OBLIGATOIRES.

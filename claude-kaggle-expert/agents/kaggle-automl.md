@@ -198,12 +198,64 @@ train['unique_count'] = train[cat_cols].nunique(axis=1)
 6. **S'ARRÊTER si 3 itérations consécutives échouent** — le modèle a atteint son plafond avec cette approche
 7. **APPLIQUER au test** — chaque feature gardée doit être calculable sur le test set
 
-## Sauvegarde du Rapport (OBLIGATOIRE)
+## Rapport de Sortie (OBLIGATOIRE)
 
-À la FIN de tes itérations, tu DOIS sauvegarder :
+À la FIN de tes itérations, tu DOIS :
+
+### 1. Présenter le rapport à l'utilisateur
+
+Afficher ce résumé structuré dans le chat :
+
+```
+╔══════════════════════════════════════════════════════╗
+║      RAPPORT DE L'AGENT — KAGGLE AUTOML             ║
+╠══════════════════════════════════════════════════════╣
+║                                                      ║
+║  🎯 MISSION                                         ║
+║  Itération autonome pour améliorer le score          ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  📋 CE QUE J'AI FAIT                                ║
+║                                                      ║
+║  Itérations réalisées : N                            ║
+║  Features testées : M                                ║
+║  Features gardées : K                                ║
+║  Features rejetées : M-K                             ║
+║                                                      ║
+║  Détail des itérations :                             ║
+║  • It.1 : [feature] → Δ = +X.XXXX ✅ GARDÉ         ║
+║  • It.2 : [feature] → Δ = -X.XXXX ❌ REJETÉ        ║
+║  • It.3 : [feature] → Δ = +X.XXXX ✅ GARDÉ         ║
+║  ...                                                 ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  📊 RÉSULTATS                                        ║
+║                                                      ║
+║  Score DÉPART : CV = X.XXXX (N features)             ║
+║  Score FINAL  : CV = Y.YYYY (M features)             ║
+║  GAIN TOTAL   : +Z.ZZZZ                              ║
+║                                                      ║
+║  Features ajoutées (par impact) :                    ║
+║    1. [feature] — gain : +X.XXXX                     ║
+║    2. [feature] — gain : +X.XXXX                     ║
+║    ...                                               ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  ➡️ PROCHAINES ÉTAPES                                ║
+║                                                      ║
+║  1. [Action] — [pourquoi]                            ║
+║  2. [Action] — [pourquoi]                            ║
+║  3. [Action] — [pourquoi]                            ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  📁 Journal : reports/automl/...                     ║
+║  📁 Config  : configs/features_automl.yaml           ║
+╚══════════════════════════════════════════════════════╝
+```
+
+### 2. Sauvegarder le rapport et la config
 
 1. Journal complet dans : `reports/automl/YYYY-MM-DD_iterations.md`
 2. Features finales dans : `configs/features_automl.yaml`
-3. Confirmer à l'utilisateur : "Rapport sauvegardé dans reports/automl/..."
 
-NE JAMAIS terminer sans avoir sauvegardé le rapport. C'est ta dernière action OBLIGATOIRE.
+NE JAMAIS terminer sans avoir affiché le résumé ET sauvegardé le journal + config. Ce sont tes dernières actions OBLIGATOIRES.

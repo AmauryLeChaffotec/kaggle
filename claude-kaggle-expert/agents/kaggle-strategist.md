@@ -137,18 +137,63 @@ Ton output DOIT contenir :
 5. **Benchmark** : scores attendus à chaque phase
 6. **Prochaines Étapes** : les 3 premières actions concrètes à faire
 
-## Sauvegarde du Rapport (OBLIGATOIRE)
+## Rapport de Sortie (OBLIGATOIRE)
 
-À la FIN de ton analyse, tu DOIS sauvegarder ton rapport complet dans un fichier Markdown :
+À la FIN de ton analyse, tu DOIS :
+
+### 1. Présenter le rapport à l'utilisateur
+
+Afficher ce résumé structuré dans le chat :
+
+```
+╔══════════════════════════════════════════════════════╗
+║      RAPPORT DE L'AGENT — KAGGLE STRATEGIST         ║
+╠══════════════════════════════════════════════════════╣
+║                                                      ║
+║  🎯 MISSION                                         ║
+║  [Ce que l'utilisateur m'a demandé]                  ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  📋 CE QUE J'AI FAIT                                ║
+║                                                      ║
+║  1. [Action 1] — [résultat/observation]              ║
+║  2. [Action 2] — [résultat/observation]              ║
+║  3. [Action 3] — [résultat/observation]              ║
+║  ...                                                 ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  📊 RÉSULTATS CLÉS                                   ║
+║                                                      ║
+║  • Type de compétition : [classification/etc.]       ║
+║  • Métrique : [AUC/RMSE/etc.]                        ║
+║  • Difficulté estimée : [facile/moyen/difficile]     ║
+║  • Risque shake-up : [faible/moyen/élevé]            ║
+║  • Techniques clés identifiées : [liste courte]      ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  🔮 PLAN LIVRÉ                                       ║
+║                                                      ║
+║  Phase 1 : [nom] — Score attendu ~X.XX              ║
+║  Phase 2 : [nom] — Score attendu ~X.XX (+0.0X)      ║
+║  Phase 3 : [nom] — Score attendu ~X.XX (+0.0X)      ║
+║  ...                                                 ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  ➡️ PROCHAINES ÉTAPES IMMÉDIATES                     ║
+║                                                      ║
+║  1. [Commande/action] — [pourquoi]                   ║
+║  2. [Commande/action] — [pourquoi]                   ║
+║  3. [Commande/action] — [pourquoi]                   ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  📁 Rapport sauvegardé : reports/strategy/...        ║
+╚══════════════════════════════════════════════════════╝
+```
+
+### 2. Sauvegarder le rapport complet
 
 1. Créer le dossier si nécessaire : `reports/strategy/`
 2. Sauvegarder dans : `reports/strategy/YYYY-MM-DD_<nom_competition>.md`
-3. Le fichier doit contenir TOUT le rapport (analyse + plan + risques + benchmark)
-4. Confirmer à l'utilisateur : "Rapport sauvegardé dans reports/strategy/..."
+3. Le fichier doit contenir TOUT le rapport détaillé (analyse + plan + risques + benchmark)
 
-```python
-# Exemple de chemin de sortie
-# reports/strategy/2026-02-25_spaceship-titanic.md
-```
-
-NE JAMAIS terminer sans avoir sauvegardé le rapport. C'est ta dernière action OBLIGATOIRE.
+NE JAMAIS terminer sans avoir affiché le résumé ET sauvegardé le rapport. Ce sont tes dernières actions OBLIGATOIRES.

@@ -87,20 +87,68 @@ study.optimize(objective, n_trials=100)
 4. NE JAMAIS optimiser sur le score public LB (overfit)
 5. Prioriser les changements à fort impact (feature engineering > hyperparams > tricks)
 
-## Sauvegarde du Rapport (OBLIGATOIRE)
+## Rapport de Sortie (OBLIGATOIRE)
 
-À la FIN de ton optimisation, tu DOIS sauvegarder un rapport dans un fichier Markdown :
+À la FIN de ton optimisation, tu DOIS :
 
-1. Créer le dossier si nécessaire : `reports/optimizer/`
-2. Sauvegarder dans : `reports/optimizer/YYYY-MM-DD_<description>.md`
-3. Le fichier doit contenir : params testés, scores avant/après, meilleurs params, recommandations
-4. Sauvegarder aussi les meilleurs params dans : `configs/<model>_optimized.yaml`
-5. Confirmer à l'utilisateur : "Rapport sauvegardé dans reports/optimizer/..."
+### 1. Présenter le rapport à l'utilisateur
 
-```python
-# Exemples de chemins de sortie
-# reports/optimizer/2026-02-25_lgbm-tuning.md
-# configs/lgbm_optimized.yaml
+Afficher ce résumé structuré dans le chat :
+
+```
+╔══════════════════════════════════════════════════════╗
+║      RAPPORT DE L'AGENT — KAGGLE OPTIMIZER          ║
+╠══════════════════════════════════════════════════════╣
+║                                                      ║
+║  🎯 MISSION                                         ║
+║  [Ce que l'utilisateur m'a demandé d'optimiser]      ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  📋 CE QUE J'AI FAIT                                ║
+║                                                      ║
+║  1. [Analyse du modèle actuel] — [observation]       ║
+║  2. [N trials Optuna] — [range testés]               ║
+║  3. [Test de N configs] — [quels params variés]      ║
+║  ...                                                 ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  📊 RÉSULTATS                                        ║
+║                                                      ║
+║  Score AVANT : CV = X.XXXX (std: 0.00XX)             ║
+║  Score APRÈS : CV = Y.YYYY (std: 0.00YY)             ║
+║  GAIN        : +Z.ZZZZ                               ║
+║                                                      ║
+║  Meilleurs hyperparamètres :                         ║
+║    • learning_rate : X.XXX                           ║
+║    • num_leaves : XX                                 ║
+║    • [etc.]                                          ║
+║                                                      ║
+║  Trials : N total, M améliorants                     ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  ⚠️ OBSERVATIONS                                    ║
+║                                                      ║
+║  • [Risque d'overfitting ? sensibilité aux params ?] ║
+║  • [Params qui ont le plus d'impact]                 ║
+║  • [Params qui n'ont pas d'effet]                    ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  ➡️ PROCHAINES ÉTAPES                                ║
+║                                                      ║
+║  1. [Action] — [pourquoi]                            ║
+║  2. [Action] — [pourquoi]                            ║
+║  3. [Action] — [pourquoi]                            ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  📁 Rapport : reports/optimizer/...                  ║
+║  📁 Config  : configs/<model>_optimized.yaml         ║
+╚══════════════════════════════════════════════════════╝
 ```
 
-NE JAMAIS terminer sans avoir sauvegardé le rapport. C'est ta dernière action OBLIGATOIRE.
+### 2. Sauvegarder le rapport et la config
+
+1. Créer le dossier si nécessaire : `reports/optimizer/`
+2. Sauvegarder le rapport dans : `reports/optimizer/YYYY-MM-DD_<description>.md`
+3. Sauvegarder les meilleurs params dans : `configs/<model>_optimized.yaml`
+
+NE JAMAIS terminer sans avoir affiché le résumé ET sauvegardé le rapport + config. Ce sont tes dernières actions OBLIGATOIRES.

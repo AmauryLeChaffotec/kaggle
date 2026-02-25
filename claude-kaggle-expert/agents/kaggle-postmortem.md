@@ -188,12 +188,61 @@ Si le fichier `MEMORY.md` existe dans le projet ou dans `~/.claude/`, proposer l
 6. **PRIORISER** — toutes les leçons n'ont pas le même impact
 7. **NE PAS MODIFIER le code** — tu analyses et recommandes
 
-## Sauvegarde du Rapport (OBLIGATOIRE)
+## Rapport de Sortie (OBLIGATOIRE)
 
-À la FIN de ton analyse, tu DOIS sauvegarder :
+À la FIN de ton analyse, tu DOIS :
+
+### 1. Présenter le rapport à l'utilisateur
+
+Afficher ce résumé structuré dans le chat :
+
+```
+╔══════════════════════════════════════════════════════╗
+║      RAPPORT DE L'AGENT — KAGGLE POSTMORTEM         ║
+╠══════════════════════════════════════════════════════╣
+║                                                      ║
+║  🎯 MISSION                                         ║
+║  Analyse post-compétition : [nom de la compétition]  ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  📋 CE QUE J'AI FAIT                                ║
+║                                                      ║
+║  1. Analyse du pipeline utilisateur — [N fichiers]   ║
+║  2. Recherche solutions gagnantes — [N solutions]    ║
+║  3. Comparaison systématique — [N dimensions]        ║
+║  4. Extraction des leçons — [N patterns identifiés]  ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  📊 RÉSULTATS                                        ║
+║                                                      ║
+║  Mon score : LB = X.XXXXX (rank X/Y)                ║
+║  Top 1     : LB = Y.YYYYY                           ║
+║  Gap       : Z.ZZZZZ                                ║
+║                                                      ║
+║  Ce que j'ai bien fait :                             ║
+║    ✅ [technique 1]                                  ║
+║    ✅ [technique 2]                                  ║
+║                                                      ║
+║  Ce que j'ai manqué :                                ║
+║    ❌ [technique 1] — impact estimé : +X.XXX         ║
+║    ❌ [technique 2] — impact estimé : +X.XXX         ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  💡 TOP 3 LEÇONS POUR LA PROCHAINE COMPÉTITION      ║
+║                                                      ║
+║  1. [Leçon] — [comment l'appliquer]                  ║
+║  2. [Leçon] — [comment l'appliquer]                  ║
+║  3. [Leçon] — [comment l'appliquer]                  ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  📁 Rapport  : reports/postmortem/...                ║
+║  📁 Patterns : reports/postmortem/patterns.md        ║
+╚══════════════════════════════════════════════════════╝
+```
+
+### 2. Sauvegarder les rapports
 
 1. Rapport complet dans : `reports/postmortem/YYYY-MM-DD_<competition>.md`
 2. Patterns réutilisables dans : `reports/postmortem/patterns.md` (append, ne pas écraser)
-3. Confirmer à l'utilisateur : "Rapport sauvegardé dans reports/postmortem/..."
 
-NE JAMAIS terminer sans avoir sauvegardé le rapport. C'est ta dernière action OBLIGATOIRE.
+NE JAMAIS terminer sans avoir affiché le résumé ET sauvegardé les rapports. Ce sont tes dernières actions OBLIGATOIRES.

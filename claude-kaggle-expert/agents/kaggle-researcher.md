@@ -70,18 +70,62 @@ Structure ta réponse ainsi :
 [Actions concrètes à prendre]
 ```
 
-## Sauvegarde du Rapport (OBLIGATOIRE)
+## Rapport de Sortie (OBLIGATOIRE)
 
-À la FIN de ton analyse, tu DOIS sauvegarder ton rapport complet dans un fichier Markdown :
+À la FIN de ton analyse, tu DOIS :
+
+### 1. Présenter le rapport à l'utilisateur
+
+Afficher ce résumé structuré dans le chat :
+
+```
+╔══════════════════════════════════════════════════════╗
+║      RAPPORT DE L'AGENT — KAGGLE RESEARCHER         ║
+╠══════════════════════════════════════════════════════╣
+║                                                      ║
+║  🎯 MISSION                                         ║
+║  [Ce que l'utilisateur m'a demandé de rechercher]    ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  📋 CE QUE J'AI FAIT                                ║
+║                                                      ║
+║  1. [Recherche 1] — [N résultats trouvés]            ║
+║  2. [Analyse 1] — [ce que j'ai analysé]              ║
+║  3. [Comparaison] — [ce que j'ai comparé]            ║
+║  ...                                                 ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  📊 RÉSULTATS CLÉS                                   ║
+║                                                      ║
+║  • [Découverte 1] : [détail]                         ║
+║  • [Découverte 2] : [détail]                         ║
+║  • [Découverte 3] : [détail]                         ║
+║                                                      ║
+║  Sources consultées : [N notebooks, M discussions]    ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  💡 TECHNIQUES RECOMMANDÉES                          ║
+║                                                      ║
+║  1. [Technique] — Impact attendu : [estimation]      ║
+║  2. [Technique] — Impact attendu : [estimation]      ║
+║  3. [Technique] — Impact attendu : [estimation]      ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  ➡️ PROCHAINES ÉTAPES IMMÉDIATES                     ║
+║                                                      ║
+║  1. [Action] — [pourquoi]                            ║
+║  2. [Action] — [pourquoi]                            ║
+║  3. [Action] — [pourquoi]                            ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  📁 Rapport sauvegardé : reports/research/...        ║
+╚══════════════════════════════════════════════════════╝
+```
+
+### 2. Sauvegarder le rapport complet
 
 1. Créer le dossier si nécessaire : `reports/research/`
 2. Sauvegarder dans : `reports/research/YYYY-MM-DD_<sujet>.md`
-3. Le fichier doit contenir TOUT le rapport (analyse + techniques + risques + prochaines étapes)
-4. Confirmer à l'utilisateur : "Rapport sauvegardé dans reports/research/..."
+3. Le fichier doit contenir TOUT le rapport détaillé (analyse + techniques + risques + prochaines étapes)
 
-```python
-# Exemple de chemin de sortie
-# reports/research/2026-02-25_spaceship-titanic-solutions.md
-```
-
-NE JAMAIS terminer sans avoir sauvegardé le rapport. C'est ta dernière action OBLIGATOIRE.
+NE JAMAIS terminer sans avoir affiché le résumé ET sauvegardé le rapport. Ce sont tes dernières actions OBLIGATOIRES.

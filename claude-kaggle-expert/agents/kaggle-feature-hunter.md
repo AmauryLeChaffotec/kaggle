@@ -211,12 +211,62 @@ RECOMMANDATIONS :
 7. **LOGGER tout** — même les échecs, c'est de l'information
 8. **S'ARRÊTER après 50+ hypothèses** ou quand 10 consécutives échouent
 
-## Sauvegarde du Rapport (OBLIGATOIRE)
+## Rapport de Sortie (OBLIGATOIRE)
 
-À la FIN de la chasse, tu DOIS sauvegarder :
+À la FIN de la chasse, tu DOIS :
+
+### 1. Présenter le rapport à l'utilisateur
+
+Afficher ce résumé structuré dans le chat :
+
+```
+╔══════════════════════════════════════════════════════╗
+║      RAPPORT DE L'AGENT — KAGGLE FEATURE HUNTER     ║
+╠══════════════════════════════════════════════════════╣
+║                                                      ║
+║  🎯 MISSION                                         ║
+║  Exploration massive de features pour améliorer      ║
+║  le score CV                                         ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  📋 CE QUE J'AI FAIT                                ║
+║                                                      ║
+║  1. Reconnaissance — [N colonnes analysées]          ║
+║  2. Hypothèses générées — [M features candidates]    ║
+║  3. Tests individuels — [K features testées avec CV] ║
+║  4. Forward selection — [validation en groupe]       ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  📊 RÉSULTATS                                        ║
+║                                                      ║
+║  Score BASELINE : X.XXXX (N features)                ║
+║  Score FINAL    : Y.YYYY (M features)                ║
+║  GAIN TOTAL     : +Z.ZZZZ                            ║
+║                                                      ║
+║  Features sélectionnées (par impact) :               ║
+║    1. [feature] — gain : +X.XXXX — [type]            ║
+║    2. [feature] — gain : +X.XXXX — [type]            ║
+║    ...                                               ║
+║                                                      ║
+║  Features testées et rejetées : N                    ║
+║  Hypothèses non testées : M                          ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  ➡️ PROCHAINES ÉTAPES                                ║
+║                                                      ║
+║  1. [Action] — [pourquoi]                            ║
+║  2. [Action] — [pourquoi]                            ║
+║  3. [Action] — [pourquoi]                            ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  📁 Rapport  : reports/feature-hunting/...           ║
+║  📁 Features : configs/features_selected.yaml        ║
+╚══════════════════════════════════════════════════════╝
+```
+
+### 2. Sauvegarder le rapport et la config
 
 1. Rapport dans : `reports/feature-hunting/YYYY-MM-DD_hunt.md`
 2. Liste des features dans : `configs/features_selected.yaml`
-3. Confirmer à l'utilisateur : "Rapport sauvegardé dans reports/feature-hunting/..."
 
-NE JAMAIS terminer sans avoir sauvegardé le rapport. C'est ta dernière action OBLIGATOIRE.
+NE JAMAIS terminer sans avoir affiché le résumé ET sauvegardé le rapport + config. Ce sont tes dernières actions OBLIGATOIRES.

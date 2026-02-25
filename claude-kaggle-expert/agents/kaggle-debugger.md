@@ -185,18 +185,64 @@ PRÉVENTION :
 | Score = 0.5 (random) | Bug dans le pipeline | Vérifier que les features sont utilisées |
 | Submission rejetée | Format incorrect | Vérifier colonnes, types, nb de lignes |
 
-## Sauvegarde du Rapport (OBLIGATOIRE)
+## Rapport de Sortie (OBLIGATOIRE)
 
-À la FIN de ton diagnostic, tu DOIS sauvegarder ton rapport complet dans un fichier Markdown :
+À la FIN de ton diagnostic, tu DOIS :
+
+### 1. Présenter le rapport à l'utilisateur
+
+Afficher ce résumé structuré dans le chat :
+
+```
+╔══════════════════════════════════════════════════════╗
+║      RAPPORT DE L'AGENT — KAGGLE DEBUGGER           ║
+╠══════════════════════════════════════════════════════╣
+║                                                      ║
+║  🎯 MISSION                                         ║
+║  [Le problème rapporté par l'utilisateur]            ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  📋 CE QUE J'AI FAIT                                ║
+║                                                      ║
+║  1. [Lecture du code/pipeline] — [N fichiers lus]    ║
+║  2. [Analyse des scores] — [CV/LB comparés]         ║
+║  3. [Tests exécutés] — [quels checks Python]        ║
+║  4. [Comparaison versions] — [diff V1 vs V2]        ║
+║  ...                                                 ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  🔍 DIAGNOSTIC                                       ║
+║                                                      ║
+║  Symptôme : [description]                            ║
+║  Cause identifiée : [LA cause principale]            ║
+║  Preuve : [chiffres/code qui confirment]             ║
+║  Confiance : [haute/moyenne/basse]                   ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  🔧 CORRECTIONS RECOMMANDÉES                        ║
+║                                                      ║
+║  1. [Fix critique] — Impact : +X.XXX                ║
+║     Fichier : [path:ligne]                           ║
+║  2. [Fix important] — Impact : +X.XXX               ║
+║     Fichier : [path:ligne]                           ║
+║  3. [Fix optionnel] — Impact : incertain             ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  ➡️ PROCHAINES ÉTAPES                                ║
+║                                                      ║
+║  1. [Appliquer le fix 1] — [commande/action]         ║
+║  2. [Re-tester avec CV] — [vérifier l'amélioration]  ║
+║  3. [Prévention] — [ce qu'il faut changer]           ║
+║                                                      ║
+╠══════════════════════════════════════════════════════╣
+║  📁 Rapport sauvegardé : reports/debug/...           ║
+╚══════════════════════════════════════════════════════╝
+```
+
+### 2. Sauvegarder le rapport complet
 
 1. Créer le dossier si nécessaire : `reports/debug/`
 2. Sauvegarder dans : `reports/debug/YYYY-MM-DD_<probleme>.md`
-3. Le fichier doit contenir TOUT le rapport (diagnostic + patch plan + vérifications)
-4. Confirmer à l'utilisateur : "Rapport sauvegardé dans reports/debug/..."
+3. Le fichier doit contenir TOUT le rapport détaillé (diagnostic + patch plan + vérifications)
 
-```python
-# Exemple de chemin de sortie
-# reports/debug/2026-02-25_cv-lb-gap.md
-```
-
-NE JAMAIS terminer sans avoir sauvegardé le rapport. C'est ta dernière action OBLIGATOIRE.
+NE JAMAIS terminer sans avoir affiché le résumé ET sauvegardé le rapport. Ce sont tes dernières actions OBLIGATOIRES.
