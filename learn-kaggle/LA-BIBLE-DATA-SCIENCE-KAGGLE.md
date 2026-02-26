@@ -1,646 +1,661 @@
-# La Bible de la Data Science & du Machine Learning pour Kaggle
+# LA BIBLE DE LA DATA SCIENCE & IA POUR KAGGLE
 
-> Guide complet, étape par étape, pour passer de zéro à compétiteur Kaggle. Basé sur l'intégralité des cours et guides Kaggle Learn.
-
----
-
-## Table des Matières
-
-- **[PARTIE 1 : LES FONDATIONS PYTHON](#partie-1--les-fondations-python)**
-  - [Chapitre 1 : Python Essentiel](#chapitre-1--python-essentiel)
-  - [Chapitre 2 : Pandas - Maîtriser ses Données](#chapitre-2--pandas--maîtriser-ses-données)
-  - [Chapitre 3 : Visualisation des Données](#chapitre-3--visualisation-des-données)
-- **[PARTIE 2 : PRÉPARER SES DONNÉES](#partie-2--préparer-ses-données)**
-  - [Chapitre 4 : Nettoyage des Données](#chapitre-4--nettoyage-des-données)
-  - [Chapitre 5 : Feature Engineering](#chapitre-5--feature-engineering)
-- **[PARTIE 3 : MACHINE LEARNING](#partie-3--machine-learning)**
-  - [Chapitre 6 : Introduction au Machine Learning](#chapitre-6--introduction-au-machine-learning)
-  - [Chapitre 7 : Machine Learning Intermédiaire](#chapitre-7--machine-learning-intermédiaire)
-  - [Chapitre 8 : Comprendre ses Modèles (Explainability)](#chapitre-8--comprendre-ses-modèles-explainability)
-- **[PARTIE 4 : DEEP LEARNING](#partie-4--deep-learning)**
-  - [Chapitre 9 : Introduction au Deep Learning](#chapitre-9--introduction-au-deep-learning)
-  - [Chapitre 10 : Computer Vision](#chapitre-10--computer-vision)
-  - [Chapitre 11 : Séries Temporelles](#chapitre-11--séries-temporelles)
-- **[PARTIE 5 : RÉUSSIR SUR KAGGLE](#partie-5--réussir-sur-kaggle)**
-  - [Chapitre 12 : Stratégie de Compétition](#chapitre-12--stratégie-de-compétition)
-  - [Chapitre 13 : Le Pipeline Complet de A à Z](#chapitre-13--le-pipeline-complet-de-a-à-z)
-- **[ANNEXES](#annexes)**
-  - [Cheat Sheets](#cheat-sheets)
-  - [Parcours d'Apprentissage Recommandés](#parcours-dapprentissage-recommandés)
+> Guide complet, étape par étape, pour maîtriser le Machine Learning et réussir les compétitions Kaggle.
+> Basé sur l'ensemble des cours Kaggle Learn + les guides avancés.
 
 ---
 
-# PARTIE 1 : LES FONDATIONS PYTHON
+## TABLE DES MATIÈRES
 
-Avant de faire du Machine Learning, il faut maîtriser les outils. Python est LE langage de la data science. Pandas est LA librairie pour manipuler les données. Seaborn est LA librairie pour les visualiser.
+- [PARTIE 1 - Les Fondations Python](#partie-1---les-fondations-python)
+- [PARTIE 2 - Maîtriser Pandas (Manipulation de Données)](#partie-2---maîtriser-pandas-manipulation-de-données)
+- [PARTIE 3 - Exploration & Visualisation des Données (EDA)](#partie-3---exploration--visualisation-des-données-eda)
+- [PARTIE 4 - Nettoyage & Préparation des Données](#partie-4---nettoyage--préparation-des-données)
+- [PARTIE 5 - Ton Premier Modèle de Machine Learning](#partie-5---ton-premier-modèle-de-machine-learning)
+- [PARTIE 6 - Machine Learning Intermédiaire](#partie-6---machine-learning-intermédiaire)
+- [PARTIE 7 - Feature Engineering (Créer des Variables)](#partie-7---feature-engineering-créer-des-variables)
+- [PARTIE 8 - Deep Learning (Réseaux de Neurones)](#partie-8---deep-learning-réseaux-de-neurones)
+- [PARTIE 9 - Computer Vision (Images & CNN)](#partie-9---computer-vision-images--cnn)
+- [PARTIE 10 - NLP (Traitement du Langage Naturel)](#partie-10---nlp-traitement-du-langage-naturel)
+- [PARTIE 11 - Interpréter & Expliquer ses Modèles](#partie-11---interpréter--expliquer-ses-modèles)
+- [PARTIE 12 - Stratégie Compétitions Kaggle](#partie-12---stratégie-compétitions-kaggle)
+- [ANNEXES - Cheat Sheets & Templates](#annexes---cheat-sheets--templates)
 
 ---
 
-## Chapitre 1 : Python Essentiel
+# PARTIE 1 - Les Fondations Python
 
-### 1.1 Variables et Arithmétique
+> **Objectif** : Maîtriser les bases de Python nécessaires pour la Data Science.
+> **Sources** : `Python/`, `Intro to Programming/`
 
-Python n'a pas besoin de déclarer les types. Une variable est créée dès qu'on lui assigne une valeur.
+## 1.1 Variables et Types
+
+Python est un langage **dynamiquement typé** : pas besoin de déclarer le type d'une variable.
 
 ```python
-# Assigner des variables
-age = 25
-prix = 19.95
-nom = "Kaggle"
+# Les variables se créent simplement par assignation
+nom = "Alice"          # str (chaîne de caractères)
+age = 25               # int (entier)
+taille = 1.75          # float (décimal)
+est_etudiant = True    # bool (booléen)
 
-# Vérifier le type
-type(age)    # int
-type(prix)   # float
-type(nom)    # str
+# Vérifier le type d'une variable
+type(age)      # <class 'int'>
+type(taille)   # <class 'float'>
+
+# Conversion de types
+float(10)      # 10.0
+int(3.99)      # 3 (tronqué, pas arrondi)
+str(42)        # "42"
+int("807")     # 807
 ```
 
-**Les opérateurs arithmétiques :**
-
-| Opérateur | Nom | Exemple | Résultat |
-|-----------|-----|---------|----------|
-| `+` | Addition | `3 + 2` | `5` |
-| `-` | Soustraction | `3 - 2` | `1` |
-| `*` | Multiplication | `3 * 2` | `6` |
-| `/` | Division | `5 / 2` | `2.5` |
-| `//` | Division entière | `5 // 2` | `2` |
-| `%` | Modulo (reste) | `5 % 2` | `1` |
-| `**` | Puissance | `2 ** 3` | `8` |
-
-> **Piège courant :** `/` retourne toujours un `float` (même `6/2` donne `3.0`). Utilisez `//` pour obtenir un entier.
-
-**Fonctions numériques intégrées :**
+## 1.2 Opérateurs Arithmétiques
 
 ```python
-min(1, 2, 3)    # 1
-max(1, 2, 3)    # 3
-abs(-32)        # 32
+a + b      # Addition
+a - b      # Soustraction
+a * b      # Multiplication
+a / b      # Division (renvoie TOUJOURS un float)
+a // b     # Division entière (arrondi vers le bas)
+a % b      # Modulo (reste de la division)
+a ** b     # Puissance
+
+# Exemples
+print(5 / 2)    # 2.5 (float)
+print(5 // 2)   # 2   (int)
+print(7 % 3)    # 1   (reste)
+print(2 ** 10)  # 1024
+
+# Fonctions numériques intégrées
+min(1, 5, 3)    # 1
+max(1, 5, 3)    # 5
+abs(-42)        # 42
 round(3.14159, 2)  # 3.14
-int("807")      # 807 (conversion string -> int)
-float(10)       # 10.0
 ```
 
-### 1.2 Fonctions
+> **Attention** : Respecte l'ordre des opérations (PEMDAS). Utilise des parenthèses pour être explicite :
+> `(hat_cm + height_cm) / 100` et non `hat_cm + height_cm / 100`
+
+## 1.3 Fonctions
 
 ```python
-def calculer_prix_total(prix_ht, tva=0.20):
-    """Calcule le prix TTC à partir du prix HT et du taux de TVA.
+# Définir une fonction avec def + return + docstring
+def calculer_ecart_min(a, b, c):
+    """Retourne le plus petit écart entre deux nombres parmi a, b, c.
 
-    Args:
-        prix_ht: Prix hors taxes
-        tva: Taux de TVA (défaut: 20%)
-
-    Returns:
-        Prix TTC
+    >>> calculer_ecart_min(1, 5, -5)
+    4
     """
-    return prix_ht * (1 + tva)
+    ecart1 = abs(a - b)
+    ecart2 = abs(b - c)
+    ecart3 = abs(a - c)
+    return min(ecart1, ecart2, ecart3)
 
-# Utilisation
-calculer_prix_total(100)          # 120.0 (TVA par défaut 20%)
-calculer_prix_total(100, tva=0.055)  # 105.5 (TVA réduite)
+# Appel
+resultat = calculer_ecart_min(10, 20, 15)  # 5
+
+# Arguments par défaut
+def saluer(nom="Monde"):
+    print(f"Bonjour, {nom} !")
+
+saluer()          # Bonjour, Monde !
+saluer("Alice")   # Bonjour, Alice !
 ```
 
-**Points clés :**
-- Toujours écrire un **docstring** pour documenter la fonction.
-- Une fonction sans `return` retourne `None`.
-- Utiliser `help(fonction)` pour voir la documentation de n'importe quelle fonction.
+**`help()` est ton meilleur ami** :
 
 ```python
-help(round)  # Affiche la documentation de round()
+help(round)    # Affiche la documentation de la fonction round
+help(len)      # Affiche la documentation de len
 ```
 
-### 1.3 Conditions et Booléens
+> **Règle d'or** : Toujours écrire des docstrings pour tes fonctions. `help()` affichera ta docstring.
 
-```python
-# Opérateurs de comparaison
-3 == 3    # True
-3 != 4    # True
-3 < 5     # True
-3 >= 3    # True
-
-# Combiner avec and, or, not
-age = 25
-a_permis = True
-
-peut_conduire = (age >= 18) and a_permis  # True
-
-# Structure if/elif/else
-def classifier_age(age):
-    if age < 13:
-        return "enfant"
-    elif age < 18:
-        return "adolescent"
-    elif age < 65:
-        return "adulte"
-    else:
-        return "senior"
-```
-
-> **Valeurs "truthy" et "falsey" :** `0`, `""`, `[]`, `None` sont considérés comme `False`. Tout le reste est `True`.
-
-### 1.4 Listes et Tuples
+## 1.4 Listes et Tuples
 
 ```python
 # Créer une liste
-planetes = ['Mercure', 'Venus', 'Terre', 'Mars']
+planetes = ['Mercure', 'Vénus', 'Terre', 'Mars', 'Jupiter', 'Saturne']
 
-# Accéder aux éléments (index commence à 0)
+# Indexation (commence à 0)
 planetes[0]     # 'Mercure' (premier)
-planetes[-1]    # 'Mars' (dernier)
-planetes[1:3]   # ['Venus', 'Terre'] (du 2e au 3e, 3e exclu)
+planetes[-1]    # 'Saturne' (dernier)
+planetes[-2]    # 'Jupiter' (avant-dernier)
 
-# Modifier
-planetes.append('Jupiter')  # Ajouter à la fin
-planetes.pop()              # Retirer le dernier -> 'Jupiter'
-planetes[0] = 'Mercury'     # Remplacer
+# Slicing (start:stop, stop EXCLU)
+planetes[0:3]   # ['Mercure', 'Vénus', 'Terre']
+planetes[:3]    # pareil
+planetes[3:]    # ['Mars', 'Jupiter', 'Saturne']
+planetes[-2:]   # ['Jupiter', 'Saturne']
 
 # Fonctions utiles
-len(planetes)       # 4
-sorted(planetes)    # Tri alphabétique (nouvelle liste)
-'Terre' in planetes # True
+len(planetes)         # 6
+sorted(planetes)      # tri alphabétique (nouvelle liste)
+sum([2, 3, 5, 7])     # 17
 
-# Tuples (immutables - ne peuvent pas être modifiés)
-coordonnees = (48.8566, 2.3522)  # Paris
-lat, lon = coordonnees  # Unpacking
+# Méthodes de liste
+planetes.append('Neptune')       # ajouter à la fin
+planetes.pop()                   # retirer et retourner le dernier
+planetes.index('Terre')          # 2 (position)
+'Mars' in planetes               # True (test d'appartenance)
+
+# Tuples : comme les listes mais IMMUABLES
+coordonnees = (48.8566, 2.3522)
+lat, lon = coordonnees           # déballage de tuple
 
 # Astuce : échanger deux variables
 a, b = b, a
 ```
 
-### 1.5 Boucles et List Comprehensions
+## 1.5 Boucles et List Comprehensions
 
 ```python
 # Boucle for
 for planete in planetes:
     print(planete)
 
-# Boucle avec range
-for i in range(5):  # 0, 1, 2, 3, 4
-    print(i)
+# range() pour les séquences numériques
+for i in range(5):
+    print(i)   # 0, 1, 2, 3, 4
 
-# LIST COMPREHENSION - La syntaxe signature de Python
-# Structure: [EXPRESSION for ITEM in ITERABLE if CONDITION]
+# Boucle while
+compteur = 0
+while compteur < 5:
+    print(compteur)
+    compteur += 1
+```
 
-# Exemple simple : carrés de 0 à 9
+**Les List Comprehensions** : syntaxe concise et puissante pour créer des listes.
+
+```python
+# Syntaxe : [expression FOR variable IN itérable IF condition]
+
+# Carrés de 0 à 9
 carres = [n**2 for n in range(10)]
 # [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
 
-# Avec filtre : planètes courtes (< 6 lettres)
-courtes = [p for p in planetes if len(p) < 6]
-# ['Venus', 'Terre', 'Mars']
+# Filtrer : planètes avec un nom court
+courtes = [p for p in planetes if len(p) < 5]
+# ['Mars']
 
-# Transformation + filtre
-courtes_majuscules = [p.upper() for p in planetes if len(p) < 6]
-# ['VENUS', 'TERRE', 'MARS']
+# Transformer + filtrer
+majuscules = [p.upper() for p in planetes if len(p) < 6]
 
-# Astuce : compter avec sum() et bool
-nombres = [3, -1, 5, -2, 0, 7]
-nb_negatifs = sum(n < 0 for n in nombres)  # 2 (True=1, False=0)
+# Compter avec des booléens (True = 1, False = 0)
+def compter_negatifs(nombres):
+    return sum([n < 0 for n in nombres])
+
+compter_negatifs([1, -3, 5, -2, 0])  # 2
 ```
 
-> **Analogie SQL pour les comprehensions :**
-> ```python
-> [p.upper()           # SELECT
->  for p in planetes   # FROM
->  if len(p) < 6]      # WHERE
-> ```
-
-### 1.6 Strings et Dictionnaires
+## 1.6 Strings et Dictionnaires
 
 ```python
-# Méthodes de string essentielles
-texte = "  Hello, World!  "
-texte.strip()          # "Hello, World!" (supprime espaces)
-texte.lower()          # "  hello, world!  "
-texte.upper()          # "  HELLO, WORLD!  "
-texte.split(",")       # ['  Hello', ' World!  ']
-"-".join(['2024', '01', '15'])  # '2024-01-15'
+# Strings (chaînes de caractères)
+message = "Bonjour le monde"
+message.upper()           # "BONJOUR LE MONDE"
+message.lower()           # "bonjour le monde"
+message.split(" ")        # ["Bonjour", "le", "monde"]
+", ".join(["a", "b"])     # "a, b"
+message.replace("monde", "Kaggle")  # "Bonjour le Kaggle"
 
-# Formatage de strings
+# f-strings (formatage moderne)
 nom = "Alice"
-score = 0.9543
-f"Le score de {nom} est {score:.2%}"  # "Le score de Alice est 95.43%"
-f"Valeur: {1234567:,}"               # "Valeur: 1,234,567"
+score = 0.95
+print(f"Le score de {nom} est {score:.2%}")  # "Le score de Alice est 95.00%"
 
-# Dictionnaires (paires clé-valeur)
+# Dictionnaires (clé -> valeur)
 params = {
-    'learning_rate': 0.05,
-    'n_estimators': 1000,
-    'max_depth': 6
+    "n_estimators": 100,
+    "learning_rate": 0.05,
+    "max_depth": 6
 }
-params['learning_rate']          # 0.05
-params['min_samples'] = 20      # Ajouter une clé
-'max_depth' in params            # True
-
-# Dict comprehension
-{p: len(p) for p in planetes}
-# {'Mercure': 7, 'Venus': 5, 'Terre': 5, 'Mars': 4}
-
-# Parcourir un dictionnaire
-for cle, valeur in params.items():
-    print(f"{cle} = {valeur}")
+params["n_estimators"]        # 100
+params["min_samples"] = 5     # ajouter une entrée
+"max_depth" in params         # True
+params.keys()                 # dict_keys([...])
+params.values()               # dict_values([...])
+params.items()                # dict_items([(clé, val), ...])
 ```
 
-### 1.7 Librairies Externes
+## 1.7 Imports et Bibliothèques
 
 ```python
-# Imports standards en data science
-import numpy as np
+# Import standard
+import math
+math.sqrt(16)         # 4.0
+
+# Import avec alias (convention Data Science)
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# JAMAIS faire from numpy import * (risque de collision de noms)
-
-# Explorer un objet inconnu : 3 outils
-type(objet)    # Quel est son type ?
-dir(objet)     # Quelles méthodes a-t-il ?
-help(objet)    # Documentation détaillée
+# Import spécifique
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
 ```
 
 ---
 
-## Chapitre 2 : Pandas - Maîtriser ses Données
+# PARTIE 2 - Maîtriser Pandas (Manipulation de Données)
 
-Pandas est la librairie de manipulation de données la plus utilisée en data science. Tout tourne autour de deux structures : le **DataFrame** (tableau) et la **Series** (colonne).
+> **Objectif** : Savoir charger, explorer, filtrer, transformer et agréger des données.
+> **Source** : `Pandas/`
 
-### 2.1 Charger et Explorer les Données
+## 2.1 Charger et Créer des Données
 
 ```python
 import pandas as pd
 
-# Charger un CSV
-train = pd.read_csv("data/train.csv")
-test = pd.read_csv("data/test.csv")
+# Lire un fichier CSV (la commande la plus utilisée)
+df = pd.read_csv("train.csv")
 
-# Si le CSV a une colonne index (évite "Unnamed: 0")
-df = pd.read_csv("data.csv", index_col=0)
+# IMPORTANT : utiliser index_col pour éviter une colonne "Unnamed: 0"
+df = pd.read_csv("train.csv", index_col=0)
 
-# Premières vérifications TOUJOURS faire
-print(f"Shape: {train.shape}")      # (nombre_lignes, nombre_colonnes)
-train.head()                         # 5 premières lignes
-train.dtypes                         # Types de chaque colonne
-train.describe()                     # Statistiques (count, mean, std, min, 25%, 50%, 75%, max)
-train.info()                         # Résumé complet (types, non-null count, mémoire)
+# Premières vérifications (TOUJOURS faire ça en premier)
+df.shape        # (8693, 14) -> 8693 lignes, 14 colonnes
+df.head()       # 5 premières lignes
+df.dtypes       # type de chaque colonne
+df.info()       # résumé complet (types, non-null, mémoire)
+df.describe()   # statistiques descriptives (count, mean, std, min, max...)
 ```
 
-> **Astuce :** `describe()` donne le `count` pour chaque colonne. Si `count` varie entre colonnes, c'est qu'il y a des valeurs manquantes.
-
-### 2.2 Sélectionner des Données
+**Créer un DataFrame manuellement** :
 
 ```python
-# Sélectionner une colonne (retourne une Series)
-train['Age']
-train.Age          # Équivalent (mais ne marche pas si le nom a des espaces)
+# Depuis un dictionnaire (clés = noms de colonnes)
+pd.DataFrame({
+    'Nom': ['Alice', 'Bob', 'Charlie'],
+    'Age': [25, 30, 35],
+    'Score': [0.95, 0.87, 0.92]
+})
 
-# Sélectionner plusieurs colonnes (retourne un DataFrame)
-train[['Age', 'Name', 'Survived']]
-
-# iloc - Sélection par POSITION (comme un tableau)
-train.iloc[0]           # Première ligne
-train.iloc[0:5, 0:3]   # 5 premières lignes, 3 premières colonnes
-train.iloc[-5:]         # 5 dernières lignes
-
-# loc - Sélection par LABEL (nom de colonne/index)
-train.loc[0, 'Age']                           # Valeur à la ligne 0, colonne 'Age'
-train.loc[:, ['Name', 'Age', 'Survived']]     # Toutes les lignes, colonnes spécifiques
-
-# DIFFÉRENCE CRITIQUE :
-# iloc[0:10] -> lignes 0 à 9 (fin exclue, comme Python)
-# loc[0:10]  -> lignes 0 à 10 (fin INCLUSE)
+# Créer une Series (une seule colonne)
+pd.Series([100, 200, 300], index=['Jan', 'Fev', 'Mar'], name='Ventes')
 ```
 
-### 2.3 Filtrer les Données
+## 2.2 Sélectionner des Données
+
+### Sélection de colonnes
+
+```python
+# Par nom (deux syntaxes)
+df['Age']              # retourne une Series
+df.Age                 # pareil (mais ne marche pas si le nom a des espaces)
+df[['Nom', 'Age']]    # retourne un DataFrame (sous-ensemble de colonnes)
+```
+
+### iloc : sélection par POSITION (comme un tableau)
+
+```python
+df.iloc[0]             # première LIGNE (retourne une Series)
+df.iloc[:, 0]          # première COLONNE
+df.iloc[0:5, 0:3]      # lignes 0-4, colonnes 0-2
+df.iloc[-5:]           # 5 dernières lignes
+
+# IMPORTANT : iloc EXCLUT la borne de fin (comme Python)
+df.iloc[0:3]           # lignes 0, 1, 2 (PAS 3)
+```
+
+### loc : sélection par LABEL (nom d'index/colonne)
+
+```python
+df.loc[0, 'Nom']                    # valeur à l'index 0, colonne 'Nom'
+df.loc[:, ['Nom', 'Age', 'Score']]  # toutes les lignes, 3 colonnes
+
+# IMPORTANT : loc INCLUT la borne de fin (différent de iloc !)
+df.loc[0:3]   # lignes 0, 1, 2, 3 (INCLUT 3)
+```
+
+### Filtrage conditionnel (le plus utilisé)
 
 ```python
 # Condition simple
-femmes = train.loc[train.Sex == 'female']
+df.loc[df.Age > 30]
 
-# Conditions multiples (TOUJOURS mettre des parenthèses)
-riches_survivantes = train.loc[
-    (train.Sex == 'female') & (train.Pclass == 1) & (train.Survived == 1)
-]
+# ET (les deux conditions doivent être vraies)
+df.loc[(df.Age > 25) & (df.Score > 0.90)]
 
-# OU logique
-classe_1_ou_2 = train.loc[(train.Pclass == 1) | (train.Pclass == 2)]
+# OU (au moins une condition vraie)
+df.loc[(df.Age < 25) | (df.Score > 0.95)]
 
-# isin - pour tester l'appartenance à une liste
-premieres_classes = train.loc[train.Pclass.isin([1, 2])]
+# Appartenance à une liste
+df.loc[df.Nom.isin(['Alice', 'Bob'])]
 
-# Filtrer les non-null
-avec_age = train.loc[train.Age.notnull()]
+# Exclure les valeurs manquantes
+df.loc[df.Age.notnull()]
 ```
 
-### 2.4 Statistiques et Transformations
+## 2.3 Fonctions de Résumé et Transformations
 
 ```python
-# Statistiques de base
-train.Age.mean()          # Moyenne
-train.Age.median()        # Médiane
-train.Age.std()           # Écart-type
-train.Survived.unique()   # Valeurs uniques -> array([0, 1])
-train.Pclass.value_counts()  # Comptage par valeur
-train.Pclass.value_counts(normalize=True)  # En proportions
+# Statistiques rapides
+df.Age.mean()           # moyenne
+df.Age.median()         # médiane
+df.Age.std()            # écart-type
+df.Age.min()            # minimum
+df.Age.max()            # maximum
+df.Nom.unique()         # valeurs uniques
+df.Nom.nunique()        # nombre de valeurs uniques
+df.Nom.value_counts()   # comptage de chaque valeur (trié décroissant)
 
-# map() - Transformer une colonne élément par élément
-train['Age_bin'] = train.Age.map(lambda x: 'enfant' if x < 18 else 'adulte')
-
-# apply() - Transformer ligne par ligne
-def extraire_titre(row):
-    return row['Name'].split(',')[1].split('.')[0].strip()
-
-train['Title'] = train.apply(extraire_titre, axis='columns')
-
-# OPÉRATIONS VECTORISÉES (plus rapide que map/apply)
-train['Age_normalized'] = (train.Age - train.Age.mean()) / train.Age.std()
-train['Famille'] = train.SibSp + train.Parch  # Addition de colonnes
+# describe() : résumé automatique selon le type
+df.Age.describe()       # count, mean, std, min, 25%, 50%, 75%, max
+df.Nom.describe()       # count, unique, top, freq
 ```
 
-> **Règle d'or :** Préférez TOUJOURS les opérations vectorisées à `map()` et `apply()`. Elles sont 10 à 100x plus rapides.
-
-### 2.5 Grouper et Agréger
+**Transformer des colonnes** :
 
 ```python
-# GroupBy : diviser-appliquer-combiner
-train.groupby('Pclass')['Survived'].mean()
-# Pclass
-# 1    0.629630
-# 2    0.472826
-# 3    0.242363
+# Vectorisé (RAPIDE, toujours préférer ça)
+df['Age_double'] = df.Age * 2
+df['Nom_majuscule'] = df.Nom.str.upper()
+df['Combinaison'] = df.Nom + " - " + df.Age.astype(str)
 
-# Plusieurs agrégations en une fois avec agg()
-train.groupby('Pclass')['Age'].agg(['count', 'mean', 'min', 'max'])
+# map() : transformer chaque élément d'une Series
+df.Score.map(lambda x: "Bon" if x > 0.9 else "Moyen")
+
+# apply() : transformer chaque LIGNE d'un DataFrame
+def categoriser(row):
+    if row.Age > 30 and row.Score > 0.9:
+        return "Senior Expert"
+    return "Autre"
+
+df['Categorie'] = df.apply(categoriser, axis=1)  # axis=1 = par ligne
+```
+
+> **Règle de performance** : Utilise les opérations vectorisées (`df.col * 2`) plutôt que `map()`/`apply()` chaque fois que c'est possible. C'est beaucoup plus rapide.
+
+## 2.4 Groupby et Tri
+
+```python
+# groupby : agréger par catégorie (split-apply-combine)
+df.groupby('Categorie').Score.mean()      # score moyen par catégorie
+df.groupby('Categorie').Age.count()       # nombre par catégorie
+
+# Plusieurs agrégations à la fois
+df.groupby('Categorie').Score.agg(['count', 'mean', 'min', 'max'])
 
 # Grouper par plusieurs colonnes
-train.groupby(['Pclass', 'Sex'])['Survived'].mean()
+df.groupby(['Categorie', 'Nom']).Score.mean()
 
-# Si le résultat a un MultiIndex, aplatir avec reset_index()
-resultat = train.groupby(['Pclass', 'Sex'])['Survived'].mean().reset_index()
+# reset_index() : remettre les groupes en colonnes normales
+resultat = df.groupby('Categorie').Score.mean().reset_index()
 
-# Trier les résultats
-resultat.sort_values('Survived', ascending=False)
+# Trier
+df.sort_values(by='Score', ascending=False)            # tri décroissant
+df.sort_values(by=['Categorie', 'Score'])               # tri multi-colonnes
 ```
 
-### 2.6 Valeurs Manquantes
+## 2.5 Valeurs Manquantes et Types
 
 ```python
-# Compter les valeurs manquantes
-train.isnull().sum()
-# Age       177
-# Cabin     687
-# Embarked    2
+# Détecter les valeurs manquantes
+df.isnull().sum()           # nombre de NaN par colonne
+df.Age.isnull()             # booléen par ligne
 
-# Pourcentage de valeurs manquantes
-(train.isnull().sum() / len(train) * 100).round(1)
-
-# Remplir avec une valeur
-train['Age'].fillna(train['Age'].median(), inplace=True)
-train['Embarked'].fillna('S', inplace=True)  # Mode (valeur la plus fréquente)
+# Remplir les valeurs manquantes
+df.Age.fillna(0)                     # remplir par 0
+df.Age.fillna(df.Age.median())       # remplir par la médiane
+df.fillna(method='ffill')            # forward fill (propagation avant)
 
 # Supprimer les lignes avec des NaN
-train.dropna()               # Supprime TOUTES les lignes avec au moins un NaN
-train.dropna(subset=['Age']) # Supprime seulement si Age est NaN
+df.dropna()                # supprime toute ligne avec au moins un NaN
+df.dropna(subset=['Age'])  # supprime seulement si NaN dans Age
 
-# Supprimer les colonnes avec trop de NaN
-train.drop('Cabin', axis=1, inplace=True)
+# Changer le type
+df.Age.astype('float64')
+df.Score.astype('int')
+
+# Remplacer des valeurs
+df.Nom.replace('Alice', 'Alicia')
 ```
 
-### 2.7 Types et Conversions
+## 2.6 Fusionner et Combiner
 
 ```python
-# Vérifier les types
-train.dtypes
-# PassengerId      int64
-# Name            object   <- Les strings sont "object" en pandas
-# Age            float64
-# Survived         int64
+# Concaténer (empiler des DataFrames)
+pd.concat([df1, df2])                 # empiler verticalement
+pd.concat([df1, df2], axis=1)         # coller côte à côte
 
-# Convertir
-train['Pclass'] = train['Pclass'].astype('category')
-train['Age'] = train['Age'].astype('int32')  # Après avoir rempli les NaN
+# Merge (jointure comme en SQL)
+pd.merge(df_gauche, df_droite, on='id_commun')
+pd.merge(df_gauche, df_droite, on='id', how='left')   # left join
+pd.merge(df_gauche, df_droite, on='id', how='inner')  # inner join
 ```
-
-### 2.8 Combiner des DataFrames
-
-```python
-# concat - Empiler verticalement (mêmes colonnes)
-combined = pd.concat([train, test])
-
-# merge - Joindre comme en SQL
-df = pd.merge(train, infos_pays, on='Country', how='left')
-
-# join - Joindre sur l'index
-left.join(right, lsuffix='_train', rsuffix='_test')
-```
-
-### Aide-mémoire Pandas
-
-| Tâche | Code |
-|-------|------|
-| Charger CSV | `pd.read_csv("fichier.csv", index_col=0)` |
-| Aperçu | `df.head()`, `df.shape`, `df.dtypes` |
-| Sélection colonne | `df['col']` |
-| Sélection position | `df.iloc[ligne, colonne]` |
-| Sélection label | `df.loc[ligne, 'nom_col']` |
-| Filtrer | `df.loc[(cond1) & (cond2)]` |
-| Statistiques | `df.col.describe()`, `.mean()`, `.value_counts()` |
-| Transformation | `df.col.map(func)` ou opérations vectorisées |
-| Grouper | `df.groupby('col').agg(['mean', 'count'])` |
-| Trier | `df.sort_values('col', ascending=False)` |
-| Manquants | `df.isnull().sum()`, `df.fillna(valeur)` |
-| Renommer | `df.rename(columns={'ancien': 'nouveau'})` |
-| Combiner | `pd.concat([df1, df2])`, `pd.merge(df1, df2, on='clé')` |
 
 ---
 
-## Chapitre 3 : Visualisation des Données
+# PARTIE 3 - Exploration & Visualisation des Données (EDA)
 
-La visualisation est essentielle à chaque étape : exploration, feature engineering, évaluation de modèles. Seaborn + Matplotlib sont le duo standard.
+> **Objectif** : Comprendre les données visuellement avant de modéliser.
+> **Source** : `Data Visualization/`
 
-### 3.1 Setup Standard
+## 3.1 Setup (À mettre en haut de chaque notebook)
 
 ```python
 import pandas as pd
+pd.plotting.register_matplotlib_converters()
 import matplotlib.pyplot as plt
+%matplotlib inline
 import seaborn as sns
-%matplotlib inline  # Pour Jupyter notebooks
 
-# Optionnel : changer le thème
-sns.set_style("whitegrid")  # Thèmes: darkgrid, whitegrid, dark, white, ticks
+# Style propre
+sns.set_style("whitegrid")
 ```
 
-### 3.2 Quel Graphique Choisir ?
+## 3.2 Les Graphiques Essentiels
 
-| Objectif | Type de graphique | Commande Seaborn |
-|----------|-------------------|------------------|
-| **Tendance** dans le temps | Ligne | `sns.lineplot(data=df)` |
-| **Comparer** des groupes | Barres | `sns.barplot(x=..., y=...)` |
-| **Patterns** dans un tableau | Heatmap | `sns.heatmap(data=df, annot=True)` |
-| **Relation** entre 2 variables | Scatter | `sns.scatterplot(x=..., y=..., hue=...)` |
-| **Relation** + tendance | Régression | `sns.regplot(x=..., y=...)` |
-| **Distribution** d'une variable | Histogramme | `sns.histplot(data=df, x='col')` |
-| **Distribution** lissée | KDE | `sns.kdeplot(data=df, x='col', fill=True)` |
-| **Distribution** par catégorie | Swarm | `sns.swarmplot(x='cat', y='num', data=df)` |
-
-### 3.3 Exemples Pratiques
+### Line Chart (tendances temporelles)
 
 ```python
-# --- LINE CHART (tendance) ---
 plt.figure(figsize=(14, 6))
 plt.title("Évolution des ventes")
-sns.lineplot(data=ventes_df)
+sns.lineplot(data=df_ventes)  # trace une ligne par colonne
 plt.xlabel("Date")
+plt.ylabel("Ventes")
+plt.show()
 
-# --- BAR CHART (comparaison) ---
-plt.figure(figsize=(10, 6))
-plt.title("Taux de survie par classe")
-sns.barplot(x='Pclass', y='Survived', data=train)
-
-# --- HEATMAP (corrélations) ---
-plt.figure(figsize=(12, 8))
-correlation = train.select_dtypes(include='number').corr()
-sns.heatmap(correlation, annot=True, cmap='coolwarm', center=0)
-
-# --- SCATTER PLOT (relation entre 2 variables) ---
-sns.scatterplot(x='Age', y='Fare', hue='Survived', data=train)
-
-# --- SCATTER + REGRESSION ---
-sns.regplot(x='Age', y='Fare', data=train)
-
-# --- SCATTER multi-groupe ---
-sns.lmplot(x='Age', y='Fare', hue='Pclass', data=train)
-
-# --- HISTOGRAMME ---
-sns.histplot(data=train, x='Age', hue='Survived', bins=30)
-
-# --- KDE (distribution lissée) ---
-sns.kdeplot(data=train, x='Age', hue='Survived', fill=True)
-
-# --- DISTRIBUTION 2D ---
-sns.jointplot(x=train['Age'], y=train['Fare'], kind='kde')
+# Tracer des colonnes spécifiques
+sns.lineplot(data=df['Produit_A'], label="Produit A")
+sns.lineplot(data=df['Produit_B'], label="Produit B")
 ```
 
-### 3.4 Graphiques Essentiels pour l'EDA Kaggle
+### Bar Chart (comparer des catégories)
 
 ```python
-# 1. Distribution de la target
-plt.figure(figsize=(8, 5))
-sns.countplot(x='Survived', data=train)
-plt.title("Distribution de la target")
-
-# 2. Matrice de corrélation
-plt.figure(figsize=(12, 8))
-sns.heatmap(train.corr(numeric_only=True), annot=True, fmt='.2f', cmap='coolwarm')
-
-# 3. Distribution de chaque feature numérique
-fig, axes = plt.subplots(3, 3, figsize=(15, 12))
-for i, col in enumerate(num_cols[:9]):
-    ax = axes[i // 3, i % 3]
-    sns.histplot(train[col], ax=ax, bins=30)
-    ax.set_title(col)
-plt.tight_layout()
-
-# 4. Boxplot pour détecter les outliers
 plt.figure(figsize=(10, 6))
-sns.boxplot(x='Pclass', y='Fare', data=train)
+plt.title("Score moyen par catégorie")
+sns.barplot(x=df.index, y=df['Score'])
+plt.ylabel("Score")
+plt.show()
+```
 
-# 5. Countplot pour les catégorielles
-fig, axes = plt.subplots(1, 3, figsize=(15, 5))
-for i, col in enumerate(['Pclass', 'Sex', 'Embarked']):
-    sns.countplot(x=col, hue='Survived', data=train, ax=axes[i])
+### Heatmap (matrice de valeurs)
+
+```python
+plt.figure(figsize=(14, 7))
+plt.title("Corrélation entre les variables")
+sns.heatmap(data=df.corr(), annot=True, fmt=".2f", cmap="coolwarm")
+plt.show()
+```
+
+> **Astuce** : Les heatmaps de corrélation sont excellentes pour repérer les variables liées entre elles.
+
+### Scatter Plot (relation entre 2 variables)
+
+```python
+# Nuage de points simple
+sns.scatterplot(x=df['Age'], y=df['Revenu'])
+
+# Avec ligne de régression
+sns.regplot(x=df['Age'], y=df['Revenu'])
+
+# Coloré par catégorie
+sns.scatterplot(x=df['Age'], y=df['Revenu'], hue=df['Categorie'])
+
+# Régression séparée par catégorie
+sns.lmplot(x="Age", y="Revenu", hue="Categorie", data=df)
+```
+
+### Distribution (histogramme et KDE)
+
+```python
+# Histogramme
+sns.histplot(df['Age'], bins=30)
+
+# KDE (distribution lissée)
+sns.kdeplot(data=df['Age'], fill=True)
+
+# Comparer les distributions par catégorie
+sns.kdeplot(data=df, x='Age', hue='Categorie', fill=True)
+plt.title("Distribution de l'âge par catégorie")
+```
+
+> **Astuce** : Si les distributions de deux classes sont bien séparées sur une feature, cette feature est probablement un bon prédicteur.
+
+### Quel graphique choisir ?
+
+| Situation | Graphique |
+|-----------|-----------|
+| Tendance dans le temps | `sns.lineplot()` |
+| Comparer des catégories | `sns.barplot()` |
+| Matrice 2D (corrélation, etc.) | `sns.heatmap()` |
+| Relation entre 2 variables continues | `sns.scatterplot()` ou `sns.regplot()` |
+| Distribution d'une variable | `sns.histplot()` ou `sns.kdeplot()` |
+| Distribution par catégorie | `sns.kdeplot(hue=...)` |
+
+## 3.3 L'EDA Complète (Checklist)
+
+Avant de modéliser, TOUJOURS faire cette analyse :
+
+```python
+# 1. Dimensions et premières lignes
+print(f"Shape: {df.shape}")
+df.head()
+
+# 2. Types et valeurs manquantes
+df.info()
+print("\nValeurs manquantes :")
+print(df.isnull().sum().sort_values(ascending=False))
+print(f"\n% manquant total : {df.isnull().sum().sum() / df.size * 100:.1f}%")
+
+# 3. Statistiques descriptives
+df.describe()          # numériques
+df.describe(include='object')  # catégorielles
+
+# 4. Distribution de la target
+sns.histplot(df['target'])
+plt.title("Distribution de la variable cible")
+plt.show()
+
+# 5. Corrélation avec la target
+correlations = df.corr()['target'].sort_values(ascending=False)
+print(correlations)
+
+# 6. Heatmap de corrélation
+plt.figure(figsize=(12, 8))
+sns.heatmap(df.corr(), annot=True, fmt=".2f", cmap="coolwarm")
+plt.show()
 ```
 
 ---
 
-# PARTIE 2 : PRÉPARER SES DONNÉES
+# PARTIE 4 - Nettoyage & Préparation des Données
 
-La qualité des données détermine la qualité du modèle. "Garbage in, garbage out."
+> **Objectif** : Rendre les données propres et exploitables pour un modèle.
+> **Source** : `Data Cleaning/`
 
----
+## 4.1 Gérer les Valeurs Manquantes
 
-## Chapitre 4 : Nettoyage des Données
+**Première question** : La valeur manque parce qu'elle **n'a pas été enregistrée** ou parce qu'elle **n'existe pas** ?
 
-### 4.1 Valeurs Manquantes - Les 3 Stratégies
+- **Pas enregistrée** → imputer (remplir avec une estimation)
+- **N'existe pas** → laisser NaN ou remplir avec "None" / 0
 
 ```python
+import numpy as np
+
+# 1. Diagnostic : combien de valeurs manquantes ?
+missing = df.isnull().sum()
+missing_pct = (missing / len(df)) * 100
+pd.DataFrame({'Manquantes': missing, '%': missing_pct}).sort_values('%', ascending=False)
+
+# 2. Stratégie : Suppression
+df.dropna()                    # supprimer les LIGNES avec NaN (souvent trop agressif)
+df.dropna(axis=1)              # supprimer les COLONNES avec NaN
+
+# 3. Stratégie : Imputation simple
+df['Age'].fillna(df['Age'].median(), inplace=True)  # médiane (numérique)
+df['Ville'].fillna('Inconnu', inplace=True)          # constante (catégorielle)
+df.fillna(method='ffill')                             # propagation avant
+df.fillna(method='bfill')                             # propagation arrière
+
+# 4. Stratégie : Imputation avec sklearn (RECOMMANDÉ pour le ML)
 from sklearn.impute import SimpleImputer
 
-# Stratégie 1 : SUPPRIMER les colonnes (simple mais perd de l'info)
-colonnes_avec_nan = [col for col in X_train.columns if X_train[col].isnull().any()]
-X_reduit = X_train.drop(colonnes_avec_nan, axis=1)
-# MAE typique : 183,550 (pire)
-
-# Stratégie 2 : IMPUTER avec la moyenne (recommandé)
-imputer = SimpleImputer(strategy='mean')  # ou 'median', 'most_frequent'
-X_impute = pd.DataFrame(imputer.fit_transform(X_train))
-X_impute.columns = X_train.columns
-# MAE typique : 178,166 (meilleur)
-
-# Stratégie 3 : IMPUTER + indicateur de valeur manquante
-for col in colonnes_avec_nan:
-    X_train[col + '_manquant'] = X_train[col].isnull()
-X_impute = pd.DataFrame(imputer.fit_transform(X_train))
-# MAE typique : 178,928 (parfois aide, parfois non)
+imputer = SimpleImputer(strategy='median')  # ou 'mean', 'most_frequent', 'constant'
+df_imputed = pd.DataFrame(
+    imputer.fit_transform(df[numerical_cols]),
+    columns=numerical_cols
+)
 ```
 
-> **Règle critique :** TOUJOURS faire `fit_transform()` sur le TRAIN et `transform()` sur le VALIDATION/TEST. Jamais fit sur tout le dataset !
+> **Règle** : Toujours `fit_transform()` sur les données d'entraînement, puis `transform()` sur les données de validation/test. JAMAIS fit sur le test.
+
+## 4.2 Scaling et Normalisation
+
+**Scaling** (mise à l'échelle) : change la PLAGE des valeurs (0-1). La forme de la distribution reste la même.
+
+**Normalisation** : change la FORME de la distribution pour la rendre gaussienne (cloche).
 
 ```python
-imputer = SimpleImputer(strategy='median')
-X_train_imputed = imputer.fit_transform(X_train)   # fit + transform
-X_valid_imputed = imputer.transform(X_valid)        # transform seulement !
-X_test_imputed = imputer.transform(X_test)          # transform seulement !
-```
+# SCALING : MinMaxScaler (ramène entre 0 et 1)
+from sklearn.preprocessing import MinMaxScaler
 
-### 4.2 Mise à l'Échelle et Normalisation
-
-```python
-from sklearn.preprocessing import StandardScaler, MinMaxScaler
-from scipy import stats
-
-# SCALING : change l'échelle (0-1), garde la distribution
 scaler = MinMaxScaler()
-X_scaled = scaler.fit_transform(X_train)
-# Quand : SVM, KNN, réseaux de neurones
+df[['Age', 'Revenu']] = scaler.fit_transform(df[['Age', 'Revenu']])
 
-# STANDARDISATION : moyenne=0, écart-type=1
-scaler = StandardScaler()
-X_standard = scaler.fit_transform(X_train)
-# Quand : régression linéaire, régularisation L1/L2
-
-# NORMALISATION : rend la distribution gaussienne
-# Box-Cox (données strictement positives uniquement)
-data_normalized = stats.boxcox(data_positive)
-# Quand : méthodes qui supposent la normalité (LDA, Naive Bayes)
+# NORMALISATION : Box-Cox (rend la distribution gaussienne)
+from scipy import stats
+normalized_data, lambda_param = stats.boxcox(df['Revenu_positif'])
+# ATTENTION : Box-Cox nécessite des valeurs STRICTEMENT positives
 ```
 
-> Les modèles basés sur les arbres (Random Forest, XGBoost, LightGBM) n'ont **PAS BESOIN** de scaling. Ils ne sont pas sensibles à l'échelle.
+**Quand utiliser quoi ?**
 
-### 4.3 Parser les Dates
+| Algorithme | A besoin de... |
+|-----------|----------------|
+| KNN, SVM | **Scaling** (sensible aux distances) |
+| Régression linéaire | Scaling aide |
+| Naive Bayes Gaussien, LDA | **Normalisation** (suppose une distribution gaussienne) |
+| Arbres (RF, XGBoost) | **Rien** (insensible à l'échelle) |
+
+## 4.3 Parser les Dates
 
 ```python
-# Les dates sont souvent chargées comme des strings
-df['date'].dtype  # object (string)
+# Convertir une colonne string en datetime
+df['date'] = pd.to_datetime(df['date'], format="%m/%d/%Y")
 
-# Parser avec un format explicite
-df['date_parsed'] = pd.to_datetime(df['date'], format="%m/%d/%Y")
-# Formats courants :
-# "01/15/2024" -> "%m/%d/%Y"
-# "15-01-2024" -> "%d-%m-%Y"
-# "2024-01-15" -> "%Y-%m-%d"
+# Auto-détection du format (plus lent, pas toujours correct)
+df['date'] = pd.to_datetime(df['date'], infer_datetime_format=True)
 
 # Extraire des composantes
-df['jour'] = df['date_parsed'].dt.day
-df['mois'] = df['date_parsed'].dt.month
-df['annee'] = df['date_parsed'].dt.year
-df['jour_semaine'] = df['date_parsed'].dt.dayofweek  # 0=lundi, 6=dimanche
+df['jour'] = df['date'].dt.day
+df['mois'] = df['date'].dt.month
+df['annee'] = df['date'].dt.year
+df['jour_semaine'] = df['date'].dt.dayofweek  # 0=lundi, 6=dimanche
 ```
 
-### 4.4 Encodages de Caractères
+## 4.4 Encodages de Caractères
 
 ```python
+# Détecter l'encodage d'un fichier
 import charset_normalizer
 
-# Détecter l'encodage d'un fichier
 with open("fichier.csv", 'rb') as f:
     resultat = charset_normalizer.detect(f.read(10000))
 print(resultat)  # {'encoding': 'Windows-1252', 'confidence': 0.73}
@@ -648,400 +663,253 @@ print(resultat)  # {'encoding': 'Windows-1252', 'confidence': 0.73}
 # Lire avec le bon encodage
 df = pd.read_csv("fichier.csv", encoding='Windows-1252')
 
-# Sauvegarder en UTF-8 (le standard)
-df.to_csv("fichier_utf8.csv", encoding='utf-8', index=False)
+# Sauvegarder en UTF-8 (standard)
+df.to_csv("fichier_utf8.csv", index=False)
 ```
 
-### 4.5 Incohérences dans les Données Texte
+## 4.5 Nettoyage de Texte
 
 ```python
-import fuzzywuzzy
-from fuzzywuzzy import process
-
-# Étape 1 : Nettoyer la base (80% des problèmes)
+# Étape 1 : Normaliser la casse et les espaces (résout 80% des problèmes)
 df['pays'] = df['pays'].str.lower().str.strip()
 
-# Étape 2 : Trouver les doublons avec fuzzy matching
-pays_uniques = df['pays'].unique()
-matches = process.extract("south korea", pays_uniques, limit=5,
-                          scorer=fuzzywuzzy.fuzz.token_sort_ratio)
-# [('south korea', 100), ('southkorea', 48), ...]
+# Étape 2 : Fuzzy matching pour les typos restantes
+from fuzzywuzzy import process, fuzz
 
-# Étape 3 : Remplacer les variantes
-def corriger_matches(df, colonne, valeur_correcte, seuil=47):
-    matches = process.extract(valeur_correcte, df[colonne].unique(),
-                              limit=10, scorer=fuzzywuzzy.fuzz.token_sort_ratio)
+def corriger_valeurs(df, colonne, valeur_correcte, seuil=80):
+    """Remplace les variantes proches d'une valeur par la valeur correcte."""
+    valeurs_uniques = df[colonne].unique()
+    matches = process.extract(valeur_correcte, valeurs_uniques,
+                              limit=10, scorer=fuzz.token_sort_ratio)
     proches = [m[0] for m in matches if m[1] >= seuil]
     df.loc[df[colonne].isin(proches), colonne] = valeur_correcte
 
-corriger_matches(df, 'pays', 'south korea')
+# Exemple : corriger "south korea", "s. korea", "south koera" → "south korea"
+corriger_valeurs(df, 'pays', 'south korea', seuil=80)
 ```
 
 ---
 
-## Chapitre 5 : Feature Engineering
+# PARTIE 5 - Ton Premier Modèle de Machine Learning
 
-Le feature engineering est l'art de transformer les données brutes en features que le modèle peut exploiter efficacement. C'est souvent LA différence entre un modèle moyen et un modèle gagnant.
+> **Objectif** : Comprendre et construire un modèle ML de bout en bout.
+> **Source** : `Intro to Machine Learning/`
 
-### 5.1 Principe Fondamental
+## 5.1 Comment Fonctionne un Modèle
 
-> **Un feature est utile si la relation qu'il a avec la target est une relation que votre modèle peut apprendre.**
-
-- Un modèle linéaire ne peut apprendre que des relations linéaires → créez des ratios, des polynômes.
-- Un arbre de décision divise sur des seuils → il gère bien les features brutes mais mal les sommes.
-
-**Toujours mesurer l'impact :**
-
-```python
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import cross_val_score
-
-# Baseline SANS les nouvelles features
-baseline_score = -cross_val_score(
-    RandomForestRegressor(random_state=0), X, y,
-    cv=5, scoring='neg_mean_absolute_error'
-).mean()
-print(f"Baseline MAE: {baseline_score:.3f}")
-
-# Score AVEC les nouvelles features
-new_score = -cross_val_score(
-    RandomForestRegressor(random_state=0), X_new, y,
-    cv=5, scoring='neg_mean_absolute_error'
-).mean()
-print(f"New MAE: {new_score:.3f}")
-print(f"Amélioration: {baseline_score - new_score:.3f}")
-```
-
-### 5.2 Mutual Information - Évaluer l'Utilité des Features
-
-La Mutual Information (MI) mesure la dépendance entre un feature et la target. Contrairement à la corrélation, elle détecte **tout type** de relation (linéaire ou non).
-
-```python
-from sklearn.feature_selection import mutual_info_regression, mutual_info_classif
-
-# Pour la régression
-mi_scores = mutual_info_regression(X, y)
-
-# Pour la classification
-mi_scores = mutual_info_classif(X, y)
-
-# Visualiser
-mi_series = pd.Series(mi_scores, index=X.columns).sort_values(ascending=False)
-mi_series.plot.barh(figsize=(8, 10))
-plt.title("Mutual Information Scores")
-```
-
-**Interpréter les scores MI :**
-- MI = 0.0 : le feature est indépendant de la target (inutile seul).
-- MI > 2.0 : rare, relation très forte.
-- Un MI faible ne veut PAS dire que le feature est inutile → il peut être précieux en interaction avec d'autres features.
-
-### 5.3 Créer des Features - Les 5 Techniques
-
-#### Technique 1 : Transformations Mathématiques
-
-```python
-# Ratios (très puissants, surtout pour les modèles linéaires)
-df['prix_par_m2'] = df['prix'] / df['surface']
-df['ratio_chambre'] = df['chambres'] / df['pieces_total']
-
-# Log transform (pour les distributions asymétriques)
-df['log_revenu'] = np.log1p(df['revenu'])  # log1p gère les zéros
-
-# Polynômes
-df['age_carre'] = df['age'] ** 2
-```
-
-#### Technique 2 : Comptages
-
-```python
-# Compter les features binaires
-colonnes_bool = ['has_pool', 'has_garage', 'has_garden', 'has_basement']
-df['nb_equipements'] = df[colonnes_bool].sum(axis=1)
-
-# Compter les composants non-nuls
-ingredients = ['Cement', 'Water', 'Sand', 'Gravel']
-df['nb_ingredients'] = df[ingredients].gt(0).sum(axis=1)
-```
-
-#### Technique 3 : Décomposer / Combiner des Features
-
-```python
-# Décomposer une colonne complexe
-df[['Type', 'Niveau']] = df['Categorie'].str.split(' ', expand=True)
-
-# Combiner pour créer des interactions
-df['marque_modele'] = df['marque'] + '_' + df['modele']
-```
-
-#### Technique 4 : Agrégations par Groupe (Group Transforms)
-
-```python
-# Moyenne par catégorie
-df['revenu_moyen_ville'] = df.groupby('ville')['revenu'].transform('mean')
-
-# Frequency encoding
-df['ville_freq'] = df.groupby('ville')['ville'].transform('count') / len(df)
-
-# Écart par rapport à la moyenne du groupe
-df['revenu_vs_ville'] = df['revenu'] - df['revenu_moyen_ville']
-```
-
-> **Attention au leakage !** Pour les group transforms, calculez sur le train puis mergez dans le test :
-> ```python
-> # Sur le train
-> train['mean_prix_ville'] = train.groupby('ville')['prix'].transform('mean')
-> # Pour le test, merger depuis le train
-> mapping = train[['ville', 'mean_prix_ville']].drop_duplicates()
-> test = test.merge(mapping, on='ville', how='left')
-> ```
-
-#### Technique 5 : Features Temporelles
-
-```python
-# À partir d'une date
-df['mois'] = df['date'].dt.month
-df['jour_semaine'] = df['date'].dt.dayofweek
-df['est_weekend'] = df['jour_semaine'].isin([5, 6]).astype(int)
-df['trimestre'] = df['date'].dt.quarter
-df['jours_depuis_debut'] = (df['date'] - df['date'].min()).dt.days
-```
-
-### 5.4 Clustering comme Feature
-
-Le clustering K-Means peut découvrir des groupes cachés dans les données.
-
-```python
-from sklearn.cluster import KMeans
-
-# Sélectionner les features à clusterer
-features_cluster = ['latitude', 'longitude', 'revenu_median']
-X_cluster = df[features_cluster].copy()
-
-# IMPORTANT : Normaliser avant le clustering (K-Means est sensible à l'échelle)
-X_cluster = (X_cluster - X_cluster.mean()) / X_cluster.std()
-
-# Créer le feature cluster
-kmeans = KMeans(n_clusters=6, random_state=42)
-df['cluster'] = kmeans.fit_predict(X_cluster)
-df['cluster'] = df['cluster'].astype('category')
-
-# Tester différents k via cross-validation
-```
-
-### 5.5 PCA (Analyse en Composantes Principales)
-
-PCA décompose la variance des données en composantes orthogonales. Utile pour :
-- **Réduire la dimensionnalité** (garder les composantes importantes)
-- **Découvrir des patterns** (les loadings révèlent quelles features se combinent)
-- **Débruiter** (le signal se concentre dans les premières composantes)
-
-```python
-from sklearn.decomposition import PCA
-
-features_pca = ['highway_mpg', 'engine_size', 'horsepower', 'curb_weight']
-X_pca = df[features_pca].copy()
-
-# OBLIGATOIRE : Standardiser avant PCA
-X_scaled = (X_pca - X_pca.mean()) / X_pca.std()
-
-# Ajuster PCA
-pca = PCA()
-X_transformed = pca.fit_transform(X_scaled)
-
-# Voir la variance expliquée par composante
-print(pca.explained_variance_ratio_)
-# [0.68, 0.22, 0.07, 0.03]  -> PC1 capture 68% de la variance
-
-# Examiner les loadings (comprendre ce que chaque PC représente)
-loadings = pd.DataFrame(
-    pca.components_.T,
-    columns=[f'PC{i+1}' for i in range(len(features_pca))],
-    index=features_pca
-)
-print(loadings)
-# Si PC1 a des poids [+0.5, +0.5, +0.5, +0.5] -> c'est une "taille globale"
-# Si PC2 a des poids [+0.7, -0.7, 0, 0] -> c'est un contraste mpg vs engine_size
-
-# Utiliser les composantes comme features
-df['PC1'] = X_transformed[:, 0]
-df['PC2'] = X_transformed[:, 1]
-
-# OU créer un feature inspiré par les loadings
-df['puissance_vs_poids'] = df['horsepower'] / df['curb_weight']
-```
-
-### 5.6 Target Encoding
-
-Le target encoding remplace chaque catégorie par la moyenne de la target pour cette catégorie. Très puissant pour les features à haute cardinalité (beaucoup de catégories uniques).
-
-```python
-from category_encoders import MEstimateEncoder
-
-# CRITIQUE : Encoder sur un split SÉPARÉ pour éviter l'overfitting
-X_encode = X.sample(frac=0.25, random_state=42)
-y_encode = y[X_encode.index]
-X_pretrain = X.drop(X_encode.index)
-y_train = y[X_pretrain.index]
-
-# Créer l'encoder avec lissage (m = smoothing)
-encoder = MEstimateEncoder(cols=['code_postal'], m=5.0)
-encoder.fit(X_encode, y_encode)
-X_train_encoded = encoder.transform(X_pretrain)
-```
-
-**Comment fonctionne le lissage m-estimate :**
+Un **arbre de décision** divise les données en groupes en posant des questions successives sur les features :
 
 ```
-poids = n / (n + m)
-encoding = poids * moyenne_categorie + (1 - poids) * moyenne_globale
+                    Combien de chambres ?
+                     /              \
+                  ≤ 3              > 3
+                 /                   \
+        Jardin ?                  Piscine ?
+        /     \                   /       \
+     Oui     Non              Oui       Non
+    200k€   150k€            500k€     350k€
 ```
 
-- Catégorie fréquente (n grand) → encoding proche de la moyenne de la catégorie.
-- Catégorie rare (n petit) → encoding tiré vers la moyenne globale.
-- `m` plus grand = plus de régularisation.
+Chaque feuille (bout de l'arbre) donne une prédiction basée sur la moyenne historique du groupe.
 
-> **Quand utiliser le Target Encoding :** Features à haute cardinalité (code postal, ville, etc.) où le one-hot encoding créerait trop de colonnes.
-
----
-
-# PARTIE 3 : MACHINE LEARNING
-
----
-
-## Chapitre 6 : Introduction au Machine Learning
-
-### 6.1 Les 4 Étapes de la Modélisation
-
-Tout modèle de machine learning suit le même workflow :
+## 5.2 Les 4 Étapes du Machine Learning
 
 ```
-1. DÉFINIR le modèle (choisir l'algorithme et ses paramètres)
-2. FIT (entraîner sur les données de train)
-3. PREDICT (faire des prédictions)
-4. ÉVALUER (mesurer la qualité des prédictions)
+1. DÉFINIR  →  2. ENTRAÎNER  →  3. PRÉDIRE  →  4. ÉVALUER
+(choisir       (fit sur les      (predict sur   (mesurer
+l'algo)         données)          nouvelles      l'erreur)
+                                  données)
 ```
 
-### 6.2 Votre Premier Modèle
+## 5.3 Premier Modèle Complet
 
 ```python
 import pandas as pd
-from sklearn.tree import DecisionTreeRegressor
 from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeRegressor
 from sklearn.metrics import mean_absolute_error
 
-# 1. Charger et explorer
-data = pd.read_csv('train.csv')
-data = data.dropna(axis=0)  # Simplification : supprimer les NaN
-print(data.describe())
+# --- 1. CHARGER ET PRÉPARER ---
+df = pd.read_csv('train.csv')
+df = df.dropna()  # simple pour commencer
 
-# 2. Séparer target (y) et features (X)
-y = data['Price']
-features = ['Rooms', 'Bathroom', 'Landsize', 'BuildingArea']
-X = data[features]
+# Séparer target (y) et features (X)
+y = df['SalePrice']                         # ce qu'on veut prédire
+features = ['LotArea', 'YearBuilt', 'FullBath', 'BedroomAbvGr', 'TotRmsAbvGrd']
+X = df[features]
 
-# 3. Séparer en train / validation
-train_X, val_X, train_y, val_y = train_test_split(X, y, random_state=0)
-# Par défaut : 75% train, 25% validation
+# Séparer en entraînement / validation (75% / 25%)
+train_X, val_X, train_y, val_y = train_test_split(X, y, random_state=42)
 
-# 4. Entraîner et évaluer
-model = DecisionTreeRegressor(random_state=1)
+# --- 2. DÉFINIR ET ENTRAÎNER ---
+model = DecisionTreeRegressor(random_state=42)
 model.fit(train_X, train_y)
 
+# --- 3. PRÉDIRE ---
 predictions = model.predict(val_X)
+
+# --- 4. ÉVALUER ---
 mae = mean_absolute_error(val_y, predictions)
-print(f"MAE: {mae:,.0f}")  # Mean Absolute Error
+print(f"MAE: {mae:,.0f}")  # ex: MAE: 29,652
 ```
 
-> **JAMAIS évaluer sur les données d'entraînement !** Le modèle les a mémorisées. L'erreur sur le train sera trompeusement faible (~435$) alors que l'erreur réelle est bien plus élevée (~265,000$).
-
-### 6.3 Sous-apprentissage vs Sur-apprentissage
-
-C'est LE concept le plus important en Machine Learning.
-
-- **Sous-apprentissage (Underfitting)** : le modèle est trop simple. Il ne capture pas les patterns. Mauvais sur le train ET la validation.
-- **Sur-apprentissage (Overfitting)** : le modèle est trop complexe. Il mémorise le bruit. Bon sur le train, mauvais sur la validation.
-
-**L'objectif : trouver le point optimal entre les deux.**
+## 5.4 Pourquoi Valider ? (Ne JAMAIS évaluer sur les données d'entraînement)
 
 ```python
-# Tester différentes complexités d'arbre
-for max_leaf_nodes in [5, 50, 500, 5000]:
-    model = DecisionTreeRegressor(max_leaf_nodes=max_leaf_nodes, random_state=0)
-    model.fit(train_X, train_y)
-    preds = model.predict(val_X)
-    mae = mean_absolute_error(val_y, preds)
-    print(f"Max leaves: {max_leaf_nodes:>5} → MAE: {mae:,.0f}")
+# MAUVAIS : évaluer sur les données d'entraînement
+train_predictions = model.predict(train_X)
+print(f"MAE train: {mean_absolute_error(train_y, train_predictions):,.0f}")
+# Résultat : ~0 (le modèle a MÉMORISÉ les données, pas appris)
 
-# Résultat typique :
-# Max leaves:     5 → MAE: 347,380  (underfitting - trop simple)
-# Max leaves:    50 → MAE: 258,171
-# Max leaves:   500 → MAE: 243,495  ← POINT OPTIMAL
-# Max leaves: 5,000 → MAE: 254,983  (overfitting - trop complexe)
+# BON : évaluer sur les données de validation
+val_predictions = model.predict(val_X)
+print(f"MAE validation: {mean_absolute_error(val_y, val_predictions):,.0f}")
+# Résultat : ~30,000 (la VRAIE performance)
 ```
 
-### 6.4 Random Forest - Le Premier "Vrai" Modèle
+> Le modèle qui mémorise les données d'entraînement obtient un score parfait sur celles-ci, mais se plante sur de nouvelles données. C'est le **surapprentissage** (overfitting).
 
-Un Random Forest utilise **beaucoup d'arbres de décision** et **moyenne leurs prédictions**. C'est comme demander l'avis de 100 experts plutôt qu'un seul.
+## 5.5 Overfitting vs Underfitting
+
+| Problème | Symptôme | Cause | Solution |
+|----------|----------|-------|----------|
+| **Underfitting** | Mauvais score partout | Modèle trop simple | Plus de profondeur / features |
+| **Overfitting** | Bon score train, mauvais score validation | Modèle trop complexe | Moins de profondeur / régularisation |
+
+```python
+# Trouver le bon compromis avec max_leaf_nodes
+def evaluer_arbre(max_feuilles, train_X, val_X, train_y, val_y):
+    model = DecisionTreeRegressor(max_leaf_nodes=max_feuilles, random_state=0)
+    model.fit(train_X, train_y)
+    preds = model.predict(val_X)
+    return mean_absolute_error(val_y, preds)
+
+# Tester plusieurs tailles
+for n in [5, 50, 500, 5000]:
+    mae = evaluer_arbre(n, train_X, val_X, train_y, val_y)
+    print(f"max_leaf_nodes: {n:>5}  →  MAE: {mae:>10,.0f}")
+
+# Résultat typique :
+# max_leaf_nodes:     5  →  MAE:    347,380  (underfitting)
+# max_leaf_nodes:    50  →  MAE:    258,171
+# max_leaf_nodes:   500  →  MAE:    243,495  ← MEILLEUR
+# max_leaf_nodes: 5,000  →  MAE:    254,983  (overfitting)
+```
+
+## 5.6 Random Forest : Le Premier Modèle Sérieux
+
+Un **Random Forest** crée BEAUCOUP d'arbres de décision et fait la moyenne de leurs prédictions. Chaque arbre utilise un sous-ensemble aléatoire des données et des features.
 
 ```python
 from sklearn.ensemble import RandomForestRegressor
 
-model = RandomForestRegressor(n_estimators=100, random_state=1)
+model = RandomForestRegressor(n_estimators=100, random_state=42)
 model.fit(train_X, train_y)
-
 preds = model.predict(val_X)
-mae = mean_absolute_error(val_y, preds)
-print(f"Random Forest MAE: {mae:,.0f}")
-# ~191,670 (vs ~243,495 pour le meilleur Decision Tree)
+print(f"MAE: {mean_absolute_error(val_y, preds):,.0f}")
+# Résultat : ~190,000 (bien meilleur que le meilleur arbre simple ~243,000)
 ```
 
-**Pourquoi Random Forest est excellent pour débuter :**
-- Fonctionne bien avec les paramètres par défaut.
-- Pas besoin de scaling/normalisation.
-- Gère les relations non-linéaires.
-- Résistant à l'overfitting grâce à l'ensemble.
+> **Pourquoi c'est mieux** : Un seul arbre overfit facilement. En moyennant beaucoup d'arbres différents, les erreurs individuelles se compensent. C'est le principe de l'**ensemble**.
+
+## 5.7 Soumettre sur Kaggle
+
+```python
+# Entraîner sur TOUTES les données d'entraînement
+model = RandomForestRegressor(n_estimators=100, random_state=42)
+model.fit(X, y)  # X et y complets, pas de split
+
+# Prédire sur les données de test
+test_data = pd.read_csv('test.csv')
+test_X = test_data[features]
+test_preds = model.predict(test_X)
+
+# Créer le fichier de soumission
+submission = pd.DataFrame({
+    'Id': test_data['Id'],
+    'SalePrice': test_preds
+})
+submission.to_csv('submission.csv', index=False)
+```
 
 ---
 
-## Chapitre 7 : Machine Learning Intermédiaire
+# PARTIE 6 - Machine Learning Intermédiaire
 
-### 7.1 Variables Catégorielles - Les 3 Approches
+> **Objectif** : Gérer les vrais problèmes de données, utiliser XGBoost et les pipelines.
+> **Source** : `Intermediate Machine Learning/`
+
+## 6.1 Gérer les Valeurs Manquantes (3 Approches)
 
 ```python
-# Identifier les colonnes catégorielles
-cat_cols = X_train.select_dtypes(include=['object']).columns.tolist()
-num_cols = X_train.select_dtypes(include=['number']).columns.tolist()
+from sklearn.impute import SimpleImputer
+import pandas as pd
 
-# --- Approche 1 : Ordinal Encoding ---
-# Assigne un entier à chaque catégorie (0, 1, 2, ...)
-# Bien pour : catégories ordonnées (Low < Medium < High)
-from sklearn.preprocessing import OrdinalEncoder
+# Identifier les colonnes avec des NaN
+cols_manquantes = [col for col in X_train.columns if X_train[col].isnull().any()]
 
-encoder = OrdinalEncoder()
-X_train[cat_cols] = encoder.fit_transform(X_train[cat_cols])
-X_valid[cat_cols] = encoder.transform(X_valid[cat_cols])
+# --- APPROCHE 1 : Supprimer les colonnes (simple mais perte d'info) ---
+X_train_reduit = X_train.drop(cols_manquantes, axis=1)
+X_valid_reduit = X_valid.drop(cols_manquantes, axis=1)
 
-# --- Approche 2 : One-Hot Encoding ---
-# Crée une colonne binaire par catégorie
-# Bien pour : catégories non-ordonnées, cardinalité < 15
-from sklearn.preprocessing import OneHotEncoder
+# --- APPROCHE 2 : Imputation (RECOMMANDÉ) ---
+imputer = SimpleImputer(strategy='median')  # ou 'mean', 'most_frequent'
+X_train_impute = pd.DataFrame(imputer.fit_transform(X_train))
+X_valid_impute = pd.DataFrame(imputer.transform(X_valid))  # transform, PAS fit_transform !
+X_train_impute.columns = X_train.columns
+X_valid_impute.columns = X_valid.columns
 
-encoder = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
-OH_train = pd.DataFrame(encoder.fit_transform(X_train[cat_cols]))
-OH_valid = pd.DataFrame(encoder.transform(X_valid[cat_cols]))
+# --- APPROCHE 3 : Imputation + indicateur de manquant ---
+X_train_plus = X_train.copy()
+X_valid_plus = X_valid.copy()
+for col in cols_manquantes:
+    X_train_plus[col + '_manquant'] = X_train_plus[col].isnull()
+    X_valid_plus[col + '_manquant'] = X_valid_plus[col].isnull()
 
-# Sélectionner les colonnes à faible cardinalité
-low_cardinality = [col for col in cat_cols if X_train[col].nunique() < 10]
-
-# --- Approche 3 : Target Encoding ---
-# Voir Chapitre 5.6
-# Bien pour : haute cardinalité (code postal, etc.)
+imputer = SimpleImputer(strategy='median')
+X_train_plus = pd.DataFrame(imputer.fit_transform(X_train_plus))
+X_valid_plus = pd.DataFrame(imputer.transform(X_valid_plus))
 ```
 
-### 7.2 Pipelines - Assembler le Tout
+## 6.2 Variables Catégorielles (3 Approches)
 
-Les pipelines combinent preprocessing + modèle en un seul objet. C'est plus propre, moins de bugs, et **obligatoire** pour une bonne cross-validation.
+```python
+from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder
+
+# Identifier les colonnes catégorielles
+cat_cols = [col for col in X_train.columns if X_train[col].dtype == 'object']
+
+# --- APPROCHE 1 : Supprimer (simple, souvent sous-optimal) ---
+X_train_num = X_train.select_dtypes(exclude=['object'])
+
+# --- APPROCHE 2 : Ordinal Encoding (pour les variables avec un ORDRE naturel) ---
+# Ex: "Jamais" < "Rarement" < "Souvent" < "Toujours"
+ordinal_encoder = OrdinalEncoder()
+X_train[cat_cols] = ordinal_encoder.fit_transform(X_train[cat_cols])
+X_valid[cat_cols] = ordinal_encoder.transform(X_valid[cat_cols])
+
+# --- APPROCHE 3 : One-Hot Encoding (pour les variables SANS ordre) ---
+# Ex: "Rouge", "Bleu", "Vert" → pas d'ordre logique
+# NE PAS utiliser si > 15 catégories (cardinality trop haute)
+low_card_cols = [col for col in cat_cols if X_train[col].nunique() < 10]
+
+OH_encoder = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
+OH_train = pd.DataFrame(OH_encoder.fit_transform(X_train[low_card_cols]))
+OH_valid = pd.DataFrame(OH_encoder.transform(X_valid[low_card_cols]))
+OH_train.index = X_train.index
+OH_valid.index = X_valid.index
+
+# Remplacer les colonnes catégorielles par les one-hot
+num_train = X_train.drop(cat_cols, axis=1)
+X_train_final = pd.concat([num_train, OH_train], axis=1)
+X_train_final.columns = X_train_final.columns.astype(str)
+```
+
+> **`handle_unknown='ignore'`** : évite les erreurs quand le test contient des catégories absentes de l'entraînement.
+
+## 6.3 Pipelines (Le Standard Professionnel)
+
+Un **Pipeline** empaquette le preprocessing et le modèle dans un seul objet. C'est la bonne façon de faire du ML.
 
 ```python
 from sklearn.compose import ColumnTransformer
@@ -1049,144 +917,765 @@ from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_absolute_error
 
-# Preprocessing pour les colonnes numériques
-num_transformer = SimpleImputer(strategy='median')
+# Identifier les types de colonnes
+numerical_cols = [c for c in X_train.columns if X_train[c].dtype in ['int64', 'float64']]
+categorical_cols = [c for c in X_train.columns
+                    if X_train[c].dtype == 'object' and X_train[c].nunique() < 10]
 
-# Preprocessing pour les colonnes catégorielles
-cat_transformer = Pipeline(steps=[
+# Étape 1 : Définir le preprocessing
+numerical_transformer = SimpleImputer(strategy='median')
+
+categorical_transformer = Pipeline(steps=[
     ('imputer', SimpleImputer(strategy='most_frequent')),
     ('onehot', OneHotEncoder(handle_unknown='ignore'))
 ])
 
-# Combiner les deux dans un ColumnTransformer
 preprocessor = ColumnTransformer(transformers=[
-    ('num', num_transformer, num_cols),
-    ('cat', cat_transformer, cat_cols)
+    ('num', numerical_transformer, numerical_cols),
+    ('cat', categorical_transformer, categorical_cols)
 ])
 
-# Pipeline complet : preprocessing + modèle
+# Étape 2 : Créer le pipeline complet
 pipeline = Pipeline(steps=[
     ('preprocessor', preprocessor),
     ('model', RandomForestRegressor(n_estimators=100, random_state=0))
 ])
 
-# Utilisation simple
+# Étape 3 : Entraîner et évaluer (UNE seule ligne !)
 pipeline.fit(X_train, y_train)
 preds = pipeline.predict(X_valid)
-score = mean_absolute_error(y_valid, preds)
+print(f"MAE: {mean_absolute_error(y_valid, preds):,.0f}")
 ```
 
-### 7.3 Cross-Validation
+**Avantages du Pipeline** :
+1. Code plus propre et plus court
+2. Pas de fuite de données (preprocessing fit seulement sur le train)
+3. Facile à déployer (un seul objet à sauvegarder)
+4. Compatible avec la cross-validation
 
-Un seul split train/validation peut être trompeur. La cross-validation divise les données en **k folds** et entraîne k modèles différents.
+## 6.4 Cross-Validation
+
+Au lieu d'un seul split train/validation, on fait **K splits** rotatifs pour une évaluation plus fiable.
 
 ```python
 from sklearn.model_selection import cross_val_score
 
-# sklearn utilise le MAE négatif (convention), on multiplie par -1
-scores = -cross_val_score(
+# Le pipeline gère automatiquement le preprocessing à chaque fold
+scores = -1 * cross_val_score(
     pipeline, X, y,
-    cv=5,                             # 5 folds
+    cv=5,                           # 5 folds
     scoring='neg_mean_absolute_error'
 )
 
-print(f"MAE par fold: {scores}")
-print(f"MAE moyen: {scores.mean():.0f} (+/- {scores.std():.0f})")
+print("MAE par fold:", scores)
+print(f"MAE moyenne: {scores.mean():,.0f} (+/- {scores.std():,.0f})")
 ```
 
-**Quand utiliser la cross-validation :**
-- **Petit dataset** (< 50,000 lignes) → Cross-validation (plus fiable).
-- **Grand dataset** (> 50,000 lignes) → Un seul split suffit (plus rapide).
+> **Quand utiliser la cross-validation ?**
+> - Petit dataset (< 10,000 lignes) : **OUI** (un seul split est trop bruité)
+> - Grand dataset : un simple split suffit, la CV prend trop de temps
+> - Si les scores varient beaucoup entre folds → tu as BESOIN de la CV
 
-> **Pourquoi le preprocessing DOIT être dans le pipeline :** Si vous faites le preprocessing AVANT le split, les données de validation "fuient" dans le preprocessing (ex: la moyenne d'imputation inclut les valeurs de validation). C'est du **data leakage**.
+## 6.5 XGBoost (Le Roi du Tabular ML)
 
-### 7.4 XGBoost - L'Algorithme Roi de Kaggle
-
-XGBoost (eXtreme Gradient Boosting) est l'algorithme le plus utilisé en compétitions Kaggle pour les données tabulaires.
-
-**Comment ça marche :**
-1. Créer un premier modèle simple (naïf).
-2. Calculer les erreurs (résidus).
-3. Créer un nouveau modèle pour prédire ces erreurs.
-4. Ajouter ce modèle à l'ensemble.
-5. Répéter.
-
-Chaque arbre **corrige les erreurs** du précédent (contrairement au Random Forest où les arbres sont indépendants).
+**XGBoost** (eXtreme Gradient Boosting) construit des arbres **séquentiellement**, chaque nouvel arbre corrigeant les erreurs des précédents.
 
 ```python
-from xgboost import XGBRegressor
-from sklearn.metrics import mean_absolute_error
+from xgboost import XGBRegressor  # ou XGBClassifier pour la classification
 
-# Version simple
+# Modèle de base
 model = XGBRegressor(random_state=0)
 model.fit(X_train, y_train)
 preds = model.predict(X_valid)
-print(f"MAE: {mean_absolute_error(y_valid, preds):.0f}")
+print(f"MAE: {mean_absolute_error(y_valid, preds):,.0f}")
 ```
 
-**Les 3 paramètres les plus importants :**
+**La recette gagnante** :
 
 ```python
 model = XGBRegressor(
-    n_estimators=1000,       # Nombre d'arbres (mettre haut avec early stopping)
-    learning_rate=0.05,      # Contribution de chaque arbre (plus petit = mieux mais plus lent)
-    early_stopping_rounds=5, # Arrêter si pas d'amélioration après 5 rounds
-    n_jobs=4,                # Parallélisme
+    n_estimators=1000,       # beaucoup d'arbres
+    learning_rate=0.05,      # petits pas (meilleure généralisation)
+    n_jobs=4,                # parallélisme (vitesse)
     random_state=0
 )
 
 model.fit(
     X_train, y_train,
-    eval_set=[(X_valid, y_valid)],  # Obligatoire pour early stopping
+    early_stopping_rounds=5,                    # arrêter si pas d'amélioration
+    eval_set=[(X_valid, y_valid)],              # surveiller la validation
     verbose=False
 )
 ```
 
-> **La formule gagnante XGBoost :**
-> `n_estimators=1000` + `learning_rate=0.05` + `early_stopping_rounds=5`
+**Les paramètres clés de XGBoost** :
 
-### 7.5 Data Leakage - L'Ennemi Silencieux
+| Paramètre | Description | Valeur typique |
+|-----------|-------------|----------------|
+| `n_estimators` | Nombre d'arbres | 500 - 2000 |
+| `learning_rate` | Taille du pas | 0.01 - 0.1 |
+| `max_depth` | Profondeur des arbres | 3 - 8 |
+| `early_stopping_rounds` | Patience avant arrêt | 5 - 50 |
+| `subsample` | % de données par arbre | 0.6 - 1.0 |
+| `colsample_bytree` | % de features par arbre | 0.6 - 1.0 |
+| `reg_alpha` | Régularisation L1 | 0 - 10 |
+| `reg_lambda` | Régularisation L2 | 0 - 10 |
 
-Le data leakage est la source n°1 de scores "trop beaux pour être vrais".
+## 6.6 Data Leakage (Fuite de Données)
 
-#### Type 1 : Target Leakage
+La fuite de données fait que ton modèle semble fantastique en local mais se plante en production. **C'est le piège #1.**
 
-Un feature contient une information qui ne serait **pas disponible au moment de la prédiction**.
+### Type 1 : Target Leakage
 
-**Exemple :** Prédire si un patient a une pneumonie. Le feature `a_pris_antibiotiques` est renseigné APRÈS le diagnostic → leakage.
+Une feature contient une info qui n'est disponible qu'APRÈS la target.
 
-**Comment détecter :**
-```python
-# Si un feature sépare presque parfaitement la target → suspect
-for col in X.columns:
-    positive = X[col][y == 1].mean()
-    negative = X[col][y == 0].mean()
-    if abs(positive - negative) > 0.5:  # Seuil arbitraire
-        print(f"SUSPECT: {col} (pos={positive:.2f}, neg={negative:.2f})")
+```
+Exemple : Prédire "a eu une pneumonie"
+Feature "a pris des antibiotiques" → LEAKAGE ! (prescrit APRÈS le diagnostic)
 ```
 
-**Règle :** Excluez tout feature qui est mis à jour ou créé APRÈS la détermination de la target.
+**Règle** : Pour chaque feature, demande-toi "Est-ce que cette info serait disponible AU MOMENT de la prédiction ?"
 
-#### Type 2 : Train-Test Contamination
+### Type 2 : Train-Test Contamination
 
-Le preprocessing "fuit" des informations de la validation dans le training.
+Le preprocessing est fit sur les données incluant le test.
 
-**Exemple classique :** Faire `fit_transform` d'un `SimpleImputer` sur TOUT le dataset, puis splitter en train/valid. La moyenne d'imputation contient les valeurs de validation !
+```python
+# MAUVAIS : fit l'imputer sur TOUT le dataset
+imputer.fit_transform(tout_le_dataset)
+X_train, X_valid = split(tout_le_dataset)
 
-**Solution :** Utilisez des **pipelines** (voir 7.2). Le preprocessing est automatiquement appliqué uniquement sur les données de training pendant la cross-validation.
+# BON : fit seulement sur le train
+imputer.fit(X_train)
+X_train = imputer.transform(X_train)
+X_valid = imputer.transform(X_valid)
 
-> Si votre modèle a une accuracy > 95% sur un problème non-trivial, suspectez du leakage en premier.
+# MEILLEUR : utiliser un Pipeline (fait ça automatiquement)
+```
+
+**Signal d'alarme** : Si ton score est > 98%, vérifie la fuite de données.
+
+```python
+# Détecter : si une feature sépare parfaitement les classes → suspect
+for col in X.columns:
+    if X[col].nunique() < 50:
+        print(f"{col}: {X.groupby(y)[col].mean()}")
+```
 
 ---
 
-## Chapitre 8 : Comprendre ses Modèles (Explainability)
+# PARTIE 7 - Feature Engineering (Créer des Variables)
 
-Comprendre POURQUOI un modèle prédit ce qu'il prédit est crucial pour : débuguer, améliorer les features, et gagner la confiance.
+> **Objectif** : Créer les features qui font la différence entre un bon et un excellent score.
+> **Source** : `Feature Engineering/`
 
-### 8.1 Permutation Importance - "Quels features comptent ?"
+## 7.1 Mutual Information (Sélection de Features)
 
-Principe : mélanger aléatoirement les valeurs d'un feature et mesurer combien le score baisse.
+La **Mutual Information (MI)** mesure la dépendance entre une feature et la target. Contrairement à la corrélation, elle détecte les relations **non-linéaires**.
+
+```python
+from sklearn.feature_selection import mutual_info_regression, mutual_info_classif
+import matplotlib.pyplot as plt
+
+X = df.drop('target', axis=1)
+y = df['target']
+
+# Encoder les catégorielles en numérique pour le MI
+for col in X.select_dtypes("object"):
+    X[col], _ = X[col].factorize()
+
+# Identifier les features discrètes
+discrete_features = X.dtypes == int
+
+# Calculer les scores MI
+mi_scores = mutual_info_regression(X, y, discrete_features=discrete_features)
+# Pour une classification : mutual_info_classif(X, y, ...)
+
+mi_scores = pd.Series(mi_scores, index=X.columns).sort_values(ascending=False)
+print(mi_scores)
+
+# Visualiser
+plt.figure(figsize=(10, 6))
+mi_scores.sort_values().plot.barh()
+plt.title("Mutual Information Scores")
+plt.show()
+```
+
+> **Important** : Le MI est univarié (une feature à la fois). Une feature avec un MI faible peut quand même être utile en **interaction** avec d'autres features.
+
+## 7.2 Créer des Features (Les 5 Techniques)
+
+### 1. Transformations Mathématiques
+
+```python
+# Ratios (très utiles, difficiles à apprendre pour les modèles)
+df['revenu_par_personne'] = df['Revenu'] / df['Taille_menage']
+df['prix_m2'] = df['Prix'] / df['Surface']
+df['ratio_chambre_surface'] = df['NbChambres'] / df['Surface']
+
+# Log (pour les distributions asymétriques)
+df['log_revenu'] = np.log1p(df['Revenu'])  # log1p gère les 0
+
+# Polynômes
+df['age_carre'] = df['Age'] ** 2
+```
+
+### 2. Comptages
+
+```python
+# Compter le nombre de features actives
+features_binaires = ['Garage', 'Piscine', 'Jardin', 'Cave', 'Terrasse']
+df['nb_equipements'] = df[features_binaires].sum(axis=1)
+
+# Compter les non-zéro
+composants = ['Ciment', 'Sable', 'Gravier', 'Eau', 'Adjuvant']
+df['nb_composants'] = df[composants].gt(0).sum(axis=1)
+```
+
+### 3. Décomposer des Features
+
+```python
+# Séparer "Corporate L3" en Type et Level
+df[['Type', 'Level']] = df['Policy'].str.split(' ', expand=True)
+
+# Extraire d'un format complexe (ex: "0001_01" → Groupe et Numéro)
+df['Groupe'] = df['PassengerId'].str.split('_').str[0]
+df['Numero'] = df['PassengerId'].str.split('_').str[1]
+```
+
+### 4. Combiner des Features
+
+```python
+# Interaction catégorielle
+df['marque_style'] = df['Marque'] + "_" + df['Style']
+
+# Interaction numérique
+df['surface_qualite'] = df['Surface'] * df['QualiteGenerale']
+```
+
+### 5. Agrégations par Groupe
+
+```python
+# Statistiques de groupe
+df['revenu_moyen_ville'] = df.groupby('Ville')['Revenu'].transform('mean')
+df['revenu_median_ville'] = df.groupby('Ville')['Revenu'].transform('median')
+df['nb_personnes_ville'] = df.groupby('Ville')['Ville'].transform('count')
+
+# Fréquence d'encodage
+df['freq_ville'] = df.groupby('Ville')['Ville'].transform('count') / len(df)
+
+# ATTENTION pour le train/valid split : calculer sur le TRAIN uniquement
+train_agg = train.groupby('Ville')['Revenu'].mean().reset_index()
+train_agg.columns = ['Ville', 'revenu_moyen_ville']
+valid = valid.merge(train_agg, on='Ville', how='left')
+```
+
+## 7.3 Target Encoding
+
+Remplace chaque catégorie par la **moyenne de la target** pour cette catégorie.
+
+```python
+from category_encoders import MEstimateEncoder
+
+# IMPORTANT : utiliser un split séparé pour éviter le leakage
+X_encode = X.sample(frac=0.25, random_state=42)  # 25% pour l'encodage
+y_encode = y[X_encode.index]
+X_train_restant = X.drop(X_encode.index)
+y_train_restant = y[X_train_restant.index]
+
+# Encoder avec smoothing (m contrôle le lissage)
+encoder = MEstimateEncoder(cols=["Ville"], m=5.0)
+encoder.fit(X_encode, y_encode)
+X_train_encoded = encoder.transform(X_train_restant)
+```
+
+> **Quand utiliser le Target Encoding** :
+> - Features avec BEAUCOUP de catégories (> 15, trop pour le one-hot)
+> - Features avec une relation probable avec la target
+> - **Toujours** avec du smoothing (paramètre `m`) et un split séparé
+
+## 7.4 Clustering (K-Means comme Feature)
+
+Utiliser le clustering pour créer des "groupes naturels" dans les données.
+
+```python
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+
+# Standardiser (K-Means est sensible à l'échelle)
+features_cluster = ['Latitude', 'Longitude', 'RevenuMedian']
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(df[features_cluster])
+
+# Créer les clusters
+kmeans = KMeans(n_clusters=6, random_state=42, n_init=10)
+df['Cluster'] = kmeans.fit_predict(X_scaled)
+
+# Les labels sont catégoriels
+df['Cluster'] = df['Cluster'].astype('category')
+```
+
+## 7.5 PCA (Analyse en Composantes Principales)
+
+La PCA trouve les axes de **variation maximale** dans les données. Utile pour :
+- Réduire la dimensionnalité
+- Créer des features décorrélées
+- Découvrir des structures cachées
+
+```python
+from sklearn.decomposition import PCA
+
+features_pca = ['highway_mpg', 'engine_size', 'horsepower', 'curb_weight']
+X_pca_input = df[features_pca]
+
+# IMPORTANT : toujours standardiser avant la PCA
+X_scaled = (X_pca_input - X_pca_input.mean()) / X_pca_input.std()
+
+# Appliquer la PCA
+pca = PCA()
+X_pca = pca.fit_transform(X_scaled)
+
+# Examiner la variance expliquée
+print("Variance expliquée par composante:", pca.explained_variance_ratio_)
+# ex: [0.68, 0.22, 0.07, 0.03] → PC1 explique 68% de la variation
+
+# Examiner les loadings (ce que chaque composante signifie)
+loadings = pd.DataFrame(
+    pca.components_.T,
+    columns=[f'PC{i+1}' for i in range(len(features_pca))],
+    index=features_pca
+)
+print(loadings)
+
+# Créer des features inspirées par la PCA
+# Si PC3 oppose horsepower et curb_weight → créer le ratio
+df['puissance_poids'] = df['horsepower'] / df['curb_weight']
+```
+
+## 7.6 Checklist Feature Engineering
+
+```
+□ 1. Explorer et comprendre les données (EDA)
+□ 2. Calculer les scores MI pour classer les features
+□ 3. Gérer les valeurs manquantes (imputation)
+□ 4. Encoder les catégorielles (ordinal / one-hot / target)
+□ 5. Créer des features : ratios, log, comptages, interactions
+□ 6. Agréger par groupe (mean, count, std par catégorie)
+□ 7. Clustering (K-Means sur features spatiales ou économiques)
+□ 8. PCA si beaucoup de features corrélées
+□ 9. Valider avec cross-validation à chaque étape
+□ 10. Vérifier l'absence de data leakage
+```
+
+---
+
+# PARTIE 8 - Deep Learning (Réseaux de Neurones)
+
+> **Objectif** : Comprendre et construire des réseaux de neurones avec Keras/TensorFlow.
+> **Source** : `Intro to Deep Learning/`
+
+## 8.1 Un Neurone = Régression Linéaire
+
+Un neurone calcule : `y = w₁·x₁ + w₂·x₂ + ... + b`
+
+```python
+from tensorflow import keras
+from tensorflow.keras import layers
+
+# Un seul neurone linéaire (3 inputs, 1 output)
+model = keras.Sequential([
+    layers.Dense(units=1, input_shape=[3])
+])
+```
+
+## 8.2 Réseau Profond (Deep Neural Network)
+
+Sans **fonction d'activation**, empiler des couches ne sert à rien (tout reste linéaire).
+La fonction **ReLU** (`max(0, x)`) introduit la non-linéarité.
+
+```python
+model = keras.Sequential([
+    # Couches cachées avec activation ReLU
+    layers.Dense(units=512, activation='relu', input_shape=[11]),
+    layers.Dense(units=512, activation='relu'),
+    layers.Dense(units=512, activation='relu'),
+    # Couche de sortie : PAS d'activation pour la régression
+    layers.Dense(units=1),
+])
+```
+
+## 8.3 Entraîner un Réseau
+
+```python
+# 1. Préparer les données (TOUJOURS normaliser les features)
+max_ = df_train.max(axis=0)
+min_ = df_train.min(axis=0)
+df_train_scaled = (df_train - min_) / (max_ - min_)
+df_valid_scaled = (df_valid - min_) / (max_ - min_)  # même min/max !
+
+X_train = df_train_scaled.drop('target', axis=1)
+y_train = df_train_scaled['target']
+X_valid = df_valid_scaled.drop('target', axis=1)
+y_valid = df_valid_scaled['target']
+
+# 2. Compiler (choisir la loss et l'optimiseur)
+model.compile(
+    optimizer='adam',      # Adam est le choix par défaut (auto-tuning)
+    loss='mae',            # ou 'mse', 'huber'
+)
+
+# 3. Entraîner
+history = model.fit(
+    X_train, y_train,
+    validation_data=(X_valid, y_valid),
+    batch_size=256,
+    epochs=500,
+    verbose=0,
+)
+
+# 4. Visualiser les courbes d'apprentissage
+history_df = pd.DataFrame(history.history)
+history_df[['loss', 'val_loss']].plot()
+plt.title("Courbes d'apprentissage")
+plt.xlabel("Epoch")
+plt.ylabel("Loss")
+plt.show()
+```
+
+## 8.4 Combattre l'Overfitting
+
+### Early Stopping (TOUJOURS l'utiliser)
+
+```python
+from tensorflow.keras.callbacks import EarlyStopping
+
+early_stopping = EarlyStopping(
+    min_delta=0.001,          # amélioration minimale requise
+    patience=20,              # nombre d'epochs sans amélioration avant arrêt
+    restore_best_weights=True # revenir au meilleur modèle
+)
+
+history = model.fit(
+    X_train, y_train,
+    validation_data=(X_valid, y_valid),
+    batch_size=256,
+    epochs=500,               # met un nombre élevé, early stopping gère
+    callbacks=[early_stopping],
+    verbose=0,
+)
+```
+
+### Dropout (Régularisation)
+
+Éteint aléatoirement une fraction des neurones à chaque étape d'entraînement.
+
+```python
+model = keras.Sequential([
+    layers.Dense(1024, activation='relu', input_shape=[11]),
+    layers.Dropout(0.3),                    # 30% des neurones désactivés
+    layers.BatchNormalization(),             # normalise les activations
+    layers.Dense(1024, activation='relu'),
+    layers.Dropout(0.3),
+    layers.BatchNormalization(),
+    layers.Dense(1),
+])
+```
+
+### Batch Normalization
+
+Normalise les sorties de chaque couche. Accélère l'entraînement et stabilise le réseau.
+
+> **Règle** : Quand tu ajoutes du Dropout, augmente le nombre de neurones pour compenser.
+
+## 8.5 Classification Binaire
+
+```python
+model = keras.Sequential([
+    layers.Dense(128, activation='relu', input_shape=[33]),
+    layers.Dropout(0.3),
+    layers.BatchNormalization(),
+    layers.Dense(128, activation='relu'),
+    layers.Dropout(0.3),
+    layers.BatchNormalization(),
+    layers.Dense(1, activation='sigmoid'),   # Sigmoid → probabilité [0, 1]
+])
+
+model.compile(
+    optimizer='adam',
+    loss='binary_crossentropy',              # PAS 'mae' pour la classification
+    metrics=['binary_accuracy'],
+)
+```
+
+| Type de problème | Loss | Activation finale | Unités finales |
+|-----------------|------|-------------------|----------------|
+| Régression | `mae` ou `mse` | Aucune (linéaire) | 1 |
+| Classification binaire | `binary_crossentropy` | `sigmoid` | 1 |
+| Classification multi-classe | `categorical_crossentropy` | `softmax` | N classes |
+
+---
+
+# PARTIE 9 - Computer Vision (Images & CNN)
+
+> **Objectif** : Construire des modèles de classification d'images.
+> **Source** : `Computer Vision/`, `Guides/Transfer Learning for CV Guide/`
+
+## 9.1 Architecture CNN
+
+Un CNN a deux parties :
+1. **Base convolutionnelle** : extrait les features (lignes, textures, formes, objets)
+2. **Tête dense** : classifie à partir des features extraites
+
+```
+Image → [Conv → ReLU → Pool] × N → Flatten → Dense → Prediction
+         Base convolutionnelle            Tête dense
+```
+
+## 9.2 Transfer Learning (L'Approche Recommandée)
+
+Au lieu de tout entraîner from scratch, on réutilise un modèle pré-entraîné sur ImageNet.
+
+```python
+from tensorflow.keras.applications import ResNet50
+from tensorflow.keras import Sequential
+from tensorflow.keras.layers import Dense
+
+# 1. Charger le modèle pré-entraîné SANS sa tête
+base_model = ResNet50(
+    include_top=False,        # retirer la couche de classification
+    pooling='avg',            # global average pooling → vecteur 1D
+    weights='imagenet'        # poids pré-entraînés sur ImageNet
+)
+
+# 2. GELER la base (on ne modifie pas les poids pré-entraînés)
+base_model.trainable = False
+
+# 3. Ajouter une nouvelle tête
+model = Sequential([
+    base_model,
+    Dense(128, activation='relu'),
+    Dense(2, activation='softmax')    # 2 classes
+])
+
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+```
+
+**Charger les images** :
+
+```python
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.applications.resnet50 import preprocess_input
+
+data_gen = ImageDataGenerator(preprocessing_function=preprocess_input)
+
+train_gen = data_gen.flow_from_directory(
+    'data/train/',
+    target_size=(224, 224),
+    batch_size=32,
+    class_mode='categorical'
+)
+
+valid_gen = data_gen.flow_from_directory(
+    'data/valid/',
+    target_size=(224, 224),
+    batch_size=32,
+    class_mode='categorical'
+)
+
+model.fit(train_gen, validation_data=valid_gen, epochs=10)
+```
+
+## 9.3 Data Augmentation
+
+Crée des variations des images d'entraînement pour améliorer la généralisation.
+
+```python
+from tensorflow.keras.layers.experimental import preprocessing
+
+model = Sequential([
+    # Augmentation (active seulement pendant l'entraînement)
+    preprocessing.RandomFlip('horizontal'),
+    preprocessing.RandomRotation(0.1),
+    preprocessing.RandomContrast(0.3),
+    preprocessing.RandomZoom(0.2),
+    # Base pré-entraînée
+    base_model,
+    # Tête
+    Dense(128, activation='relu'),
+    Dense(2, activation='softmax')
+])
+```
+
+> **Modèles pré-entraînés populaires** :
+> - **ResNet50** : bon compromis vitesse/précision
+> - **EfficientNetB0-B7** : état de l'art en efficacité
+> - **VGG16** : simple, bon pour apprendre
+
+---
+
+# PARTIE 10 - NLP (Traitement du Langage Naturel)
+
+> **Objectif** : Travailler avec du texte (classification, sentiment, etc.).
+> **Source** : `Guides/Natural Language Processing Guide/`
+
+## 10.1 Preprocessing du Texte
+
+```python
+import re, string, nltk
+from nltk.corpus import stopwords
+
+nltk.download('stopwords')
+stop_words = set(stopwords.words('english'))
+stemmer = nltk.SnowballStemmer("english")
+
+def nettoyer_texte(text):
+    """Pipeline de nettoyage standard pour du texte."""
+    text = str(text).lower()                                    # minuscules
+    text = re.sub(r'\[.*?\]', '', text)                        # retirer [crochets]
+    text = re.sub(r'https?://\S+|www\.\S+', '', text)         # retirer URLs
+    text = re.sub(r'<.*?>', '', text)                          # retirer HTML
+    text = re.sub(f'[{re.escape(string.punctuation)}]', '', text)  # retirer ponctuation
+    text = re.sub(r'\w*\d\w*', '', text)                       # retirer mots avec chiffres
+    # Retirer stopwords et stemmer
+    text = ' '.join(stemmer.stem(word) for word in text.split()
+                    if word not in stop_words)
+    return text
+
+df['texte_propre'] = df['texte'].apply(nettoyer_texte)
+```
+
+## 10.2 Approche Classique : TF-IDF + Modèle ML
+
+**TF-IDF** (Term Frequency - Inverse Document Frequency) : donne plus de poids aux mots rares et discriminants.
+
+```python
+from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.pipeline import Pipeline
+
+# Pipeline TF-IDF + Naive Bayes (excellent baseline rapide)
+pipe_nb = Pipeline([
+    ('bow', CountVectorizer()),        # texte → matrice de comptages
+    ('tfidf', TfidfTransformer()),     # comptages → poids TF-IDF
+    ('model', MultinomialNB())         # classification
+])
+
+pipe_nb.fit(X_train_text, y_train)
+predictions = pipe_nb.predict(X_test_text)
+
+# Pipeline TF-IDF + XGBoost (souvent meilleur)
+import xgboost as xgb
+
+pipe_xgb = Pipeline([
+    ('bow', CountVectorizer()),
+    ('tfidf', TfidfTransformer()),
+    ('model', xgb.XGBClassifier(
+        learning_rate=0.1, max_depth=7, n_estimators=80,
+        use_label_encoder=False, eval_metric='auc'
+    ))
+])
+```
+
+## 10.3 Approche Deep Learning : Embeddings + LSTM
+
+```python
+from keras.models import Sequential
+from keras.layers import (Embedding, Bidirectional, LSTM,
+                          GlobalMaxPool1D, Dense, Dropout, BatchNormalization)
+from keras.preprocessing.text import Tokenizer
+from keras.preprocessing.sequence import pad_sequences
+
+# Tokeniser et padder
+max_length = 100
+tokenizer = Tokenizer()
+tokenizer.fit_on_texts(X_train_text)
+vocab_size = len(tokenizer.word_index) + 1
+
+X_train_seq = pad_sequences(tokenizer.texts_to_sequences(X_train_text),
+                            maxlen=max_length, padding='post')
+
+# Modèle BiLSTM
+model = Sequential([
+    Embedding(input_dim=vocab_size, output_dim=100, input_length=max_length),
+    Bidirectional(LSTM(100, return_sequences=True, recurrent_dropout=0.2)),
+    GlobalMaxPool1D(),
+    BatchNormalization(),
+    Dropout(0.5),
+    Dense(64, activation='relu'),
+    Dropout(0.5),
+    Dense(1, activation='sigmoid')
+])
+
+model.compile(optimizer='rmsprop', loss='binary_crossentropy', metrics=['accuracy'])
+model.fit(X_train_seq, y_train, epochs=7, batch_size=32,
+          validation_split=0.2)
+```
+
+## 10.4 Approche Moderne : Transformers (BERT / DeBERTa)
+
+L'approche la plus performante aujourd'hui : fine-tuner un modèle pré-entraîné.
+
+```python
+from transformers import (AutoTokenizer, AutoModelForSequenceClassification,
+                          TrainingArguments, Trainer)
+from datasets import Dataset
+
+# 1. Choisir le modèle
+model_name = 'microsoft/deberta-v3-small'  # excellent rapport qualité/taille
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+# 2. Tokeniser les données
+def tokenize(examples):
+    return tokenizer(examples['text'], truncation=True, padding=True)
+
+dataset = Dataset.from_pandas(df)
+tokenized = dataset.map(tokenize, batched=True)
+
+# 3. Split train/validation
+split = tokenized.train_test_split(0.2, seed=42)
+
+# 4. Configurer l'entraînement
+args = TrainingArguments(
+    output_dir='outputs',
+    learning_rate=8e-5,
+    warmup_ratio=0.1,
+    lr_scheduler_type='cosine',
+    fp16=True,
+    evaluation_strategy="epoch",
+    per_device_train_batch_size=16,
+    num_train_epochs=4,
+    weight_decay=0.01,
+)
+
+# 5. Entraîner
+model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=2)
+trainer = Trainer(
+    model, args,
+    train_dataset=split['train'],
+    eval_dataset=split['test'],
+    tokenizer=tokenizer,
+)
+trainer.train()
+```
+
+> **Hiérarchie de performance NLP** :
+> 1. **BERT / DeBERTa** (meilleur mais lent) : ~98% accuracy
+> 2. **GloVe + BiLSTM** (bon compromis) : ~97% accuracy
+> 3. **TF-IDF + XGBoost** (rapide, bon baseline) : ~85% accuracy
+> 4. **TF-IDF + Naive Bayes** (le plus rapide) : ~80% accuracy
+
+---
+
+# PARTIE 11 - Interpréter & Expliquer ses Modèles
+
+> **Objectif** : Comprendre POURQUOI un modèle fait ses prédictions.
+> **Source** : `Machine Learning Explainability/`
+
+## 11.1 Permutation Importance ("Quelles features comptent ?")
+
+Principe : mélanger les valeurs d'une feature et mesurer la chute de performance.
 
 ```python
 import eli5
@@ -1196,30 +1685,24 @@ perm = PermutationImportance(model, random_state=1).fit(val_X, val_y)
 eli5.show_weights(perm, feature_names=val_X.columns.tolist())
 ```
 
-**Interpréter :**
-- Les features en haut sont les plus importants.
-- Le chiffre = combien l'accuracy baisse quand on mélange ce feature.
-- +/- = variabilité entre les shuffles.
-- Valeurs négatives = le feature n'est pas utile (le mélanger améliore même le score par hasard).
+> Toujours calculer sur les données de **validation**, pas d'entraînement.
 
-### 8.2 Partial Dependence Plots (PDP) - "COMMENT un feature affecte les prédictions ?"
+## 11.2 Partial Dependence Plots ("Comment une feature affecte les prédictions ?")
 
 ```python
 from sklearn.inspection import PartialDependenceDisplay
 
-# PDP pour un seul feature
-fig, ax = plt.subplots(figsize=(8, 5))
-PartialDependenceDisplay.from_estimator(model, val_X, ['Age'], ax=ax)
-plt.title("Effet de l'âge sur la prédiction")
+# Effet d'une seule feature
+PartialDependenceDisplay.from_estimator(model, val_X, ['Age'])
+plt.show()
 
-# PDP 2D (interaction entre 2 features)
+# Interaction entre 2 features
 fig, ax = plt.subplots(figsize=(8, 6))
-PartialDependenceDisplay.from_estimator(model, val_X, [('Age', 'Fare')], ax=ax)
+PartialDependenceDisplay.from_estimator(model, val_X, [('Age', 'Revenu')], ax=ax)
+plt.show()
 ```
 
-### 8.3 SHAP Values - "POURQUOI cette prédiction spécifique ?"
-
-SHAP décompose chaque prédiction individuelle pour montrer la contribution de chaque feature.
+## 11.3 SHAP Values ("Pourquoi CETTE prédiction spécifique ?")
 
 ```python
 import shap
@@ -1228,921 +1711,393 @@ import shap
 explainer = shap.TreeExplainer(model)
 shap_values = explainer.shap_values(val_X)
 
-# Force plot pour UNE prédiction
+# Décomposition d'une prédiction individuelle
 shap.initjs()
-shap.force_plot(explainer.expected_value[1], shap_values[1][0], val_X.iloc[0])
+shap.force_plot(explainer.expected_value, shap_values[0], val_X.iloc[0])
 
-# Summary plot global (remplace la permutation importance)
-shap.summary_plot(shap_values[1], val_X)
-# - Chaque point = une observation
-# - Position horizontale = impact sur la prédiction
-# - Couleur = valeur du feature (rouge=élevé, bleu=faible)
-
-# Dependence plot (remplace le PDP, avec interactions)
-shap.dependence_plot('Age', shap_values[1], val_X, interaction_index='Fare')
+# Vue globale : importance de chaque feature
+shap.summary_plot(shap_values, val_X)
 ```
 
-**Les 3 types d'explainer SHAP :**
-- `TreeExplainer` → arbres (XGBoost, LightGBM, Random Forest). Rapide et exact.
-- `DeepExplainer` → réseaux de neurones.
-- `KernelExplainer` → n'importe quel modèle (mais lent).
-
-### Résumé Explainability
-
-```
-Permutation Importance → QUELS features comptent (global)
-PDP                    → COMMENT un feature affecte en moyenne
-SHAP Summary           → QUELS features + DANS QUEL SENS (global, mieux que PI)
-SHAP Dependence        → COMMENT + INTERACTIONS (mieux que PDP)
-SHAP Force Plot        → POURQUOI cette prédiction précise (local)
-```
+> **Pipeline d'explicabilité** :
+> 1. **Quoi ?** → Permutation Importance (features globalement importantes)
+> 2. **Comment ?** → PDP (direction et forme de l'effet)
+> 3. **Pourquoi ?** → SHAP (explication d'une prédiction individuelle)
 
 ---
 
-# PARTIE 4 : DEEP LEARNING
+# PARTIE 12 - Stratégie Compétitions Kaggle
 
----
+> **Objectif** : Maximiser ton score dans les compétitions Kaggle.
+> **Source** : `Guides/Kaggle Competitions Guide/`, expérience accumulée
 
-## Chapitre 9 : Introduction au Deep Learning
-
-Le Deep Learning utilise des réseaux de neurones pour apprendre des patterns complexes. Il excelle sur les images, le texte, l'audio, et parfois les données tabulaires.
-
-### 9.1 Le Neurone - Brique de Base
-
-Un neurone calcule une fonction linéaire :
+## 12.1 Workflow d'une Compétition
 
 ```
-y = poids_1 * x_1 + poids_2 * x_2 + ... + biais
+Jour 1-2:                    Jours 3-5:                   Jours 6+:
+┌─────────────┐             ┌─────────────┐              ┌─────────────┐
+│ 1. Lire les │             │ 4. Feature   │              │ 7. Ensemble  │
+│    règles   │             │    Engineering│              │    de modèles│
+│ 2. EDA      │      →      │ 5. Modèles   │      →       │ 8. Post-     │
+│    complète │             │    avancés   │              │    processing│
+│ 3. Baseline │             │ 6. Tuning    │              │ 9. Sélection │
+│    simple   │             │              │              │    finale    │
+└─────────────┘             └─────────────┘              └─────────────┘
 ```
 
-C'est exactement une régression linéaire. Le réseau "apprend" en ajustant les poids et le biais.
+## 12.2 Étape par Étape
+
+### Étape 1 : Comprendre le Problème
 
 ```python
-from tensorflow import keras
-from tensorflow.keras import layers
-
-# Un seul neurone = régression linéaire
-model = keras.Sequential([
-    layers.Dense(units=1, input_shape=[3])  # 3 inputs, 1 output
-])
-```
-
-### 9.2 Réseau Profond (Deep Neural Network)
-
-Empiler des couches de neurones avec une **fonction d'activation** entre chaque couche.
-
-> **Sans activation, empiler des couches ne sert à rien** (la composition de fonctions linéaires reste linéaire).
-
-**ReLU** (Rectified Linear Unit) est l'activation standard :
-```
-relu(x) = max(0, x)
-```
-
-```python
-model = keras.Sequential([
-    # Couches cachées avec ReLU
-    layers.Dense(512, activation='relu', input_shape=[11]),
-    layers.Dense(512, activation='relu'),
-    layers.Dense(512, activation='relu'),
-    # Couche de sortie (linéaire pour la régression)
-    layers.Dense(1),
-])
-```
-
-**Règles d'architecture :**
-- **Plus large** (plus d'unités) → apprend plus de relations linéaires.
-- **Plus profond** (plus de couches) → apprend plus de relations non-linéaires.
-- Sortie pour **régression** : `Dense(1)` sans activation.
-- Sortie pour **classification binaire** : `Dense(1, activation='sigmoid')`.
-- Sortie pour **classification multiclasse** : `Dense(n_classes, activation='softmax')`.
-
-### 9.3 Entraîner un Réseau de Neurones
-
-```python
-# COMPILER : choisir l'optimizer et la fonction de perte
-model.compile(
-    optimizer='adam',           # Adam est le choix par défaut
-    loss='mae',                # Pour la régression
-    # loss='binary_crossentropy',  # Pour la classification binaire
-    # metrics=['binary_accuracy'], # Métrique supplémentaire
-)
-
-# ENTRAÎNER
-history = model.fit(
-    X_train, y_train,
-    validation_data=(X_valid, y_valid),
-    batch_size=256,            # Taille des mini-batchs
-    epochs=500,                # Nombre maximum d'époques
-    verbose=0,
-)
-
-# VISUALISER la courbe d'apprentissage
-history_df = pd.DataFrame(history.history)
-history_df[['loss', 'val_loss']].plot()
-plt.title("Courbe d'apprentissage")
-plt.xlabel("Epoch")
-plt.ylabel("Loss")
-```
-
-> **IMPORTANT :** Toujours normaliser les features avant d'entraîner un réseau de neurones ! Contrairement aux arbres, les NN sont très sensibles à l'échelle.
-
-### 9.4 Overfitting et Early Stopping
-
-```python
-from tensorflow.keras.callbacks import EarlyStopping
-
-early_stopping = EarlyStopping(
-    min_delta=0.001,           # Amélioration minimum pour compter
-    patience=20,               # Attendre 20 epochs sans amélioration
-    restore_best_weights=True, # Revenir au meilleur modèle
-)
-
-history = model.fit(
-    X_train, y_train,
-    validation_data=(X_valid, y_valid),
-    batch_size=256,
-    epochs=500,                # Mettre haut, early stopping gère le reste
-    callbacks=[early_stopping],
-)
-```
-
-> **Stratégie recommandée :** Commencer avec un grand modèle + early stopping. Cela évite le sous-apprentissage tout en empêchant le sur-apprentissage.
-
-### 9.5 Dropout et Batch Normalization
-
-**Dropout** : désactive aléatoirement un pourcentage de neurones à chaque step d'entraînement. C'est comme entraîner un ensemble de sous-réseaux.
-
-**Batch Normalization** : normalise les activations de chaque batch. Accélère et stabilise l'entraînement.
-
-```python
-model = keras.Sequential([
-    layers.Dense(1024, activation='relu', input_shape=[11]),
-    layers.Dropout(0.3),           # Désactiver 30% des neurones
-    layers.BatchNormalization(),    # Normaliser les activations
-
-    layers.Dense(1024, activation='relu'),
-    layers.Dropout(0.3),
-    layers.BatchNormalization(),
-
-    layers.Dense(1024, activation='relu'),
-    layers.Dropout(0.3),
-    layers.BatchNormalization(),
-
-    layers.Dense(1),  # Sortie régression
-])
-```
-
-**Pattern standard : `Dense → Dropout → BatchNorm`** à répéter pour chaque couche cachée.
-
-### 9.6 Classification Binaire
-
-| Aspect | Régression | Classification Binaire |
-|--------|-----------|----------------------|
-| Activation sortie | Aucune (linéaire) | `sigmoid` |
-| Fonction de perte | `mae` ou `mse` | `binary_crossentropy` |
-| Métrique | loss | `binary_accuracy` |
-
-```python
-model = keras.Sequential([
-    layers.Dense(128, activation='relu', input_shape=[33]),
-    layers.Dense(128, activation='relu'),
-    layers.Dense(1, activation='sigmoid'),  # Sigmoid → probabilité [0, 1]
-])
-
-model.compile(
-    optimizer='adam',
-    loss='binary_crossentropy',
-    metrics=['binary_accuracy'],
-)
-```
-
-### Template Deep Learning Complet
-
-```python
-from tensorflow import keras
-from tensorflow.keras import layers
-from tensorflow.keras.callbacks import EarlyStopping
-
-# Architecture
-model = keras.Sequential([
-    layers.Dense(512, activation='relu', input_shape=[num_features]),
-    layers.Dropout(0.3),
-    layers.BatchNormalization(),
-    layers.Dense(512, activation='relu'),
-    layers.Dropout(0.3),
-    layers.BatchNormalization(),
-    # Régression :
-    layers.Dense(1),
-    # OU Classification binaire :
-    # layers.Dense(1, activation='sigmoid'),
-])
-
-# Compilation
-model.compile(
-    optimizer='adam',
-    loss='mae',  # ou 'binary_crossentropy'
-)
-
-# Entraînement avec early stopping
-history = model.fit(
-    X_train, y_train,
-    validation_data=(X_valid, y_valid),
-    batch_size=256,
-    epochs=500,
-    callbacks=[EarlyStopping(patience=20, min_delta=0.001, restore_best_weights=True)],
-)
-```
-
----
-
-## Chapitre 10 : Computer Vision
-
-La Computer Vision utilise des réseaux convolutifs (CNN) pour analyser les images.
-
-### 10.1 Architecture d'un CNN
-
-Un CNN a deux parties :
-1. **Base convolutive** : extrait les features visuels (lignes, textures, formes).
-2. **Tête dense** : classifie à partir des features extraits.
-
-```
-Image → [Conv2D → ReLU → MaxPool2D] × N → Flatten → Dense → Sortie
-```
-
-**Les 3 opérations fondamentales :**
-
-| Opération | Rôle | Couche Keras |
-|-----------|------|-------------|
-| **Convolution** | Détecte des patterns (bords, textures) | `Conv2D(filters, kernel_size)` |
-| **ReLU** | Introduit la non-linéarité | `activation='relu'` |
-| **Max Pooling** | Réduit les dimensions, invariance locale | `MaxPool2D(pool_size)` |
-
-### 10.2 Construire un CNN Custom
-
-```python
-from tensorflow import keras
-from tensorflow.keras import layers
-
-model = keras.Sequential([
-    # Bloc 1
-    layers.Conv2D(32, kernel_size=5, activation='relu', padding='same',
-                  input_shape=[128, 128, 3]),  # [hauteur, largeur, canaux RGB]
-    layers.MaxPool2D(),  # 128x128 → 64x64
-
-    # Bloc 2 (doubler les filtres)
-    layers.Conv2D(64, kernel_size=3, activation='relu', padding='same'),
-    layers.MaxPool2D(),  # 64x64 → 32x32
-
-    # Bloc 3
-    layers.Conv2D(128, kernel_size=3, activation='relu', padding='same'),
-    layers.MaxPool2D(),  # 32x32 → 16x16
-
-    # Tête de classification
-    layers.Flatten(),
-    layers.Dense(6, activation='relu'),
-    layers.Dense(1, activation='sigmoid'),
-])
-```
-
-> **Pattern standard :** Doubler le nombre de filtres à chaque bloc (32 → 64 → 128) car les dimensions spatiales diminuent avec le pooling.
-
-### 10.3 Transfer Learning (Recommandé)
-
-Plutôt que d'entraîner un CNN from scratch, réutilisez un modèle pré-entraîné sur ImageNet (14M+ images). On remplace juste la tête de classification.
-
-```python
-from tensorflow.keras.applications import ResNet50
-
-# Charger le modèle pré-entraîné SANS la tête
-pretrained_base = ResNet50(
-    include_top=False,    # Exclure la couche de classification originale
-    pooling='avg',        # Global Average Pooling
-    weights='imagenet'    # Poids pré-entraînés
-)
-
-# GELER la base (ne pas toucher aux poids pré-entraînés)
-pretrained_base.trainable = False
-
-# Construire le modèle final
-model = keras.Sequential([
-    pretrained_base,
-    layers.Dense(2, activation='softmax'),  # Notre nouvelle classification
-])
-
-model.compile(optimizer='sgd', loss='categorical_crossentropy', metrics=['accuracy'])
-```
-
-> **Le Transfer Learning est la méthode par défaut** pour la computer vision. Avec seulement 72 images d'entraînement, on peut atteindre 90% d'accuracy.
-
-### 10.4 Data Augmentation
-
-Appliquer des transformations aléatoires aux images d'entraînement pour augmenter artificiellement le dataset.
-
-```python
-from tensorflow.keras.layers.experimental import preprocessing
-
-model = keras.Sequential([
-    # Augmentation (active seulement pendant l'entraînement)
-    preprocessing.RandomFlip('horizontal'),
-    preprocessing.RandomContrast(0.5),
-    preprocessing.RandomRotation(0.1),
-
-    # Base pré-entraînée
-    pretrained_base,
-
-    # Tête
-    layers.Dense(6, activation='relu'),
-    layers.Dense(1, activation='sigmoid'),
-])
-```
-
-### 10.5 Pipeline de Données Optimisé
-
-```python
-import tensorflow as tf
-
-# Charger les images depuis un dossier
-ds_train = tf.keras.preprocessing.image_dataset_from_directory(
-    'train/',
-    labels='inferred',
-    label_mode='binary',
-    image_size=[128, 128],
-    batch_size=64,
-    shuffle=True,
-)
-
-# Optimiser le pipeline (TOUJOURS faire ça)
-def to_float(image, label):
-    return tf.image.convert_image_dtype(image, tf.float32), label
-
-AUTOTUNE = tf.data.experimental.AUTOTUNE
-ds_train = ds_train.map(to_float).cache().prefetch(buffer_size=AUTOTUNE)
-```
-
----
-
-## Chapitre 11 : Séries Temporelles
-
-Les séries temporelles sont des données ordonnées dans le temps. La prévision (forecasting) est l'un des problèmes les plus courants en ML.
-
-### 11.1 Les 3 Composantes d'une Série Temporelle
-
-```
-Série Temporelle = Tendance + Saisonnalité + Cycles + Bruit
-```
-
-- **Tendance** : évolution à long terme (hausse, baisse, stable).
-- **Saisonnalité** : patterns répétitifs liés au calendrier (jour/semaine/mois/année).
-- **Cycles** : patterns de croissance/décroissance non liés au calendrier (économiques, épidémiques).
-
-### 11.2 Features Temporelles
-
-**Type 1 : Features de time-step (modélisent la tendance)**
-
-```python
-import numpy as np
-from statsmodels.tsa.deterministic import DeterministicProcess
-
-# Time dummy simple
-df['time'] = np.arange(len(df))
-
-# Ou via DeterministicProcess (plus robuste)
-dp = DeterministicProcess(
-    index=df.index,
-    constant=True,   # Intercept
-    order=1,          # 1=linéaire, 2=quadratique
-    drop=True,
-)
-X = dp.in_sample()
-```
-
-**Type 2 : Lag features (modélisent les cycles)**
-
-```python
-# Créer des lags
-df['lag_1'] = df['ventes'].shift(1)
-df['lag_7'] = df['ventes'].shift(7)
-df['lag_28'] = df['ventes'].shift(28)
-
-# Fonction générique
-def make_lags(ts, lags):
-    return pd.concat(
-        {f'y_lag_{i}': ts.shift(i) for i in range(1, lags + 1)},
-        axis=1
-    ).fillna(0.0)
-```
-
-**Type 3 : Features saisonniers**
-
-```python
-from statsmodels.tsa.deterministic import CalendarFourier
-
-# Indicateurs saisonniers (pour les courtes périodes)
-# Automatiquement créés avec seasonal=True dans DeterministicProcess
-
-# Fourier features (pour les longues périodes, ex: annuelle)
-fourier = CalendarFourier(freq="A", order=10)  # 10 paires sin/cos
-
-dp = DeterministicProcess(
-    index=df.index,
-    constant=True,
-    order=1,                     # Tendance linéaire
-    seasonal=True,               # Saisonnalité hebdomadaire (indicateurs)
-    additional_terms=[fourier],  # Saisonnalité annuelle (Fourier)
-    drop=True,
-)
-```
-
-### 11.3 Modèle Hybride (La Stratégie Gagnante)
-
-Les arbres de décision (XGBoost) **ne peuvent pas extrapoler** une tendance. La solution : un modèle hybride.
-
-```python
-from sklearn.linear_model import LinearRegression
-from xgboost import XGBRegressor
-
-# Étape 1 : Régression linéaire pour la tendance + saisonnalité
-model_trend = LinearRegression(fit_intercept=False)
-model_trend.fit(X_train_trend, y_train)
-y_pred_trend = model_trend.predict(X_train_trend)
-
-# Étape 2 : XGBoost pour les résidus (cycles, interactions)
-residuals = y_train - y_pred_trend
-model_residuals = XGBRegressor()
-model_residuals.fit(X_train_lags, residuals)
-
-# Étape 3 : Combiner pour la prédiction finale
-y_final = model_trend.predict(X_test_trend) + model_residuals.predict(X_test_lags)
-```
-
-### 11.4 Prévision Multi-step
-
-```python
-from sklearn.multioutput import MultiOutputRegressor, RegressorChain
-
-# Créer les targets multi-step
-def make_multistep_target(ts, steps):
-    return pd.concat(
-        {f'y_step_{i+1}': ts.shift(-i) for i in range(steps)},
-        axis=1
-    )
-
-y = make_multistep_target(df['ventes'], steps=8)
-
-# Stratégie "Direct" : un modèle par step
-model = MultiOutputRegressor(XGBRegressor())
-model.fit(X_train, y_train)
-
-# Stratégie "DirRec" : chaque step utilise les prédictions précédentes
-model = RegressorChain(XGBRegressor())
-model.fit(X_train, y_train)
-```
-
-> **IMPORTANT :** Ne JAMAIS mélanger (shuffle) des données temporelles lors du split train/test !
-> ```python
-> train_test_split(X, y, shuffle=False)  # shuffle=False !
-> ```
-
----
-
-# PARTIE 5 : RÉUSSIR SUR KAGGLE
-
----
-
-## Chapitre 12 : Stratégie de Compétition
-
-### 12.1 Comprendre le Système Kaggle
-
-**Les 2 Leaderboards :**
-- **Public LB** : ne score qu'un **sous-ensemble** de vos prédictions test. Visible pendant la compétition.
-- **Private LB** : score le reste. C'est le classement final. Révélé à la fin.
-
-> **Règle d'or :** Faites confiance à votre CV local plus qu'au Public LB. Un petit écart entre CV et LB est sain (~1-3%).
-
-**Sélection des soumissions finales :**
-Vous choisissez **2 soumissions** avant la fin :
-1. Une soumission **safe** : meilleur CV, score LB correct.
-2. Une soumission **agressive** : meilleur score LB.
-
-### 12.2 Timeline d'une Compétition
-
-| Semaine | Focus |
-|---------|-------|
-| **1-2** | EDA, comprendre les données, baseline rapide |
-| **2-3** | Feature engineering itératif |
-| **3-4** | Modèles multiples, hyperparameter tuning |
-| **Dernière** | Ensembling, sélection finale |
-| **Dernier jour** | NE PAS changer de stratégie. Faire confiance au CV. |
-
-### 12.3 Les 10 Commandements du Kaggler
-
-1. **Toujours commencer par un baseline simple.** Obtenez une soumission sur le board avant d'optimiser.
-2. **Le feature engineering bat l'hyperparameter tuning.** Investissez 70% de votre temps sur les features.
-3. **Moins de features = mieux.** Préférez 30 features propres à 100 features bruyantes.
-4. **Trackez vos expériences.** Notez chaque changement et son impact sur le CV et le LB.
-5. **Validez correctement.** Si votre CV ne corrèle pas avec le LB, votre stratégie de validation est mauvaise.
-6. **Commencez avec une forte régularisation.** Ajoutez de la complexité progressivement.
-7. **Diversifiez vos modèles.** LightGBM + XGBoost + CatBoost + Random Forest = bon ensemble.
-8. **Étudiez les solutions gagnantes** des compétitions passées similaires.
-9. **Utilisez les forums.** La Discussion et les Notebooks publics sont des mines d'or.
-10. **Ne surapprenez pas sur le LB.** Le Private LB punit ceux qui optimisent pour le Public LB.
-
-### 12.4 Étudier les Solutions Gagnantes
-
-Le meilleur moyen de progresser : après chaque compétition, lire les write-ups des gagnants.
-
-Trouvez-les dans :
-- L'onglet **Discussion** de la compétition (filtrer par "solution").
-- Le notebook Kaggle ["Winning Solutions of Kaggle Competitions"](https://www.kaggle.com/sudalairajkumar/winning-solutions-of-kaggle-competitions).
-
----
-
-## Chapitre 13 : Le Pipeline Complet de A à Z
-
-Voici le template complet pour une compétition Kaggle, de la première ligne de code à la soumission finale.
-
-### 13.1 Structure du Projet
-
-```
-competition_name/
-├── data/
-│   ├── raw/           # Données brutes (train.csv, test.csv)
-│   └── processed/     # Données transformées
-├── notebooks/
-│   ├── 01_eda.ipynb
-│   ├── 02_features.ipynb
-│   └── 03_modeling.ipynb
-├── src/               # Code réutilisable
-├── submissions/       # Fichiers de soumission
-├── models/            # Modèles sauvegardés
-└── experiments.md     # Journal des expériences
-```
-
-### 13.2 Le Template Complet
-
-```python
-# ============================================================
-# IMPORTS & CONFIGURATION
-# ============================================================
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.model_selection import StratifiedKFold, KFold, cross_val_score
-from sklearn.metrics import mean_absolute_error, roc_auc_score, accuracy_score
-from sklearn.preprocessing import LabelEncoder, StandardScaler
-from sklearn.impute import SimpleImputer
-import lightgbm as lgb
-import xgboost as xgb
-import warnings
-import gc
-
-warnings.filterwarnings('ignore')
-
-SEED = 42
-N_FOLDS = 5
-TARGET = 'target'  # ADAPTER
-
-def seed_everything(seed=SEED):
-    import random, os
-    random.seed(seed)
-    os.environ['PYTHONHASHSEED'] = str(seed)
-    np.random.seed(seed)
-
-seed_everything()
-
-# ============================================================
-# CHARGER LES DONNÉES
-# ============================================================
-train = pd.read_csv('data/raw/train.csv')
-test = pd.read_csv('data/raw/test.csv')
-sample_sub = pd.read_csv('data/raw/sample_submission.csv')
+# 1. Lire la description de la compétition
+# 2. Comprendre la MÉTRIQUE d'évaluation (c'est ce qu'il faut optimiser !)
+# 3. Lire les données : data description, train.csv, test.csv
+# 4. Regarder le sample_submission.csv pour le format attendu
+
+train = pd.read_csv('train.csv')
+test = pd.read_csv('test.csv')
+sample_sub = pd.read_csv('sample_submission.csv')
 
 print(f"Train: {train.shape}, Test: {test.shape}")
-print(f"\nDistribution de la target:\n{train[TARGET].value_counts(normalize=True)}")
+print(f"Target: {train['target'].describe()}")
+print(f"Format soumission: {sample_sub.head()}")
+```
 
-# ============================================================
-# EDA RAPIDE (les vérifications minimales)
-# ============================================================
+### Étape 2 : EDA Rapide
+
+```python
+# Distribution de la target
+sns.histplot(train['target'])
+plt.title("Distribution de la variable cible")
+plt.show()
+
 # Valeurs manquantes
-print("\nValeurs manquantes (train):")
-missing = train.isnull().sum()
-print(missing[missing > 0].sort_values(ascending=False))
+print(train.isnull().sum().sort_values(ascending=False).head(20))
 
 # Types de colonnes
-id_col = train.columns[0]  # ADAPTER
-num_cols = train.select_dtypes(include=[np.number]).columns.drop(
-    [TARGET, id_col], errors='ignore'
-).tolist()
-cat_cols = train.select_dtypes(include=['object']).columns.tolist()
+print(f"Numériques: {train.select_dtypes(include='number').columns.tolist()}")
+print(f"Catégorielles: {train.select_dtypes(include='object').columns.tolist()}")
 
-print(f"\nColonnes numériques: {len(num_cols)}")
-print(f"Colonnes catégorielles: {len(cat_cols)}")
-
-# Corrélation avec la target
-print(f"\nCorrélation avec {TARGET}:")
-print(train[num_cols + [TARGET]].corr()[TARGET].sort_values(ascending=False))
-
-# ============================================================
-# FEATURE ENGINEERING
-# ============================================================
-def feature_engineering(df):
-    """Pipeline de feature engineering. Appliquer sur train ET test."""
-
-    # --- Features numériques ---
-    if len(num_cols) > 1:
-        df['num_mean'] = df[num_cols].mean(axis=1)
-        df['num_std'] = df[num_cols].std(axis=1)
-        df['num_nulls'] = df[num_cols].isnull().sum(axis=1)
-
-    # --- Features catégorielles ---
-    for col in cat_cols:
-        # Frequency encoding (safe, pas de leakage)
-        freq = df[col].value_counts(normalize=True)
-        df[f'{col}_freq'] = df[col].map(freq)
-
-        # Label encoding
-        le = LabelEncoder()
-        df[f'{col}_le'] = le.fit_transform(df[col].astype(str))
-
-    # --- AJOUTER VOS FEATURES CUSTOMS ICI ---
-    # df['ratio_a_b'] = df['col_a'] / (df['col_b'] + 1e-8)
-    # df['interaction'] = df['col_a'] * df['col_b']
-
-    return df
-
-train = feature_engineering(train)
-test = feature_engineering(test)
-
-# Features finales
-features = [c for c in train.columns if c not in [id_col, TARGET] + cat_cols]
-print(f"\nNombre de features: {len(features)}")
-
-# ============================================================
-# MODÉLISATION - LightGBM
-# ============================================================
-lgb_params = {
-    'objective': 'binary',          # ADAPTER: 'regression', 'multiclass'
-    'metric': 'binary_logloss',     # ADAPTER selon la compétition
-    'boosting_type': 'gbdt',
-    'num_leaves': 31,
-    'learning_rate': 0.05,
-    'feature_fraction': 0.8,
-    'bagging_fraction': 0.8,
-    'bagging_freq': 5,
-    'min_child_samples': 20,
-    'reg_alpha': 0.1,
-    'reg_lambda': 1.0,
-    'n_estimators': 10000,
-    'verbose': -1,
-    'random_state': SEED,
-}
-
-oof_preds = np.zeros(len(train))
-test_preds = np.zeros(len(test))
-feature_importance = pd.DataFrame()
-
-kf = StratifiedKFold(n_splits=N_FOLDS, shuffle=True, random_state=SEED)
-
-for fold, (train_idx, val_idx) in enumerate(kf.split(train[features], train[TARGET])):
-    print(f"\n{'='*40} Fold {fold+1}/{N_FOLDS} {'='*40}")
-
-    X_tr = train.iloc[train_idx][features]
-    X_val = train.iloc[val_idx][features]
-    y_tr = train.iloc[train_idx][TARGET]
-    y_val = train.iloc[val_idx][TARGET]
-
-    model = lgb.LGBMClassifier(**lgb_params)  # ou LGBMRegressor
-    model.fit(
-        X_tr, y_tr,
-        eval_set=[(X_val, y_val)],
-        callbacks=[lgb.early_stopping(100), lgb.log_evaluation(200)]
-    )
-
-    # Prédictions OOF (Out-of-Fold)
-    oof_preds[val_idx] = model.predict_proba(X_val)[:, 1]
-
-    # Prédictions test (moyenne des folds)
-    test_preds += model.predict_proba(test[features])[:, 1] / N_FOLDS
-
-    # Feature importance
-    imp = pd.DataFrame({
-        'feature': features,
-        'importance': model.feature_importances_,
-        'fold': fold
-    })
-    feature_importance = pd.concat([feature_importance, imp])
-
-# Score CV
-cv_score = roc_auc_score(train[TARGET], oof_preds)  # ADAPTER la métrique
-print(f"\n{'='*60}")
-print(f"CV Score (AUC): {cv_score:.6f}")
-print(f"{'='*60}")
-
-# ============================================================
-# ANALYSE DES FEATURES IMPORTANTES
-# ============================================================
-mean_imp = feature_importance.groupby('feature')['importance'].mean().sort_values(ascending=False)
-plt.figure(figsize=(10, 12))
-mean_imp.head(30).plot.barh()
-plt.title("Top 30 Features par Importance")
-plt.tight_layout()
-
-# ============================================================
-# SOUMISSION
-# ============================================================
-submission = pd.DataFrame({
-    sample_sub.columns[0]: test[id_col],
-    sample_sub.columns[1]: test_preds
-})
-
-# Pour la classification binaire avec seuil 0.5 :
-# submission[sample_sub.columns[1]] = (test_preds > 0.5).astype(int)
-
-submission.to_csv('submissions/submission.csv', index=False)
-print(f"\nSoumission créée: {submission.shape}")
-print(submission.head())
-print(f"\nDistribution des prédictions:")
-print(submission[sample_sub.columns[1]].describe())
+# Corrélations
+top_corr = train.corr()['target'].abs().sort_values(ascending=False).head(20)
+print(top_corr)
 ```
 
-### 13.3 Ensembling - Combiner Plusieurs Modèles
-
-L'ensembling est la technique la plus utilisée par les gagnants Kaggle. L'idée : combiner des modèles différents qui font des erreurs différentes.
+### Étape 3 : Baseline Simple (Soumettre en < 1 heure)
 
 ```python
-# Après avoir entraîné LightGBM, XGBoost, et CatBoost séparément :
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier  # ou Regressor
+from sklearn.metrics import accuracy_score
 
-# Méthode 1 : Moyenne simple (safe, recommandé pour débuter)
-final_preds = (test_lgb + test_xgb + test_catboost) / 3
+# Preprocessing minimal
+features = train.select_dtypes(include='number').columns.drop('target').tolist()
+X = train[features].fillna(-999)
+y = train['target']
+X_test = test[features].fillna(-999)
 
-# Méthode 2 : Moyenne pondérée (si un modèle est meilleur)
-final_preds = 0.4 * test_lgb + 0.35 * test_xgb + 0.25 * test_catboost
+# Train/valid split
+X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Méthode 3 : Rank averaging (robuste aux différences d'échelle)
-from scipy.stats import rankdata
-rank_lgb = rankdata(test_lgb) / len(test_lgb)
-rank_xgb = rankdata(test_xgb) / len(test_xgb)
-rank_cat = rankdata(test_catboost) / len(test_catboost)
-final_preds = (rank_lgb + rank_xgb + rank_cat) / 3
+# Modèle simple
+model = RandomForestClassifier(n_estimators=100, random_state=42)
+model.fit(X_train, y_train)
+print(f"Validation: {accuracy_score(y_val, model.predict(X_val)):.4f}")
+
+# Soumission
+predictions = model.predict(X_test)
+submission = pd.DataFrame({'Id': test['Id'], 'target': predictions})
+submission.to_csv('submission_baseline.csv', index=False)
 ```
 
-### 13.4 Journal des Expériences
-
-**TOUJOURS** tracker vos expériences. Exemple de format :
-
-| Version | Description | Features | CV Score | LB Score | Gap |
-|---------|-------------|----------|----------|----------|-----|
-| V1 | Baseline RF | 15 | 0.7850 | 0.7600 | 0.025 |
-| V2 | + freq encoding | 22 | 0.8010 | 0.7940 | 0.007 |
-| V3 | + 30 interactions | 52 | 0.8100 | 0.7800 | 0.030 |
-| V4 | V2 + target enc | 25 | 0.8080 | 0.8010 | 0.007 |
-
-> Leçon de V3 : plus de features n'est pas toujours mieux. Le gap CV-LB de 0.030 indique de l'overfitting.
-
----
-
-# ANNEXES
-
-## Cheat Sheets
-
-### Pandas en 30 Secondes
+### Étape 4 : Améliorer Itérativement
 
 ```python
-# Charger
-df = pd.read_csv("file.csv")
-
-# Explorer
-df.head(), df.shape, df.dtypes, df.describe(), df.info()
-df.isnull().sum(), df['col'].value_counts()
-
-# Filtrer
-df.loc[(df.A > 5) & (df.B == 'x')]
-df.loc[df.A.isin([1, 2, 3])]
-
-# Transformer
-df['new'] = df['A'] / df['B']
-df['cat_encoded'] = df['cat'].map(mapping_dict)
-
-# Grouper
-df.groupby('cat')['num'].agg(['mean', 'count', 'std'])
-
-# Combiner
-pd.concat([df1, df2])
-pd.merge(df1, df2, on='key', how='left')
-```
-
-### Scikit-Learn en 30 Secondes
-
-```python
-from sklearn.model_selection import train_test_split, cross_val_score, StratifiedKFold
-from sklearn.preprocessing import StandardScaler, LabelEncoder, OneHotEncoder
-from sklearn.impute import SimpleImputer
-from sklearn.pipeline import Pipeline
+# Template de pipeline complète pour itérer rapidement
+from sklearn.model_selection import cross_val_score
 from sklearn.compose import ColumnTransformer
-from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
-from sklearn.metrics import accuracy_score, roc_auc_score, mean_absolute_error
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from xgboost import XGBClassifier
 
-# Split
-X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.25, random_state=42)
+# Colonnes
+num_cols = X.select_dtypes(include='number').columns.tolist()
+cat_cols = [c for c in X.columns if X[c].dtype == 'object' and X[c].nunique() < 15]
 
-# Pipeline
-pipe = Pipeline([('scaler', StandardScaler()), ('model', RandomForestClassifier())])
-pipe.fit(X_train, y_train)
-preds = pipe.predict(X_val)
+# Preprocessing
+preprocessor = ColumnTransformer([
+    ('num', Pipeline([
+        ('imputer', SimpleImputer(strategy='median')),
+        ('scaler', StandardScaler())
+    ]), num_cols),
+    ('cat', Pipeline([
+        ('imputer', SimpleImputer(strategy='most_frequent')),
+        ('onehot', OneHotEncoder(handle_unknown='ignore'))
+    ]), cat_cols),
+])
+
+# Pipeline complète
+pipeline = Pipeline([
+    ('preprocessor', preprocessor),
+    ('model', XGBClassifier(
+        n_estimators=1000,
+        learning_rate=0.05,
+        max_depth=6,
+        subsample=0.8,
+        colsample_bytree=0.8,
+        random_state=42,
+        use_label_encoder=False,
+        eval_metric='logloss'
+    ))
+])
 
 # Cross-validation
-scores = cross_val_score(pipe, X, y, cv=5, scoring='accuracy')
+scores = cross_val_score(pipeline, X, y, cv=5, scoring='accuracy')
+print(f"CV: {scores.mean():.4f} (+/- {scores.std():.4f})")
 ```
 
-### XGBoost / LightGBM en 30 Secondes
+### Étape 5 : Ensemble de Modèles
+
+La technique la plus fiable pour gagner quelques points.
 
 ```python
-# XGBoost
+import numpy as np
+
+# Entraîner plusieurs modèles différents
+from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier
 from xgboost import XGBClassifier
-model = XGBClassifier(n_estimators=1000, learning_rate=0.05, max_depth=6, random_state=42)
-model.fit(X_train, y_train, eval_set=[(X_val, y_val)], early_stopping_rounds=50, verbose=100)
+from lightgbm import LGBMClassifier
 
-# LightGBM
-import lightgbm as lgb
-model = lgb.LGBMClassifier(n_estimators=1000, learning_rate=0.05, num_leaves=31, random_state=42)
-model.fit(X_train, y_train, eval_set=[(X_val, y_val)],
-          callbacks=[lgb.early_stopping(50), lgb.log_evaluation(100)])
+models = {
+    'rf': RandomForestClassifier(n_estimators=300, random_state=42),
+    'et': ExtraTreesClassifier(n_estimators=300, random_state=42),
+    'xgb': XGBClassifier(n_estimators=1000, learning_rate=0.05, random_state=42),
+    'lgbm': LGBMClassifier(n_estimators=1000, learning_rate=0.05, random_state=42),
+}
+
+predictions = {}
+for name, model in models.items():
+    model.fit(X_train, y_train)
+    preds = model.predict_proba(X_test)[:, 1]  # probabilité classe 1
+    predictions[name] = preds
+    print(f"{name}: entraîné")
+
+# Moyenne simple (souvent la meilleure approche)
+ensemble_preds = np.mean(list(predictions.values()), axis=0)
+ensemble_labels = (ensemble_preds > 0.5).astype(int)
+
+# Soumission
+submission = pd.DataFrame({'Id': test['Id'], 'target': ensemble_labels})
+submission.to_csv('submission_ensemble.csv', index=False)
 ```
 
-### Seaborn en 30 Secondes
+## 12.3 Les Règles d'Or
+
+### Suivi CV vs LB
 
 ```python
-sns.lineplot(data=df)                                  # Tendance
-sns.barplot(x='cat', y='num', data=df)                 # Comparaison
-sns.heatmap(df.corr(), annot=True, cmap='coolwarm')    # Corrélations
-sns.scatterplot(x='a', y='b', hue='c', data=df)       # Relation
-sns.histplot(data=df, x='col', hue='group', bins=30)   # Distribution
-sns.boxplot(x='cat', y='num', data=df)                 # Outliers
+# TOUJOURS tracker le rapport entre ton score CV et ton score Leaderboard
+# Sain : CV ≈ LB (petit écart)
+# Danger : CV >> LB (overfitting sur le CV)
+# Danger : CV << LB (overfitting sur le LB, ou chance)
+
+historique = pd.DataFrame({
+    'Version': ['V1', 'V2', 'V3', 'V4'],
+    'CV': [0.800, 0.810, 0.820, 0.815],
+    'LB': [0.795, 0.807, 0.808, 0.812],
+    'Gap': [0.005, 0.003, 0.012, 0.003],
+})
+print(historique)
+# V3 a un gap de 0.012 → overfit probable, se méfier
+```
+
+### Régularisation
+
+- **Commencer fort** : learning_rate bas, max_depth limité, régularisation haute
+- Ajouter de la complexité **graduellement**
+- "Less is more" : 29 features bien choisies > 56 features bruitées
+
+### Features vs Hyperparamètres
+
+- Le **feature engineering** a plus d'impact que le **tuning** des hyperparamètres
+- Passe 70% de ton temps sur les features, 20% sur le modèle, 10% sur le tuning
+- Un bon feature engineering peut valoir plus que changer de modèle
+
+### Ensemble
+
+- La diversité est clé : mélange différents TYPES de modèles (XGBoost + LightGBM + RF + ExtraTrees)
+- Moyenne simple > optimisation des poids (surtout sur petits datasets)
+- Vérifie la corrélation entre tes modèles : < 0.97 = bonne diversité
+
+## 12.4 Les Pièges à Éviter
+
+| Piège | Solution |
+|-------|----------|
+| Overfitting au LB public | Se fier au CV, le LB privé est le vrai test |
+| Trop de features | Commencer simple, ajouter chirurgicalement |
+| Optuna sur petit dataset | Les params auto-tunés overfittent. Préférer des params manuels |
+| Ne pas lire les discussions | Les top solutions partagent souvent des insights précieux |
+| Group features entre train/test | Vérifier si les groupes sont partagés avant de créer des features |
+| Ignorer la métrique | Optimiser la métrique de la compétition, pas l'accuracy par défaut |
+
+---
+
+# ANNEXES - Cheat Sheets & Templates
+
+## A. Imports Standards
+
+```python
+# === DATA ===
+import numpy as np
+import pandas as pd
+
+# === VISUALISATION ===
+import matplotlib.pyplot as plt
+import seaborn as sns
+sns.set_style("whitegrid")
+%matplotlib inline
+
+# === PREPROCESSING ===
+from sklearn.model_selection import train_test_split, cross_val_score, KFold
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import (StandardScaler, MinMaxScaler,
+                                   OrdinalEncoder, OneHotEncoder)
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+
+# === MODÈLES ===
+from sklearn.tree import DecisionTreeRegressor, DecisionTreeClassifier
+from sklearn.ensemble import (RandomForestRegressor, RandomForestClassifier,
+                              ExtraTreesClassifier, GradientBoostingClassifier)
+from xgboost import XGBRegressor, XGBClassifier
+from lightgbm import LGBMRegressor, LGBMClassifier
+
+# === MÉTRIQUES ===
+from sklearn.metrics import (mean_absolute_error, mean_squared_error,
+                             accuracy_score, f1_score, roc_auc_score,
+                             classification_report, confusion_matrix)
+
+# === FEATURE ENGINEERING ===
+from sklearn.feature_selection import mutual_info_regression, mutual_info_classif
+from sklearn.cluster import KMeans
+from sklearn.decomposition import PCA
+from category_encoders import MEstimateEncoder
+```
+
+## B. Template Pipeline Complète (Copier-Coller)
+
+```python
+"""
+Template pour compétition Kaggle - Classification binaire
+Remplacer : 'target', les noms de colonnes, et les paramètres
+"""
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import cross_val_score, StratifiedKFold
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from xgboost import XGBClassifier
+
+# === 1. CHARGER ===
+train = pd.read_csv('train.csv')
+test = pd.read_csv('test.csv')
+
+y = train['target']
+X = train.drop(['target', 'Id'], axis=1)
+X_test = test.drop(['Id'], axis=1)
+
+# === 2. IDENTIFIER LES COLONNES ===
+num_cols = X.select_dtypes(include=['int64', 'float64']).columns.tolist()
+cat_cols = [c for c in X.columns
+            if X[c].dtype == 'object' and X[c].nunique() < 15]
+
+# === 3. PIPELINE ===
+preprocessor = ColumnTransformer([
+    ('num', Pipeline([
+        ('imputer', SimpleImputer(strategy='median')),
+        ('scaler', StandardScaler())
+    ]), num_cols),
+    ('cat', Pipeline([
+        ('imputer', SimpleImputer(strategy='most_frequent')),
+        ('encoder', OneHotEncoder(handle_unknown='ignore', sparse_output=False))
+    ]), cat_cols),
+])
+
+model = XGBClassifier(
+    n_estimators=1000, learning_rate=0.05, max_depth=6,
+    subsample=0.8, colsample_bytree=0.8,
+    reg_alpha=0.1, reg_lambda=1.0,
+    random_state=42, use_label_encoder=False, eval_metric='logloss'
+)
+
+pipeline = Pipeline([
+    ('preprocessor', preprocessor),
+    ('model', model)
+])
+
+# === 4. CROSS-VALIDATION ===
+cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+scores = cross_val_score(pipeline, X, y, cv=cv, scoring='accuracy')
+print(f"CV Accuracy: {scores.mean():.4f} (+/- {scores.std():.4f})")
+
+# === 5. ENTRAÎNER SUR TOUT ET SOUMETTRE ===
+pipeline.fit(X, y)
+predictions = pipeline.predict(X_test)
+
+submission = pd.DataFrame({
+    'Id': test['Id'],
+    'target': predictions
+})
+submission.to_csv('submission.csv', index=False)
+print(f"Soumission créée : {submission.shape}")
+```
+
+## C. Métriques Courantes
+
+| Métrique | Type | Usage | Sklearn |
+|----------|------|-------|---------|
+| MAE | Régression | Erreur moyenne absolue | `mean_absolute_error` |
+| RMSE | Régression | Pénalise les grosses erreurs | `np.sqrt(mean_squared_error(...))` |
+| Accuracy | Classification | % correct (classes équilibrées) | `accuracy_score` |
+| F1-Score | Classification | Équilibre précision/rappel (classes déséquilibrées) | `f1_score` |
+| AUC-ROC | Classification | Qualité du ranking (probabilités) | `roc_auc_score` |
+| Log Loss | Classification | Qualité des probabilités | `log_loss` |
+
+## D. Quand Utiliser Quel Modèle
+
+| Situation | Modèle recommandé |
+|-----------|-------------------|
+| Baseline rapide | Random Forest |
+| Données tabulaires (le plus courant sur Kaggle) | XGBoost ou LightGBM |
+| Petit dataset (< 1000 lignes) | Random Forest + forte régularisation |
+| Images | CNN + Transfer Learning (ResNet, EfficientNet) |
+| Texte | Transformers (BERT, DeBERTa) |
+| Séries temporelles | XGBoost avec features de lag + features calendaires |
+| Ensemble final | Moyenne de XGBoost + LightGBM + ExtraTrees |
+
+## E. Checklist Avant Soumission
+
+```
+□ EDA complète (distributions, corrélations, valeurs manquantes)
+□ Pas de data leakage (features disponibles au moment de la prédiction)
+□ Preprocessing dans un Pipeline
+□ Cross-validation stable (faible variance entre folds)
+□ Score CV cohérent avec le score LB
+□ Essayé au moins 3 types de modèles différents
+□ Feature engineering itératif (ajouter une feature → valider → garder ou jeter)
+□ Ensemble de modèles diversifiés
+□ Fichier submission.csv au bon format
+□ 2 soumissions sélectionnées pour le classement final
 ```
 
 ---
 
-## Parcours d'Apprentissage Recommandés
-
-### Parcours 1 : Débutant Complet (4-6 semaines)
-
-```
-Semaine 1-2 : Python → Pandas → Visualisation
-Semaine 3   : Intro to Machine Learning
-Semaine 4   : Intermediate ML (pipelines, CV, XGBoost)
-Semaine 5-6 : Feature Engineering + première compétition (Titanic ou House Prices)
-```
-
-### Parcours 2 : Data Scientist Tabulaire (2-4 semaines supplémentaires)
-
-```
-Semaine 1   : Data Cleaning + Feature Engineering avancé
-Semaine 2   : ML Explainability (SHAP, PDP)
-Semaine 3   : Pratiquer sur 2-3 compétitions Getting Started
-Semaine 4   : Étudier les solutions gagnantes
-```
-
-### Parcours 3 : Deep Learning (4-6 semaines supplémentaires)
-
-```
-Semaine 1-2 : Intro to Deep Learning
-Semaine 3-4 : Computer Vision + Transfer Learning
-Semaine 5-6 : NLP ou Time Series selon intérêt
-```
-
-### Parcours 4 : Spécialisation Compétition
-
-```
-- Données tabulaires : Feature Engineering + XGBoost/LightGBM + Ensembling
-- Computer Vision    : Transfer Learning + Augmentation + EfficientNet
-- NLP               : Transformers (BERT, RoBERTa) + Fine-tuning
-- Time Series       : Hybrid Models + Fourier Features
-```
+> **Rappel final** : Le Machine Learning, c'est 80% de préparation des données et 20% de modélisation. Le feature engineering fait la différence entre un bon score et un excellent score. Commence simple, itère souvent, et fais confiance à ta cross-validation.
 
 ---
 
-## Correspondance Cours → Chapitres du Guide
-
-| Cours Kaggle | Chapitre du Guide |
-|-------------|-------------------|
-| Python | Chapitre 1 |
-| Pandas | Chapitre 2 |
-| Data Visualization | Chapitre 3 |
-| Data Cleaning | Chapitre 4 |
-| Feature Engineering | Chapitre 5 |
-| Intro to Machine Learning | Chapitre 6 |
-| Intermediate Machine Learning | Chapitre 7 |
-| Machine Learning Explainability | Chapitre 8 |
-| Intro to Deep Learning | Chapitre 9 |
-| Computer Vision | Chapitre 10 |
-| Time Series | Chapitre 11 |
-| Guides/Kaggle Competitions | Chapitres 12-13 |
-
----
-
-> **Dernière règle :** La pratique bat la théorie. Après chaque chapitre, ouvrez un notebook et pratiquez sur un dataset réel. La meilleure façon d'apprendre est de participer à des compétitions Kaggle.
-
----
-
-*Guide généré à partir de l'intégralité des cours Kaggle Learn (17 cours + 6 guides avancés, 161+ notebooks).*
+*Guide généré à partir des cours Kaggle Learn et des guides avancés du dossier `learn-kaggle/`.*
